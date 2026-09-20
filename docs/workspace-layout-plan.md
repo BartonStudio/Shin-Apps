@@ -156,11 +156,29 @@ build/bin/
 而是 dev server 报**无法解析 `iobject-js`**，很容易往 SDK 方向查错。
 其余（`index.html` / `styles/` / `src/` / `tools/`）含路径的只有注释。
 
-### 5.1 改名合并到本次重构
+### 5.1 改名（已于 2026-09-20 单独完成）
 
-本地目录改名（`ShinInspector` → `Shin-Apps`）与上述结构重构**合并为一次操作、一个提交**。分两次做会在历史里留下两次连续的大规模移动，之后 `git log --follow` 追文件会非常痛苦。
+**先更正本文档上一版的一个错误说法**：曾写"改名与结构重构要合并成一个提交，否则历史里会留下两次大规模移动"。
+这对**仓库内**的移动成立（`ui/` → `apps/inspector/ui/` 确实是一次提交里的大移动），
+但对**工作目录改名不成立** —— git 记录的是**仓库内的相对路径**，工作树的绝对位置根本不在提交里，
+`.git` 跟着目录一起走。所以 `ShinInspector` → `Shin-Apps` **产生零个提交、零条历史**，
+`git log --follow` 完全不受影响。改名与结构重构没必要绑在一起。
 
-GitHub 侧改名：仓库 Settings → Rename（本机无 `gh` CLI，网页最快）。GitHub 会为旧 URL 保留自动重定向，但建议本地同步：
+实际执行顺序（实测可行）：
+
+```bash
+cd D:\workfolder
+mkdir Shin-Apps
+mv ShinInspector/<每个子项> Shin-Apps/     # .git/.gitignore/.gitmodules/.workbuddy/CMakeLists.txt/apps/docs/src/third_party
+rmdir ShinInspector/ui                     # 被锁的空目录，腾空后即可删
+```
+
+**为什么不是 `mv ShinInspector Shin-Apps`**：见 §6 陷阱 6 —— 根目录被拒，
+但**移动子项不受影响**，这是绕开"父目录 cwd 被占"的通用手法。
+
+GitHub 侧改名：仓库 Settings → Rename（本机无 `gh` CLI，网页最快）。
+**注意顺序**：GitHub 改名前**不要**动 remote —— 新名字此时还不存在，会把仓库改坏。
+确认改名生效后再同步（旧 URL 会被 GitHub 自动重定向，但不依赖它）：
 
 ```bash
 git remote set-url origin https://github.com/BartonStudio/Shin-Apps.git
@@ -177,9 +195,20 @@ git remote set-url origin https://github.com/BartonStudio/Shin-Apps.git
 4. **`third_party/IObject` 是 submodule，且当前处于未初始化状态**（实际内容是一份独立 clone，
    内含 `js/node_modules`）。提交时**不要 `git add -A`**，会把它连同 node_modules 卷进去 —— 逐路径 `add`。
 5. **`.workbuddy/` 不入库**（已加入 `.gitignore`）。它是本地工作区数据（AI 会话记忆、临时日志与截图）。
-6. **目录整体改名要先让"cwd 停在里面"的进程退出**。实测 `mv ui apps/inspector/ui` 报
+6. **目录改名要先让"cwd 停在里面"的进程退出**。实测 `mv ui apps/inspector/ui` 报
    `Device or resource busy`，而 `mv ui/<每个子项>` **全部成功** —— 说明挡住的不是文件句柄，
    而是**某个进程的当前工作目录正好是 `ui/`**（就是启动 dev server 的那个终端；
    杀掉 vite **进程**并不会改变那个**终端**的 cwd）。
    判据：**子项能移、父目录不能移 → 去找 cwd，别去查文件锁。**
    补记：搬空后 `rmdir ui` 同样失败（仍被占用）；空目录不进 git，留着无害。
+7. **被占住的目录可以出现在任意层级，而且升到"整仓改名前"才发作**。2026-09-20 改仓名前，
+   锁点竟是**仓库根下那个空的 `ui/`**（上一轮搬家留下的壳）：它是某进程的 cwd，
+   于是**整个 `ShinInspector` 都改不了名**，`mv` 与 `cmd ren` 一律被拒。
+   **通用解法：不要试图释放锁，改成移动子项**——
+   `mkdir 新名 && mv 旧名/<每个子项> 新名/`，子项移动不受父目录 cwd 锁影响（同卷是元数据操作，很快）。
+   被锁的空目录最后单独 `rmdir`。
+   **顺带记一条工具侧限制**：本机 `openfiles /query` 需要预先开启"维护对象列表"全局标志才能用，
+   且无法枚举"谁是某目录的 cwd"（Win32 没有公开 API），所以**别在排查上耗时间，直接走移动子项**。
+8. **AI 会话的工作区根受删除保护**。改完名后剩下一个空的 `ShinInspector/`，
+   `rmdir` 被本机的 safe-delete 包装层拦下（它把删除改成"移入回收站"，且拒绝操作**当前会话的工作区根**）。
+   这不是权限问题，是宿主刻意的保护 —— **需要用户自己在资源管理器里删，或把工作区切到新路径后再删**。
