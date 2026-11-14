@@ -1,0 +1,4435 @@
+{
+  "data": {
+    "blendMode": "PASS_THROUGH",
+    "children": [
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "GAME VIEW",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.1881999969482422,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "28:550",
+        "locked": false,
+        "name": "Game View Placeholder",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 1280,
+        "x": 0,
+        "y": 340
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 14,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 76,
+        "id": "28:551",
+        "locked": false,
+        "name": "Scorebar",
+        "opacity": 0.7799999713897705,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 400,
+        "x": 440,
+        "y": 12
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "28:552",
+        "locked": false,
+        "name": "T Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 440,
+        "y": 12
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "28:553",
+        "locked": false,
+        "name": "CT Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 700,
+        "y": 12
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "T  0",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 14,
+        "height": 17,
+        "id": "28:554",
+        "locked": false,
+        "name": "T Score",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 110,
+        "x": 455,
+        "y": 44
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "MIRAGE",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.45100000500679016,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 10,
+        "height": 12,
+        "id": "28:555",
+        "locked": false,
+        "name": "Map",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 160,
+        "x": 560,
+        "y": 18
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "1:55",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 22,
+        "height": 27,
+        "id": "28:556",
+        "locked": false,
+        "name": "Timer",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 160,
+        "x": 560,
+        "y": 33
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "ROUND 1",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.45100000500679016,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 10,
+        "height": 12,
+        "id": "28:557",
+        "locked": false,
+        "name": "Round",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 160,
+        "x": 560,
+        "y": 62
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "0  CT",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 14,
+        "height": 17,
+        "id": "28:558",
+        "locked": false,
+        "name": "CT Score",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "RIGHT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 120,
+        "x": 705,
+        "y": 44
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 12,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 136,
+        "id": "28:559",
+        "locked": false,
+        "name": "Kill Feed",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 152,
+        "x": 1112,
+        "y": 50
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER1",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 13,
+        "id": "28:560",
+        "locked": false,
+        "name": "Kill 1 Attacker",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1118,
+        "y": 58
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 10,
+        "id": "29:561",
+        "locked": false,
+        "name": "Kill 1 Weapon",
+        "opacity": 0.44999998807907104,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 22,
+        "x": 1172,
+        "y": 60
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER6",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 26,
+        "id": "29:562",
+        "locked": false,
+        "name": "Kill 1 Victim",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1198,
+        "y": 58
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 1,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 8,
+        "id": "29:563",
+        "locked": false,
+        "name": "Kill 1 Headshot",
+        "opacity": 0.3499999940395355,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 8,
+        "x": 1252,
+        "y": 60
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER3",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 26,
+        "id": "29:564",
+        "locked": false,
+        "name": "Kill 2 Attacker",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1118,
+        "y": 84
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 10,
+        "id": "29:565",
+        "locked": false,
+        "name": "Kill 2 Weapon",
+        "opacity": 0.44999998807907104,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 22,
+        "x": 1172,
+        "y": 86
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER8",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 26,
+        "id": "29:566",
+        "locked": false,
+        "name": "Kill 2 Victim",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1198,
+        "y": 84
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER7",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 13,
+        "id": "29:567",
+        "locked": false,
+        "name": "Kill 3 Attacker",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1118,
+        "y": 110
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 10,
+        "id": "29:568",
+        "locked": false,
+        "name": "Kill 3 Weapon",
+        "opacity": 0.44999998807907104,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 22,
+        "x": 1172,
+        "y": 112
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER2",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 13,
+        "id": "29:569",
+        "locked": false,
+        "name": "Kill 3 Victim",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1198,
+        "y": 110
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 1,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 8,
+        "id": "29:570",
+        "locked": false,
+        "name": "Kill 3 Headshot",
+        "opacity": 0.3499999940395355,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 8,
+        "x": 1252,
+        "y": 112
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER5",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 13,
+        "id": "29:571",
+        "locked": false,
+        "name": "Kill 4 Attacker",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1118,
+        "y": 136
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 10,
+        "id": "29:572",
+        "locked": false,
+        "name": "Kill 4 Weapon",
+        "opacity": 0.44999998807907104,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 22,
+        "x": 1172,
+        "y": 138
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER9",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 26,
+        "id": "29:573",
+        "locked": false,
+        "name": "Kill 4 Victim",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1198,
+        "y": 136
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER8",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 26,
+        "id": "29:574",
+        "locked": false,
+        "name": "Kill 5 Attacker",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1118,
+        "y": 162
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 10,
+        "id": "29:575",
+        "locked": false,
+        "name": "Kill 5 Weapon",
+        "opacity": 0.44999998807907104,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 22,
+        "x": 1172,
+        "y": 164
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER4",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 11,
+        "height": 26,
+        "id": "29:576",
+        "locked": false,
+        "name": "Kill 5 Victim",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 50,
+        "x": 1198,
+        "y": 162
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:577",
+        "locked": false,
+        "name": "T Slot 1",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 16,
+        "y": 270
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:578",
+        "locked": false,
+        "name": "T Slot 1 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 16,
+        "y": 270
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 1",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:579",
+        "locked": false,
+        "name": "T Slot 1 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 278
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:580",
+        "locked": false,
+        "name": "T Slot 1 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 300
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:581",
+        "locked": false,
+        "name": "T Slot 1 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 308
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:582",
+        "locked": false,
+        "name": "T Slot 1 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 180,
+        "y": 298
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:583",
+        "locked": false,
+        "name": "T Slot 1 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 198,
+        "y": 298
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:584",
+        "locked": false,
+        "name": "T Slot 2",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 16,
+        "y": 334
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:585",
+        "locked": false,
+        "name": "T Slot 2 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 16,
+        "y": 334
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 2",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:586",
+        "locked": false,
+        "name": "T Slot 2 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 342
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:587",
+        "locked": false,
+        "name": "T Slot 2 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 364
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:588",
+        "locked": false,
+        "name": "T Slot 2 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 372
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:589",
+        "locked": false,
+        "name": "T Slot 2 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 180,
+        "y": 362
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:590",
+        "locked": false,
+        "name": "T Slot 2 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 198,
+        "y": 362
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:591",
+        "locked": false,
+        "name": "T Slot 3",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 16,
+        "y": 398
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:592",
+        "locked": false,
+        "name": "T Slot 3 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 16,
+        "y": 398
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 3",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:593",
+        "locked": false,
+        "name": "T Slot 3 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 406
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:594",
+        "locked": false,
+        "name": "T Slot 3 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 428
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:595",
+        "locked": false,
+        "name": "T Slot 3 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 436
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:596",
+        "locked": false,
+        "name": "T Slot 3 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 180,
+        "y": 426
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:597",
+        "locked": false,
+        "name": "T Slot 3 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 198,
+        "y": 426
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:598",
+        "locked": false,
+        "name": "T Slot 4",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 16,
+        "y": 462
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:599",
+        "locked": false,
+        "name": "T Slot 4 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 16,
+        "y": 462
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 4",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:600",
+        "locked": false,
+        "name": "T Slot 4 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 470
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:601",
+        "locked": false,
+        "name": "T Slot 4 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 492
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:602",
+        "locked": false,
+        "name": "T Slot 4 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 500
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:603",
+        "locked": false,
+        "name": "T Slot 4 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 180,
+        "y": 490
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:604",
+        "locked": false,
+        "name": "T Slot 4 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 198,
+        "y": 490
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:605",
+        "locked": false,
+        "name": "T Slot 5",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 16,
+        "y": 526
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.14901961386203766,
+              "g": 0.6470588445663452,
+              "r": 0.8784313797950745
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:606",
+        "locked": false,
+        "name": "T Slot 5 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 16,
+        "y": 526
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 5",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:607",
+        "locked": false,
+        "name": "T Slot 5 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 534
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:608",
+        "locked": false,
+        "name": "T Slot 5 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 556
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:609",
+        "locked": false,
+        "name": "T Slot 5 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 32,
+        "y": 564
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:610",
+        "locked": false,
+        "name": "T Slot 5 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 180,
+        "y": 554
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:611",
+        "locked": false,
+        "name": "T Slot 5 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 198,
+        "y": 554
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:612",
+        "locked": false,
+        "name": "CT Slot 1",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 1016,
+        "y": 270
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:613",
+        "locked": false,
+        "name": "CT Slot 1 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 1258,
+        "y": 270
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 1",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:614",
+        "locked": false,
+        "name": "CT Slot 1 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "RIGHT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 226,
+        "x": 1032,
+        "y": 278
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:615",
+        "locked": false,
+        "name": "CT Slot 1 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 300
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:616",
+        "locked": false,
+        "name": "CT Slot 1 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 308
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:617",
+        "locked": false,
+        "name": "CT Slot 1 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1088,
+        "y": 298
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:618",
+        "locked": false,
+        "name": "CT Slot 1 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1070,
+        "y": 298
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:619",
+        "locked": false,
+        "name": "CT Slot 2",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 1016,
+        "y": 334
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:620",
+        "locked": false,
+        "name": "CT Slot 2 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 1258,
+        "y": 334
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 2",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:621",
+        "locked": false,
+        "name": "CT Slot 2 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "RIGHT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 226,
+        "x": 1032,
+        "y": 342
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:622",
+        "locked": false,
+        "name": "CT Slot 2 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 364
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:623",
+        "locked": false,
+        "name": "CT Slot 2 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 372
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:624",
+        "locked": false,
+        "name": "CT Slot 2 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1088,
+        "y": 362
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:625",
+        "locked": false,
+        "name": "CT Slot 2 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1070,
+        "y": 362
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:626",
+        "locked": false,
+        "name": "CT Slot 3",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 1016,
+        "y": 398
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:627",
+        "locked": false,
+        "name": "CT Slot 3 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 1258,
+        "y": 398
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 3",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:628",
+        "locked": false,
+        "name": "CT Slot 3 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "RIGHT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 226,
+        "x": 1032,
+        "y": 406
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:629",
+        "locked": false,
+        "name": "CT Slot 3 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 428
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:630",
+        "locked": false,
+        "name": "CT Slot 3 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 436
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:631",
+        "locked": false,
+        "name": "CT Slot 3 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1088,
+        "y": 426
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:632",
+        "locked": false,
+        "name": "CT Slot 3 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1070,
+        "y": 426
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:633",
+        "locked": false,
+        "name": "CT Slot 4",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 1016,
+        "y": 462
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:634",
+        "locked": false,
+        "name": "CT Slot 4 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 1258,
+        "y": 462
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 4",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:635",
+        "locked": false,
+        "name": "CT Slot 4 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "RIGHT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 226,
+        "x": 1032,
+        "y": 470
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:636",
+        "locked": false,
+        "name": "CT Slot 4 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 492
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:637",
+        "locked": false,
+        "name": "CT Slot 4 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 500
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:638",
+        "locked": false,
+        "name": "CT Slot 4 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1088,
+        "y": 490
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:639",
+        "locked": false,
+        "name": "CT Slot 4 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1070,
+        "y": 490
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 8,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:640",
+        "locked": false,
+        "name": "CT Slot 5",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 248,
+        "x": 1016,
+        "y": 526
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.9490196108818054,
+              "g": 0.7019608020782471,
+              "r": 0.4274509847164154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 52,
+        "id": "29:641",
+        "locked": false,
+        "name": "CT Slot 5 Bar",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 6,
+        "x": 1258,
+        "y": 526
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "PLAYER 5",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Bold",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 700
+          }
+        },
+        "fontSize": 12,
+        "height": 15,
+        "id": "29:642",
+        "locked": false,
+        "name": "CT Slot 5 Name",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "RIGHT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 226,
+        "x": 1032,
+        "y": 534
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 3,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.30980393290519714,
+              "g": 0.7803921699523926,
+              "r": 0.47843137383461
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 5,
+        "id": "29:643",
+        "locked": false,
+        "name": "CT Slot 5 HP",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 556
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.6901960968971252,
+              "g": 0.6274510025978088,
+              "r": 0.5411764979362488
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 3,
+        "id": "29:644",
+        "locked": false,
+        "name": "CT Slot 5 Armor",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 140,
+        "x": 1108,
+        "y": 564
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:645",
+        "locked": false,
+        "name": "CT Slot 5 Util 1",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1088,
+        "y": 554
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 13,
+        "id": "29:646",
+        "locked": false,
+        "name": "CT Slot 5 Util 2",
+        "opacity": 0.30000001192092896,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 12,
+        "x": 1070,
+        "y": 554
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 64,
+        "id": "29:647",
+        "locked": false,
+        "name": "Control Bar",
+        "opacity": 0.8500000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 1280,
+        "x": 0,
+        "y": 656
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 4,
+        "id": "29:648",
+        "locked": false,
+        "name": "Timeline Track",
+        "opacity": 0.20000000298023224,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 1248,
+        "x": 16,
+        "y": 666
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 2,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 4,
+        "id": "29:649",
+        "locked": false,
+        "name": "Timeline Played",
+        "opacity": 0.6000000238418579,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 360,
+        "x": 16,
+        "y": 666
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "▶",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 14,
+        "height": 17,
+        "id": "29:650",
+        "locked": false,
+        "name": "Play Button",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 24,
+        "x": 24,
+        "y": 684
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "1X",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.7215999960899353,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 11,
+        "height": 13,
+        "id": "29:651",
+        "locked": false,
+        "name": "Speed",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 40,
+        "x": 64,
+        "y": 686
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "FREE",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.45100000500679016,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 11,
+        "height": 13,
+        "id": "29:652",
+        "locked": false,
+        "name": "POV",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "RIGHT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 84,
+        "x": 1180,
+        "y": 686
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.8392156958580017,
+              "g": 0.8352941274642944,
+              "r": 0.8274509906768799
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 36,
+        "id": "44:690",
+        "locked": false,
+        "name": "Win Btn BG",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 44,
+        "x": 1148,
+        "y": 0
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.8392156958580017,
+              "g": 0.8352941274642944,
+              "r": 0.8274509906768799
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 36,
+        "id": "44:691",
+        "locked": false,
+        "name": "Win Btn BG",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 44,
+        "x": 1192,
+        "y": 0
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.8392156958580017,
+              "g": 0.8352941274642944,
+              "r": 0.8274509906768799
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 36,
+        "id": "44:692",
+        "locked": false,
+        "name": "Win Btn BG",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 44,
+        "x": 1236,
+        "y": 0
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "−",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 13,
+        "height": 16,
+        "id": "44:693",
+        "locked": false,
+        "name": "Minimize",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 44,
+        "x": 1148,
+        "y": 9
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "□",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 13,
+        "height": 16,
+        "id": "44:694",
+        "locked": false,
+        "name": "Maximize",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 44,
+        "x": 1192,
+        "y": 9
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "✕",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 13,
+        "height": 16,
+        "id": "44:695",
+        "locked": false,
+        "name": "Close",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 44,
+        "x": 1236,
+        "y": 9
+      }
+    ],
+    "constraints": {
+      "horizontal": "MIN",
+      "vertical": "MIN"
+    },
+    "cornerRadius": 0,
+    "effects": [],
+    "fills": [
+      {
+        "blendMode": "NORMAL",
+        "boundVariables": {},
+        "color": {
+          "b": 0.8509804010391235,
+          "g": 0.8470588326454163,
+          "r": 0.8392156958580017
+        },
+        "opacity": 1,
+        "type": "SOLID",
+        "visible": true
+      }
+    ],
+    "height": 720,
+    "id": "28:549",
+    "itemSpacing": 0,
+    "layoutMode": "NONE",
+    "locked": false,
+    "name": "ShinPlayer · Watch View",
+    "opacity": 1,
+    "paddingBottom": 0,
+    "paddingLeft": 0,
+    "paddingRight": 0,
+    "paddingTop": 0,
+    "rotation": 0,
+    "strokeAlign": "INSIDE",
+    "strokeWeight": 1,
+    "strokes": [],
+    "type": "FRAME",
+    "visible": true,
+    "width": 1280,
+    "x": 2628,
+    "y": -112
+  },
+  "format": "JSON",
+  "id": "28:549",
+  "name": "ShinPlayer · Watch View"
+}

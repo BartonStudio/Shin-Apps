@@ -1,0 +1,611 @@
+{
+  "data": {
+    "blendMode": "PASS_THROUGH",
+    "children": [
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.8392156958580017,
+              "g": 0.8352941274642944,
+              "r": 0.8274509906768799
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 36,
+        "id": "42:686",
+        "locked": false,
+        "name": "Win Btn BG",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 44,
+        "x": 1236,
+        "y": 0
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.8392156958580017,
+              "g": 0.8352941274642944,
+              "r": 0.8274509906768799
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 36,
+        "id": "42:685",
+        "locked": false,
+        "name": "Win Btn BG",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 44,
+        "x": 1192,
+        "y": 0
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 0,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.8392156958580017,
+              "g": 0.8352941274642944,
+              "r": 0.8274509906768799
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 36,
+        "id": "42:684",
+        "locked": false,
+        "name": "Win Btn BG",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 44,
+        "x": 1148,
+        "y": 0
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "SHINPLAYER",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "NB Architekt",
+          "style": "Regular"
+        },
+        "fontSize": 46,
+        "height": 57,
+        "id": "14:3",
+        "locked": false,
+        "name": "Title",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 1280,
+        "x": 0,
+        "y": 175
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "CS2 · REPLAY VIEWER",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.7215686440467834,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "NB Architekt",
+          "style": "Light"
+        },
+        "fontSize": 12,
+        "height": 14,
+        "id": "14:4",
+        "locked": false,
+        "name": "Subtitle",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 1280,
+        "x": 0,
+        "y": 245
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "cornerRadius": 10,
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "height": 170,
+        "id": "14:5",
+        "locked": false,
+        "name": "Dropzone",
+        "opacity": 0.3499999940395355,
+        "rotation": 0,
+        "strokeAlign": "INSIDE",
+        "strokeWeight": 1,
+        "strokes": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.21960784494876862,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "type": "RECTANGLE",
+        "visible": true,
+        "width": 460,
+        "x": 410,
+        "y": 295
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "DROP .DEM FILE HERE",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "NB Architekt",
+          "style": "Regular"
+        },
+        "fontSize": 13,
+        "height": 16,
+        "id": "14:6",
+        "locked": false,
+        "name": "Drop Hint",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 1280,
+        "x": 0,
+        "y": 345
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "or browse from file explorer",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.3803921639919281,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "NB Architekt",
+          "style": "Regular"
+        },
+        "fontSize": 11,
+        "height": 14,
+        "id": "14:7",
+        "locked": false,
+        "name": "Drop Alt",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 1280,
+        "x": 0,
+        "y": 385
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "V0.1.0",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 0.3803921639919281,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "NB Architekt",
+          "style": "Light"
+        },
+        "fontSize": 11,
+        "height": 13,
+        "id": "14:11",
+        "locked": false,
+        "name": "Version",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "RIGHT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 1240,
+        "x": 20,
+        "y": 680
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [],
+        "height": 0,
+        "id": "35:660",
+        "locked": false,
+        "name": "Logo Border Segment",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "CENTER",
+        "strokeWeight": 2,
+        "strokes": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "type": "LINE",
+        "visible": true,
+        "width": 130,
+        "x": 560,
+        "y": 158
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "−",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 13,
+        "height": 16,
+        "id": "38:663",
+        "locked": false,
+        "name": "Minimize",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 44,
+        "x": 1148,
+        "y": 9
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "□",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 13,
+        "height": 16,
+        "id": "38:664",
+        "locked": false,
+        "name": "Maximize",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 44,
+        "x": 1192,
+        "y": 9
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "✕",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 13,
+        "height": 16,
+        "id": "38:665",
+        "locked": false,
+        "name": "Close",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 44,
+        "x": 1236,
+        "y": 9
+      }
+    ],
+    "constraints": {
+      "horizontal": "MIN",
+      "vertical": "MIN"
+    },
+    "cornerRadius": 0,
+    "effects": [],
+    "fills": [
+      {
+        "blendMode": "NORMAL",
+        "boundVariables": {},
+        "color": {
+          "b": 0.8509804010391235,
+          "g": 0.8470588326454163,
+          "r": 0.8392156958580017
+        },
+        "opacity": 1,
+        "type": "SOLID",
+        "visible": true
+      }
+    ],
+    "height": 720,
+    "id": "14:2",
+    "itemSpacing": 0,
+    "layoutMode": "NONE",
+    "locked": false,
+    "name": "DemoViewer · Empty State",
+    "opacity": 1,
+    "paddingBottom": 0,
+    "paddingLeft": 0,
+    "paddingRight": 0,
+    "paddingTop": 0,
+    "rotation": 0,
+    "strokeAlign": "INSIDE",
+    "strokeWeight": 1,
+    "strokes": [],
+    "type": "FRAME",
+    "visible": true,
+    "width": 1280,
+    "x": -132,
+    "y": -114
+  },
+  "format": "JSON",
+  "id": "14:2",
+  "name": "DemoViewer · Empty State"
+}

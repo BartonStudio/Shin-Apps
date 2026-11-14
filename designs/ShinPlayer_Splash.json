@@ -1,0 +1,182 @@
+﻿{
+  "data": {
+    "blendMode": "PASS_THROUGH",
+    "children": [
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "流动边框动画 · 静态关键帧\n光点沿 logo 外框顺时针循环 · 30s / 圈\n光点长度 = 外框周长 16%（其余位置无边框）\n本帧 = 动画某时刻暂停（光点停在顶边）\n动态参考：shinplayer-splash-design.html",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.3333333432674408,
+              "g": 0.3333333432674408,
+              "r": 0.3333333432674408
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 12,
+        "height": 95,
+        "id": "33:654",
+        "locked": false,
+        "name": "Motion Note",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "LEFT",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 245,
+        "x": 24,
+        "y": 282
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [],
+        "height": 0,
+        "id": "33:655",
+        "locked": false,
+        "name": "Flowing Border Segment",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "CENTER",
+        "strokeWeight": 1.75,
+        "strokes": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "type": "LINE",
+        "visible": true,
+        "width": 307,
+        "x": 300,
+        "y": 3
+      },
+      {
+        "blendMode": "PASS_THROUGH",
+        "characters": "SHINPLAYER",
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "effects": [],
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "boundVariables": {},
+            "color": {
+              "b": 0.054901961237192154,
+              "g": 0.054901961237192154,
+              "r": 0.054901961237192154
+            },
+            "opacity": 1,
+            "type": "SOLID",
+            "visible": true
+          }
+        ],
+        "fontName": {
+          "family": "Inter",
+          "style": "Regular",
+          "variationSettings": {
+            "slnt": 0,
+            "wght": 400
+          }
+        },
+        "fontSize": 116,
+        "height": 140,
+        "id": "33:656",
+        "locked": false,
+        "name": "Wordmark",
+        "opacity": 1,
+        "rotation": 0,
+        "strokeAlign": "OUTSIDE",
+        "strokeWeight": 1,
+        "strokes": [],
+        "textAlignHorizontal": "CENTER",
+        "textAlignVertical": "TOP",
+        "type": "TEXT",
+        "visible": true,
+        "width": 780,
+        "x": 0,
+        "y": 35
+      }
+    ],
+    "constraints": {
+      "horizontal": "MIN",
+      "vertical": "MIN"
+    },
+    "cornerRadius": 0,
+    "effects": [],
+    "fills": [
+      {
+        "blendMode": "NORMAL",
+        "boundVariables": {},
+        "color": {
+          "b": 0.9725490212440491,
+          "g": 0.9725490212440491,
+          "r": 0.9725490212440491
+        },
+        "opacity": 1,
+        "type": "SOLID",
+        "visible": true
+      }
+    ],
+    "height": 400,
+    "id": "33:653",
+    "itemSpacing": 0,
+    "layoutMode": "NONE",
+    "locked": false,
+    "name": "ShinPlayer · Splash",
+    "opacity": 1,
+    "paddingBottom": 0,
+    "paddingLeft": 0,
+    "paddingRight": 0,
+    "paddingTop": 0,
+    "rotation": 0,
+    "strokeAlign": "INSIDE",
+    "strokeWeight": 1,
+    "strokes": [],
+    "type": "FRAME",
+    "visible": true,
+    "width": 780,
+    "x": -1012,
+    "y": -112
+  },
+  "format": "JSON",
+  "id": "33:653",
+  "name": "ShinPlayer · Splash"
+}

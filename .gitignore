@@ -30,3 +30,6 @@ dist/
 .playwright-cli/
 cdp-diagnose.mjs
 tmp-cdp-check.mjs
+
+# 大文件测试 demo（几十 MB 的 .dem 回放文件），走本地资源，不入库
+*.dem

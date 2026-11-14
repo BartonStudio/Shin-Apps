@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>高德地图获取当前位置</title>
+    <style>
+        html, body, #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .info {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.25rem;
+            position: fixed;
+            top: 1rem;
+            background-color: white;
+            width: auto;
+            min-width: 20rem;
+            border-width: 0;
+            right: 1rem;
+            box-shadow: 0 2px 6px 0 rgba(114, 124, 245, .5);
+            z-index: 999;
+        }
+    </style>
+    <!-- 1. 配置安全密钥 -->
+    <script type="text/javascript">
+        window._AMapSecurityConfig = {
+            securityJsCode:'8d34caf793e378342f9274a17ba97ee1', // TODO: 请替换为你的安全密钥
+        }
+    </script>
+    <!-- 2. 引入高德API，替换申请的 key -->
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=da21be1fe5fb8748dea3a6891af8f095"></script>
+</head>
+<body>
+<div id="container"></div>
+<div class="info">
+    <h4 id="status">正在请求定位...</h4><hr>
+    <p id="result"></p>
+</div>
+
+<script type="text/javascript">
+    // 初始化地图
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom: 13
+    });
+
+    // 引入 Geolocation 和 Driving 插件
+    AMap.plugin(['AMap.Geolocation', 'AMap.Driving'], function() {
+        var geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,
+            timeout: 10000,
+            offset: [10, 20],
+            zoomToAccuracy: true,
+            position: 'RB'
+        });
+        
+        map.addControl(geolocation);
+        
+        // 执行定位
+        geolocation.getCurrentPosition(function(status, result){
+            if(status == 'complete'){
+                onComplete(result)
+            }else{
+                onError(result)
+            }
+        });
+    });
+
+    // 解析定位结果
+    function onComplete(data) {
+        document.getElementById('status').innerHTML = '定位成功';
+        var str = [];
+        str.push('经度：' + data.position.lng);
+        str.push('纬度：' + data.position.lat);
+        if(data.accuracy){
+            str.push('精度：' + data.accuracy + ' 米');
+        }
+        // 如为IP精确定位结果则没有精度信息
+        str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
+        
+        var resultDOM = document.getElementById('result');
+        resultDOM.innerHTML = str.join('<br>') + '<hr><span style="color:gray;">正在计算驾车距离...</span>';
+
+        // 计算到目标点的驾车距离
+        var driving = new AMap.Driving({
+            // 仅计算数据，不需要把路线画在地图上，所以不用传 map 参数
+        }); 
+        
+        var targetPoint = [113.235156, 23.148867];
+        var currentPoint = [data.position.lng, data.position.lat];
+        
+        driving.search(currentPoint, targetPoint, function(status, result) {
+            if (status === 'complete' && result.routes && result.routes.length) {
+                var distance = result.routes[0].distance; // 单位：米
+                var distanceText = distance >= 1000 ? (distance / 1000).toFixed(2) + ' 公里' : distance + ' 米';
+                resultDOM.innerHTML = str.join('<br>') + '<hr><b>目标点 (113.235156, 23.148867)</b><br><b>实际驾车距离：</b><span style="color:green;font-weight:bold;">' + distanceText + '</span>';
+            } else {
+                resultDOM.innerHTML = str.join('<br>') + '<hr><span style="color:red;">驾车距离计算失败：</span>' + (result.info || '未知错误');
+            }
+        });
+    }
+
+    // 解析定位错误信息
+    function onError(data) {
+        document.getElementById('status').innerHTML = '定位失败';
+        document.getElementById('result').innerHTML = '失败原因:' + data.message;
+    }
+</script>
+</body>
+</html>

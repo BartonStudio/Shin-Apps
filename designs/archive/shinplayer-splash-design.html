@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShinPlayer · 启动画面 · 流动边框设计稿</title>
+<!--
+  ─────────────────────────────────────────────────────────────────────────
+  ShinPlayer 启动画面 · 动态设计稿（白盒子浅色风）
+  ─────────────────────────────────────────────────────────────────────────
+  定位：仅供编码时对照还原的「动态设计稿」，不是产品代码。
+  视觉：匹配 DemoViewer 现有的「白盒子美术馆」浅色风（wallhack.com 风格）。
+        · 底色  #f8f8f8
+        · 墨色  #0e0e0e
+        · 标题字体 NB Architekt（uppercase 等宽，文件缺失时回退到等宽字体）
+
+  【整体外边框 · 流动效果】
+  · 一个圆角矩形边框包裹整个 ShinPlayer 字标。
+  · 边框不是完整实线：只有「流动的那一段光点」可见，
+    其余位置（虚线空白段）相当于没有边框。
+  · 实现：<rect> 用 pathLength="1" 把周长归一化，
+    stroke-dasharray 变成比例（.16 实 / .84 空 = 一条边只跑一个光点），
+    stroke-dashoffset 从 0 → -1 无限循环，光点沿边框走完整一圈。
+
+  【可调参数】
+  · 光点长度/疏密 ：.border-flow 的 stroke-dasharray（现在 .16 .84）
+  · 流动速度      ：animation 时长（现在 30s）
+  · 描边粗细      ：stroke-width（现在 1.75）
+  ─────────────────────────────────────────────────────────────────────────
+-->
+<style>
+  /* 字体：正式实现时把 nb_architekt_*.woff2 放到 assets/ 即自动生效 */
+  @font-face {
+    font-family: "NB Architekt";
+    src: url("apps/DemoViewer/web/assets/nb_architekt_regular.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  :root{
+    --ink:    #0e0e0e;
+    --ground: #f8f8f8;
+  }
+
+  *{ box-sizing: border-box; }
+  html, body{ margin:0; height:100%; }
+  body{
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Inter, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .splash{
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 28px;
+  }
+
+  /* —— Logo 区：整体外框（SVG 圆角矩形） + 居中字标 —— */
+  .mark{
+    position: relative;
+    width: 780px; height: 210px;
+  }
+  .mark svg{
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+
+  /* 流动边框：只有光点段可见，其余无边框 */
+  .border-flow{
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-dasharray: .16 .84;      /* 16% 光点 / 84% 空白 */
+    animation: flow 30s linear infinite;
+  }
+  @keyframes flow{
+    to{ stroke-dashoffset: -1; }
+  }
+
+  .wordmark{
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "NB Architekt", "JetBrains Mono", "SF Mono", "Consolas", "Courier New", monospace;
+    font-size: 116px;
+    font-weight: 400;
+    letter-spacing: .03em;
+    color: var(--ink);
+    user-select: none;
+  }
+
+  /* —— 底部信息 —— */
+  .caption{
+    font-family: "NB Architekt", "JetBrains Mono", "SF Mono", "Consolas", "Courier New", monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: rgba(14,14,14,.55);
+    margin-top: -10px;
+  }
+  .version{
+    position: absolute;
+    right: 28px; bottom: 22px;
+    font-family: "NB Architekt", "JetBrains Mono", "SF Mono", "Consolas", "Courier New", monospace;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(14,14,14,.38);
+  }
+</style>
+</head>
+<body>
+
+  <div class="splash">
+    <div class="mark">
+      <svg viewBox="0 0 780 210" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ShinPlayer 流动边框">
+        <!-- pathLength="1" 归一化周长，虚线变比例，dashoffset 走 -1 = 走完整圈 -->
+        <rect class="border-flow" x="3" y="3" width="774" height="204" rx="22" pathLength="1"/>
+      </svg>
+      <div class="wordmark">SHINPLAYER</div>
+    </div>
+    <p class="caption">CS2 &middot; Replay Viewer</p>
+  </div>
+
+  <span class="version">v0.1.0</span>
+
+</body>
+</html>
