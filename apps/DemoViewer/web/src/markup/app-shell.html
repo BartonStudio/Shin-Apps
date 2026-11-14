@@ -1,0 +1,147 @@
+function ML(e) {
+  e.innerHTML = `
+    <div id="viewport"></div>
+
+    <div class="drop-screen" id="dropScreen">
+      <div class="drop-content">
+        <header class="landing-header">
+          <div class="brand">
+            <h1 class="brand-title">CS<span class="brand-accent">DEMO</span></h1>
+          </div>
+        </header>
+
+        <button class="phone-wizard-back" id="phoneWizardBack" type="button" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>All matches</span>
+        </button>
+
+        <nav class="landing-mode-switch" aria-label="Choose a demo source">
+          <button class="landing-mode active" id="proGamesTab" type="button" role="tab"
+            aria-selected="true" aria-controls="proGamesPanel">
+            <span class="landing-mode-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 4h8v4a4 4 0 0 1-8 0V4Zm0 2H5v1a4 4 0 0 0 4 4m7-5h3v1a4 4 0 0 1-4 4M12 12v4m-4 4h8m-6-4h4"
+                  fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span>
+              <strong>Pro matches</strong>
+            </span>
+          </button>
+          <button class="landing-mode" id="ownDemosTab" type="button" role="tab"
+            aria-selected="false" aria-controls="ownDemosPanel" tabindex="-1">
+            <span class="landing-mode-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 15V3m0 0 4 4m-4-4-4 4M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"
+                  fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span>
+              <strong>Your demos</strong>
+              <small>Upload a .dem file</small>
+            </span>
+          </button>
+        </nav>
+
+        <main>
+          <section class="landing-view" id="proGamesPanel" role="tabpanel" aria-labelledby="proGamesTab">
+            <div class="hosted-panel" aria-labelledby="hostedTitle">
+              <div class="panel-heading hosted-heading">
+                <div>
+                  <h2 id="hostedTitle">Watch professional matches</h2>
+                </div>
+              </div>
+              <div class="hosted-demos" id="hostedDemos"></div>
+            </div>
+          </section>
+
+          <section class="landing-view hidden" id="ownDemosPanel" role="tabpanel" aria-labelledby="ownDemosTab">
+            <div class="landing-workspace">
+              <section class="import-panel" aria-labelledby="importTitle">
+                <div class="panel-heading">
+                  <div>
+                    <h2 id="importTitle">Upload your demo</h2>
+                    <p>Locally processed</p>
+                  </div>
+                </div>
+
+                <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Choose or drop a .dem file">
+                  <span class="drop-zone-icon-wrap">
+                    <svg class="drop-zone-icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 15V3m0 0 4 4m-4-4-4 4M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"
+                        fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                  <span class="drop-zone-copy">
+                    <span class="drop-zone-main">Drop your <strong>.dem</strong> here</span>
+                    <span class="drop-hint">or click to choose a file</span>
+                  </span>
+                  <span class="drop-browse">Browse files</span>
+                </div>
+
+                <div class="quality" id="quality"></div>
+              </section>
+
+              <section class="history-panel" aria-labelledby="historyTitle">
+                <div class="panel-heading">
+                  <div>
+                    <h2 id="historyTitle">On this device</h2>
+                  </div>
+                </div>
+                <div class="recents" id="recents"></div>
+              </section>
+            </div>
+          </section>
+        </main>
+
+        <footer class="landing-disclaimer">
+          CSDEMO is not affiliated with or endorsed by Valve Corporation.
+        </footer>
+      </div>
+
+      <input type="file" id="fileInput" accept=".dem" class="hidden" />
+    </div>
+
+    <div class="loading hidden" id="loading">
+      <div class="landing-backdrop" aria-hidden="true"></div>
+      <section class="loading-card" id="loadingCard" aria-labelledby="loadingTitle">
+        <div class="loading-hero" id="loadingHero" aria-hidden="true"></div>
+        <h2 class="loading-title" id="loadingTitle">Opening demo</h2>
+        <div class="loading-progress" id="loadingProgress">
+          <div class="loading-bar indeterminate" id="loadingBar" role="progressbar" aria-labelledby="loadingLabel" aria-valuemin="0" aria-valuemax="100">
+            <div class="loading-bar-fill" id="loadingBarFill"></div>
+          </div>
+          <div class="loading-status">
+            <span class="loading-label" id="loadingLabel" aria-live="polite">Loading…</span>
+            <span class="loading-timer" id="loadingTimer">0.0s</span>
+          </div>
+        </div>
+        <p class="error-text hidden" id="errorText" role="alert"></p>
+        <button class="loading-action hidden" id="loadingAction" type="button"></button>
+      </section>
+    </div>
+
+    <div class="drop-overlay hidden" id="dropOverlay" aria-hidden="true">
+      <div class="drop-overlay-inner">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 15V3m0 0 4 4m-4-4-4 4M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"
+            fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p>Release to load demo</p>
+      </div>
+    </div>
+
+    <div class="leave-confirm hidden" id="leaveConfirm" role="dialog" aria-modal="true" aria-labelledby="leaveConfirmTitle">
+      <div class="leave-confirm-panel">
+        <h2 id="leaveConfirmTitle">Leave demo?</h2>
+        <p>This demo is still processing. If you leave now, it won’t be saved on this device.</p>
+        <div class="leave-confirm-progress" id="leaveConfirmProgress" role="progressbar" aria-label="Demo processing progress" aria-valuemin="0" aria-valuemax="100">
+          <div class="leave-confirm-progress-fill" id="leaveConfirmProgressFill"></div>
+        </div>
+        <div class="leave-confirm-actions">
+          <button type="button" class="leave-confirm-stay" id="leaveConfirmStay">Keep watching</button>
+          <button type="button" class="leave-confirm-leave" id="leaveConfirmLeave">Leave demo</button>
+        </div>

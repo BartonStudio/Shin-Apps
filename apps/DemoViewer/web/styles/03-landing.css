@@ -1,0 +1,309 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：landing — 落地页骨架 / 品牌 / 模式切换 / 3D 背景层
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.landing-backdrop {
+  z-index: 0;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.landing-backdrop:before,
+.landing-backdrop:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.landing-backdrop:before {
+  background: url(/backdrop/still-landscape.jpg) 50% / cover no-repeat;
+}
+.landing-backdrop:after {
+  background: color-mix(in srgb, var(--bg) 44%, transparent);
+}
+:root[data-theme="dark"] .landing-backdrop:before {
+  background-image: url(/backdrop/still-landscape-dark.jpg);
+}
+:root[data-theme="dark"] .landing-backdrop:after {
+  background: color-mix(in srgb, var(--bg) 40%, transparent);
+}
+.landing-backdrop-canvas {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+@media (orientation: portrait) {
+.landing-backdrop:before {
+    background-image: url(/backdrop/still-portrait.jpg);
+  }
+}
+@media (orientation: portrait) {
+:root[data-theme="dark"] .landing-backdrop:before {
+    background-image: url(/backdrop/still-portrait-dark.jpg);
+  }
+}
+.landing-header {
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  display: flex;
+}
+.brand {
+  gap: 0.35rem;
+  display: grid;
+}
+.brand-title {
+  font-family: var(--font);
+  letter-spacing: 0.01em;
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.brand-accent {
+  color: var(--accent);
+}
+.landing-mode-switch {
+  background: var(--landing-seg-track);
+  width: fit-content;
+  box-shadow: var(--landing-panel-shadow);
+  border-radius: 14px;
+  grid-template-columns: repeat(2, minmax(12rem, 1fr));
+  gap: 0.25rem;
+  padding: 0.25rem;
+  display: grid;
+}
+.landing-mode {
+  min-width: 0;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.3s var(--landing-ease);
+  background: 0 0;
+  border: 0;
+  border-radius: 11px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  display: grid;
+}
+.landing-mode:hover:not(.active) {
+  color: var(--text);
+  background: var(--landing-seg-hover);
+}
+.landing-mode:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.landing-mode.active {
+  color: var(--text);
+  background: var(--landing-thumb);
+  box-shadow: var(--landing-thumb-shadow);
+}
+.landing-mode-icon {
+  width: 2.15rem;
+  height: 2.15rem;
+  color: var(--muted);
+  background: var(--landing-fill);
+  border-radius: 9px;
+  place-items: center;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+  display: grid;
+}
+.landing-mode.active .landing-mode-icon {
+  color: var(--accent);
+  background: var(--landing-icon-tint);
+}
+.landing-mode-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.landing-mode > span:last-child {
+  gap: 0.05rem;
+  min-width: 0;
+  display: grid;
+}
+.landing-mode strong {
+  letter-spacing: -0.01em;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.landing-mode small {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+.landing-view.hidden {
+  display: none;
+}
+.drop-content > main,
+.landing-view {
+  height: 100%;
+  min-height: 0;
+}
+.landing-workspace {
+  grid-template-columns: minmax(20rem, 0.9fr) minmax(28rem, 1.1fr);
+  gap: 1rem;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+}
+.phone-wizard-back,
+.hosted-match-summary,
+.hosted-segment-pick-backdrop {
+  display: none;
+}
+@keyframes logo-fade-in {
+  0% {
+    opacity: 0;
+  }
+}
+.landing-disclaimer {
+  color: var(--muted);
+  text-align: center;
+  opacity: 0.85;
+  align-self: center;
+  font-size: 0.76rem;
+}
+@media (width<=900px) {
+.landing-workspace {
+    overscroll-behavior: contain;
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+}
+@media (width<=560px) {
+.landing-header {
+    gap: 0.85rem;
+  }
+}
+@media (width<=560px) {
+.landing-mode-switch {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+}
+@media (width<=560px) {
+.landing-mode {
+    text-align: center;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding-inline: 0.55rem;
+  }
+}
+@media (width<=560px) {
+.landing-mode small {
+    display: none;
+  }
+}
+@media (width<=560px) {
+.brand-title {
+    font-size: 2rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.drop-content > main,
+  .landing-view,
+  .landing-workspace,
+  .hosted-panel {
+    height: auto;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.landing-workspace,
+  .hosted-menu {
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.landing-mode-switch,
+  #ownDemosPanel {
+    display: none;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.drop-content > main,
+  .landing-view,
+  .hosted-panel {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.brand-title {
+    font-size: 1.75rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.landing-disclaimer {
+    letter-spacing: 0;
+    font-size: 0.65rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.drop-screen[data-phone-step="match"] .phone-wizard-back:not([hidden]) {
+    min-height: 44px;
+    color: var(--accent);
+    font: inherit;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    border-radius: 10px;
+    justify-self: start;
+    align-items: center;
+    gap: 0.35rem;
+    margin-block: -0.25rem;
+    padding: 0 0.75rem 0 0.15rem;
+    font-size: 1rem;
+    font-weight: 500;
+    display: inline-flex;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.phone-wizard-back svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-event-card,
+  .hosted-match-card,
+  .hosted-segment,
+  .hosted-watch,
+  .phone-wizard-back {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    transition:
+      background-color 0.12s,
+      border-color 0.12s,
+      transform 0.12s;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.phone-wizard-back:active {
+    opacity: 0.5;
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.drop-content > main,
+  .landing-disclaimer {
+    grid-column: 1/-1;
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.brand-title {
+    font-size: 1.75rem;
+  }
+}

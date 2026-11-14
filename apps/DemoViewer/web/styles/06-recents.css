@@ -1,0 +1,307 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：recents — On this device 最近场次卡片
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.hosted-event-grid,
+.hosted-match-grid,
+.hosted-segment-list,
+.hosted-map-details-body,
+.recents-grid {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--landing-scrollbar) transparent;
+}
+.recents-grid::-webkit-scrollbar {
+  width: 5px;
+}
+.recents-grid::-webkit-scrollbar-track {
+  background: 0 0;
+}
+.recents-grid::-webkit-scrollbar-thumb {
+  background: var(--landing-scrollbar);
+  border-radius: 999px;
+}
+.recents-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--landing-scrollbar-hover);
+}
+.history-panel .recents {
+  flex: 1;
+  min-height: 0;
+}
+.history-panel .recents-grid {
+  flex: auto;
+  min-height: 0;
+}
+.recents {
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  display: flex;
+}
+.recents-head {
+  justify-content: space-between;
+  align-items: baseline;
+  display: flex;
+}
+.recents-title {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.84rem;
+}
+.recents-clear {
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  border-radius: 999px;
+  margin-right: -0.6rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.84rem;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.recents-clear:hover {
+  color: var(--danger);
+}
+.recents-grid {
+  overscroll-behavior: contain;
+  align-content: start;
+  gap: 0.7rem;
+  margin: -0.35rem calc(-0.6rem - 5px) -0.35rem -0.35rem;
+  padding: 0.35rem 0.6rem 0.5rem 0.35rem;
+  display: grid;
+  overflow-y: auto;
+}
+@supports selector(::-webkit-scrollbar) {
+.recents-grid {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+}
+@supports selector(::-webkit-scrollbar) {
+.recents-grid::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+.recent-entry {
+  position: relative;
+}
+.recent-card {
+  text-align: left;
+  width: 100%;
+  min-width: 0;
+  min-height: 6.75rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--panel-raised);
+  box-shadow: var(--landing-card-shadow);
+  cursor: pointer;
+  transition:
+    box-shadow 0.25s var(--landing-ease),
+    transform 0.25s var(--landing-ease);
+  border: 0;
+  border-radius: 14px;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0.9rem 0.8rem 0.85rem;
+  display: grid;
+}
+.recent-card:hover {
+  box-shadow: var(--landing-card-shadow-hover);
+}
+.recent-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.recent-card:active {
+  transition-duration: 0.1s;
+  transform: scale(0.985);
+}
+.recent-thumb {
+  filter: drop-shadow(0 2px 3px #141e321f);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 5.5rem;
+  height: 4.45rem;
+}
+.recent-map-identity {
+  justify-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  display: grid;
+}
+.recent-info {
+  align-content: center;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 0.15rem 1.6rem 0.15rem 0;
+  display: grid;
+}
+.recent-map {
+  color: var(--text);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+.recent-date {
+  color: var(--muted);
+  justify-self: end;
+  font-size: 0.74rem;
+}
+.recent-score {
+  font-variant-numeric: tabular-nums;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  display: grid;
+}
+.recent-side {
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  display: flex;
+}
+.recent-side span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.recent-side strong {
+  color: var(--text);
+  letter-spacing: -0.02em;
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1;
+}
+.recent-side.rc-t {
+  text-align: right;
+  color: var(--t);
+  justify-content: flex-end;
+}
+.recent-side.rc-ct {
+  color: var(--ct);
+  justify-content: flex-start;
+}
+.recent-score .rc-sep {
+  color: var(--tertiary);
+  font-size: 1.1rem;
+}
+.recent-meta {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  display: flex;
+}
+.recent-meta span {
+  background: var(--landing-fill);
+  border-radius: 999px;
+  padding: 0.22rem 0.55rem;
+}
+.recent-delete {
+  z-index: 1;
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+}
+.recent-delete:hover {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 9%, transparent);
+}
+.recent-delete:focus-visible {
+  color: var(--danger);
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.recent-delete:disabled,
+.recents-clear:disabled {
+  cursor: wait;
+  opacity: 0.5;
+}
+.recents-empty {
+  background: var(--landing-group);
+  height: 100%;
+  min-height: 14.5rem;
+  color: var(--muted);
+  text-align: center;
+  border-radius: 16px;
+  place-content: center;
+  justify-items: center;
+  gap: 0.35rem;
+  display: grid;
+}
+.recents-empty-mark {
+  color: var(--tertiary);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.recents-empty strong {
+  color: var(--text);
+  letter-spacing: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.recents-empty > span:last-child {
+  max-width: 17rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+@media (width<=900px) {
+.recents-grid {
+    scrollbar-gutter: auto;
+    margin-right: -0.35rem;
+    padding-right: 0.35rem;
+    overflow: visible;
+  }
+}
+@media (width<=560px) {
+.recent-card {
+    grid-template-columns: 3.75rem 1fr;
+  }
+}
+@media (width<=560px) {
+.recent-thumb {
+    width: 3.75rem;
+    height: 4.8rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.recent-delete {
+    width: 44px;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.recent-info {
+    padding-right: 1.5rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.recents-empty {
+    min-height: 10rem;
+  }
+}

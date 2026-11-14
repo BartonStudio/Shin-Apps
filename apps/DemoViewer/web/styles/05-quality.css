@@ -1,0 +1,115 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：quality — Playback detail（16/32/64 Hz）
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.quality {
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+  display: flex;
+}
+.quality-head {
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  display: flex;
+}
+.quality-label {
+  color: var(--text);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+.quality-options {
+  background: var(--landing-fill);
+  border-radius: 11px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 2px;
+  display: grid;
+}
+.quality-opt {
+  appearance: none;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  min-width: 0;
+  min-height: 3.2rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.25s var(--landing-ease);
+  background: 0 0;
+  border: 0;
+  border-radius: 9px;
+  place-content: center;
+  gap: 0.1rem;
+  padding: 0.5rem;
+  display: grid;
+}
+.quality-opt span {
+  letter-spacing: -0.01em;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+.quality-opt small {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.74rem;
+}
+.quality-opt:hover:not(.active) {
+  color: var(--text);
+  background: var(--landing-seg-hover);
+}
+.quality-opt.active {
+  color: var(--text);
+  background: var(--landing-thumb);
+  box-shadow: var(--landing-thumb-shadow);
+}
+.quality-opt.active span {
+  color: var(--accent);
+}
+.quality-hint {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+}
+@media (width<=560px) {
+.quality-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+}
+@media (width<=560px) {
+.quality-opt span {
+    font-size: 0.82rem;
+  }
+}
+.ctrl-btn:focus-visible,
+.timeline-slider:focus-visible,
+.radar-btn:focus-visible,
+.quality-opt:focus-visible,
+.settings-tab:focus-visible,
+.settings-seg-btn:focus-visible,
+.settings-toggle:focus-visible,
+.settings-close:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-watch,
+  .hosted-retry,
+  .hosted-scoreboard-sort,
+  .quality-opt,
+  .recents-clear,
+  .recent-delete {
+    min-height: 44px;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.quality {
+    margin-top: 1rem;
+  }
+}

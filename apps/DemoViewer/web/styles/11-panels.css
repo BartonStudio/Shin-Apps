@@ -1,0 +1,419 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：panels — 左右玩家面板
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.pp-defuse-meter {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+.pp-defuse-fill,
+.pp-defuse-content {
+  clip-path: inset(0 0 0 calc((1 - var(--defuse-progress, 0)) * 100%));
+  position: absolute;
+  inset: 0;
+}
+.pp-defuse-active {
+  background-image: linear-gradient(to left, var(--pc-ct) calc(var(--defuse-progress, 0) * 100%), transparent 0);
+  background-repeat: no-repeat;
+}
+.pp-defuse-active > .pp-body {
+  clip-path: inset(0 calc(var(--defuse-progress, 0) * 100%) 0 0);
+}
+.pp-defuse-content {
+  pointer-events: none;
+  color: #fff;
+  --team: #fff;
+  --pc-label: #fff;
+  --pc-secondary: #ffffffc7;
+  --pc-tertiary: #fff9;
+  --pc-money: #c7f5d0;
+  --pc-ct: #fff;
+}
+.pp-defuse-content :is(.pp-ic, .pp-weapon-ic, .pp-util-ic) {
+  background-color: #fff;
+}
+.pp-defuse-content .pp-bar {
+  background: #ffffff4d;
+}
+.pp-defuse-content :is(.pp-hp-fill, .pp-hp-trail, .pp-armor-fill) {
+  background: #fff;
+  animation: none;
+}
+.pp-defuse-meter .pp-defuse-icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  color: var(--pc-ct);
+  opacity: 0.22;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+.pp-defuse-meter .pp-defuse-icon-filled {
+  color: #fff;
+  opacity: 0.35;
+}
+.player-panels {
+  pointer-events: none;
+  user-select: none;
+  z-index: 14;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 15.5rem;
+  display: flex;
+  position: absolute;
+  top: 64%;
+  transform: translateY(-50%);
+}
+.player-panels-left {
+  left: 0.6rem;
+}
+.player-panels-right {
+  right: 0.6rem;
+}
+.player-panels-right .pp {
+  border-left: 0;
+  border-right: 6px solid var(--team);
+  text-align: right;
+  align-self: flex-end;
+}
+.pp-t {
+  --team: var(--pc-t);
+}
+.pp-ct {
+  --team: var(--pc-ct);
+}
+@media (hover: hover) {
+.pp:not(.pp-dead):hover:after {
+    opacity: 1;
+  }
+}
+.pp:not(.pp-dead):active {
+  scale: 0.97;
+}
+.pp-followed {
+  --pc-glass: var(--pp-followed-bg);
+  box-shadow:
+    inset 0 0.5px 0 var(--pc-glass-edge),
+    0 0 0 0.5px var(--pc-hairline),
+    0 2px 6px #00000014,
+    0 14px 34px #00000038;
+}
+.player-panels {
+  --pp-followed-bg: #fffffff5;
+}
+:root[data-theme="dark"] .player-panels {
+  --pp-followed-bg: #48484ceb;
+}
+.pp-dead {
+  border-color: color-mix(in srgb, var(--team) 45%, transparent);
+  cursor: default;
+  width: 70%;
+}
+.pp-dead > .pp-body {
+  opacity: 0.45;
+}
+.pp-dead :is(.pp-hp, .pp-bars) {
+  visibility: hidden;
+}
+.pp-body,
+.pp-defuse-content {
+  padding: var(--pp-pad);
+  flex-direction: column;
+  gap: 0.35rem;
+  display: flex;
+}
+.pp-body {
+  z-index: 1;
+  transition: opacity 0.3s;
+  position: relative;
+}
+.pp-defuse-content {
+  z-index: 2;
+}
+.pp-line {
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  display: flex;
+}
+.player-panels-right .pp-line {
+  flex-direction: row-reverse;
+}
+.pp-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  color: var(--pc-label);
+  font: 700 1rem/1.25 var(--pc-font);
+  letter-spacing: -0.01em;
+  flex: auto;
+  overflow: hidden;
+}
+.pp-kd {
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  display: inline-flex;
+}
+.pp-kd-stat {
+  align-items: center;
+  gap: 0.2rem;
+  display: inline-flex;
+}
+.pp-kd-ic {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+.pp-kd-kills {
+  color: var(--pc-label);
+}
+.pp-kd-deaths {
+  color: var(--pc-secondary);
+}
+.pp-kd-deaths .pp-kd-ic {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.pp-kd-n {
+  font: 600 0.9rem/1 var(--pc-font);
+}
+.pp-gear {
+  min-height: 1.35rem;
+}
+.pp-ic {
+  vertical-align: middle;
+  background-color: currentColor;
+  flex: none;
+  display: inline-block;
+  mask-position: 50%;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+.pp-weapon {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--pc-label);
+  font: 600 0.6875rem/1 var(--pc-font);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+.pp-weapon-ic {
+  background-color: var(--pc-label);
+  flex: none;
+  width: 4.15rem;
+  height: 1.35rem;
+  display: inline-block;
+  mask-position: 0;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+.player-panels-right .pp-weapon-ic {
+  mask-position: 100%;
+}
+.pp-util-list {
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  display: inline-flex;
+}
+.player-panels-right .pp-util-list {
+  flex-direction: row-reverse;
+  margin-left: 0;
+  margin-right: auto;
+}
+.pp-kit {
+  align-items: center;
+  display: inline-flex;
+}
+.pp-gear-ic {
+  width: 1rem;
+  height: 1rem;
+  color: var(--pc-secondary);
+}
+.pp-kit .pp-gear-ic {
+  color: var(--pc-ct);
+}
+.pp-util-ic {
+  width: 0.92rem;
+  height: 1.1rem;
+}
+.pp-util-ic.pp-util-smoke {
+  color: var(--pc-util-smoke);
+}
+.pp-util-ic.pp-util-flash {
+  color: var(--pc-util-flash);
+}
+.pp-util-ic.pp-util-he {
+  color: var(--pc-util-he);
+}
+.pp-util-ic.pp-util-molotov {
+  color: var(--pc-util-molotov);
+}
+.pp-status {
+  --hp-color: var(--pc-health);
+  gap: 0.7rem;
+}
+.pp-status.pp-hp-mid {
+  --hp-color: var(--pc-health-mid);
+}
+.pp-status.pp-hp-low {
+  --hp-color: var(--pc-health-low);
+}
+.pp-hp {
+  min-width: 1.75rem;
+  font: 650 0.875rem/1 var(--pc-font);
+  flex: none;
+}
+.pp-hp-low .pp-hp {
+  color: var(--pc-health-low);
+}
+.pp-bars {
+  flex-direction: column;
+  flex: auto;
+  gap: 3px;
+  min-width: 2rem;
+  display: flex;
+}
+.pp-bar {
+  background: var(--pc-fill);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+.pp-hp-bar {
+  height: 5px;
+}
+.pp-armor-bar {
+  height: 4px;
+}
+.pp-hp-fill,
+.pp-hp-trail,
+.pp-armor-fill {
+  border-radius: inherit;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+.player-panels-right :is(.pp-hp-fill, .pp-hp-trail, .pp-armor-fill) {
+  left: auto;
+  right: 0;
+}
+.pp-hp-fill {
+  background: var(--hp-color);
+  animation: pp-hp 0.5s var(--pc-ease) both;
+  transition: background-color 0.3s;
+}
+.pp-hp-trail {
+  background: color-mix(in srgb, var(--pc-health-low) 45%, transparent);
+  animation: pp-hp 0.6s var(--pc-ease) 0.35s both;
+}
+.pp-armor-fill {
+  background: var(--pc-armor);
+  animation: pp-hp 0.5s var(--pc-ease) both;
+  transition: background-color 0.3s;
+}
+.pp-helmet .pp-armor-fill {
+  background: var(--pc-armor-helmet);
+}
+.pp-money {
+  color: var(--pc-money);
+  font: 650 0.95rem/1 var(--pc-font);
+  flex: none;
+  margin-left: 0.3rem;
+}
+.player-panels-right .pp-money {
+  margin-left: 0;
+  margin-right: 0.3rem;
+}
+@media (prefers-reduced-motion: reduce) {
+.pp-hp-fill,
+  .pp-hp-trail,
+  .pp-armor-fill {
+    animation: none;
+  }
+}
+.death-fade-player[data-team="t"] {
+  color: var(--pc-t);
+}
+.death-fade-player[data-team="ct"] {
+  color: var(--pc-ct);
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.player-panels {
+    top: calc(var(--viewer-top-height) + 1.25rem);
+    width: var(--viewer-rail-width);
+    justify-content: center;
+    gap: 0.4rem;
+    bottom: 7.5rem;
+    transform: none;
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.player-panels-left {
+    left: var(--viewer-edge);
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.player-panels-right {
+    right: var(--viewer-edge);
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.pp-body,
+  .pp-defuse-content {
+    gap: 0.25rem;
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.pp-status {
+    gap: 0.55rem;
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.pp-name {
+    font-size: 0.9rem;
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.pp-kd {
+    gap: 0.3rem;
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.pp-kd-n,
+  .pp-hp,
+  .pp-money {
+    font-size: 0.8rem;
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.pp-gear {
+    min-height: 1.15rem;
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.pp-weapon-ic {
+    width: 3.25rem;
+    height: 1.15rem;
+  }
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.pp-util-list {
+    gap: 0.15rem;
+  }
+}
+@media (width>=701px) and (height<=720px) {
+.player-panels {
+    gap: 0.3rem;
+  }
+}
+@media (width>=701px) and (height<=720px) {
+.pp-body,
+  .pp-defuse-content {
+    gap: 0.25rem;
+  }
+}

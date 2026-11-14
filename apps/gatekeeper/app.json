@@ -1,0 +1,13 @@
+{
+  "name": "gatekeeper",
+  "title": "ShinGatekeeper",
+  "window": { "width": 900, "height": 620 },
+  "entry": {
+    "dev": "http://127.0.0.1:8849/index.html",
+    "dist": "web/index.html"
+  },
+  "connect": {
+    "url": "ws://127.0.0.1:9003",
+    "domain": "shingatekeeper"
+  }
+}

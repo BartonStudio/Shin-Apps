@@ -1,0 +1,909 @@
+/* =========================================================================
+   ShinPlayer · Demo Viewer 前端壳（画布随视口铺满；还原态视口 = 1280×720）
+   视觉对齐 Figma 设计稿：
+     · 主窗口底色 #d6d8d9（empty）/ splash 初始化底色 #f8f8f8
+     · 墨色 #0e0e0e / 标题栏与窗口按钮底色同背景（无色差，hover 另有反馈）
+     · 字标 NB Architekt（文件缺失回退等宽）
+     · 圆角矩形流动边框：pathLength=1 归一化周长，光点沿边框循环走
+   ========================================================================= */
+
+:root {
+  --ink: #0e0e0e;
+  --ground: #d6d8d9;         /* DemoViewer 主窗口底色（empty 等） */
+  --ground-splash: #f8f8f8;  /* splash / initializing 底色 */
+  --mono: "NB Architekt", "JetBrains Mono", "SF Mono", "Consolas", "Courier New", monospace;
+  --sans: Inter, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --t: #e0a526;   /* T 方橙（Watch View） */
+  --ct: #6db3f2;  /* CT 方蓝（Watch View） */
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; height: 100%; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  /* 初始化（#f8f8f8）↔ 空状态（#d6d8d9）切换时背景平滑渐变 */
+  transition: background-color 0.45s ease;
+}
+body.is-initializing {
+  background: var(--ground-splash);
+}
+
+#app {
+  position: relative;
+  /* 铺满视口而非固定 1280×720：还原状态下窗口客户区经 DPI 换算后
+     CSS 视口恰好是 1280×720（视觉与固定画布一致）；最大化时铺满全屏，
+     自定义标题栏才能贴住真实窗口顶边，而不是浮在居中画布的角落。 */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 整个应用是播放器 UI，无需选中文本：统一禁用，避免拖蓝。 */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ---- 状态屏：绝对定位叠放，用 opacity 交叉淡化过渡（而非 display 硬切） ---- */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.screen.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* 空状态整体放大（logo + caption + dropzone 一起），视觉更饱满。
+   用 transform 缩放：元素为矢量（SVG 边框 / 文本），缩放后仍清晰，布局居中不变。 */
+#screen-empty {
+  transform: scale(1.20);
+}
+/* 离开态（is-active 被移除）：淡出更快，减少旧 LOGO 的残影停留时间；
+   进入态仍用上面 0.4s，保证新状态淡入从容。 */
+.screen:not(.is-active) {
+  transition-duration: 0.16s;
+}
+
+/* ---- Logo 区：流动圆角边框 + 居中字标 ---- */
+.mark {
+  position: relative;
+  width: 780px;
+  height: 210px;
+  /* 状态切换时做等比缩放过渡（大 mark ↔ 小 mark），配合 .screen 的 opacity 交叉淡化 */
+  transition: transform 0.4s ease;
+}
+.mark--small {
+  width: 480px;
+  height: 92px;
+}
+.mark svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.border-flow {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-dasharray: 0.16 0.84; /* 16% 光点 / 84% 空白 */
+  animation: flow 30s linear infinite;
+}
+@keyframes flow {
+  to { stroke-dashoffset: -1; }
+}
+.wordmark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 116px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+.mark--small .wordmark {
+  font-size: 46px;
+}
+
+/* ---- 副标题（initializing 时循环更换步骤字样） ---- */
+.caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(14, 14, 14, 0.55);
+  margin: 0;
+  min-height: 15px;
+  text-align: center;
+}
+.caption.is-changing {
+  animation: caption-in 0.45s ease;
+}
+
+/* ---- 非法运行环境拦截页 ---- */
+#screen-blocked {
+  gap: 24px;
+}
+.blocked__hint {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(14, 14, 14, 0.42);
+  max-width: 480px;
+  text-align: center;
+  line-height: 1.6;
+}
+@keyframes caption-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- 初始化步骤点 ---- */
+.steps {
+  display: flex;
+  gap: 8px;
+  margin-top: -8px;
+}
+.steps .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(14, 14, 14, 0.18);
+  transition: background 0.3s ease;
+}
+.steps .dot.is-on {
+  background: var(--ink);
+}
+
+/* ---- 空状态：拖放区 ---- */
+.dropzone {
+  width: 460px;
+  height: 170px;
+  border-radius: 10px;
+  border: 1px dashed rgba(14, 14, 14, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.dropzone:hover,
+.dropzone.dragover {
+  border-color: rgba(14, 14, 14, 0.45);
+  background-color: rgba(14, 14, 14, 0.03);
+}
+.dropzone__hint {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.dropzone__alt {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(14, 14, 14, 0.38);
+}
+/* 加载失败的错误提示：默认不占位，展示时渐入红字并持续显示 */
+.dropzone__error {
+  display: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #d93025;
+}
+.dropzone__error.is-visible {
+  display: block;
+  animation: error-in 0.35s ease forwards;
+}
+/* 加载中：dropzone 内部显示 subtitle + 进度点（样式搬自 initializing 的 caption/steps） */
+.dropzone__loading {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.dropzone.is-loading .dropzone__hint,
+.dropzone.is-loading .dropzone__alt {
+  display: none;
+}
+.dropzone.is-loading .dropzone__loading {
+  display: flex;
+}
+.dropzone__loading .steps {
+  margin-top: 0; /* 抵消 .steps 默认的 -8px，间距交给 .dropzone__loading 的 gap */
+}
+@keyframes error-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- 加载成功：文件卡片（对齐 Figma「DemoViewer · File Loaded」18:2） ----
+   卡片 560×320 白 35% 圆角 10；字标复用 .mark--small（流动边框 + 46px），与其他屏一致。 */
+#screen-loaded {
+  gap: 32px;
+}
+.file-card {
+  width: 560px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.35);
+  padding: 23px 24px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--mono);
+  color: var(--ink);
+}
+.file-card__name {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+.file-card__size {
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(14, 14, 14, 0.38);
+}
+.file-card__score {
+  margin-top: 3px;
+  font-size: 20px;
+  letter-spacing: 0.06em;
+}
+.file-card__map {
+  margin-top: 9px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: rgba(14, 14, 14, 0.72);
+}
+.file-card__divider {
+  width: 100%;
+  height: 1px;
+  margin-top: 6px;
+  background: rgba(14, 14, 14, 0.10);
+}
+.roster {
+  margin-top: 15px;
+  width: 100%;
+  text-transform: uppercase;
+}
+.roster-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.roster-row + .roster-row {
+  margin-top: 8px;
+}
+.roster__name { width: 60px; }
+.roster__name--l { text-align: left; }
+.roster__name--r { text-align: right; }
+.roster__stat {
+  width: 50px;
+  font-weight: 300;
+  color: rgba(14, 14, 14, 0.72);
+}
+.roster__stat--l { text-align: left; }
+.roster__stat--r { text-align: right; }
+.roster__gap { width: 60px; }
+.file-card__actions {
+  margin-top: 11px;
+  display: flex;
+  gap: 32px;
+}
+.card-btn {
+  width: 200px;
+  height: 42px;
+  border-radius: 2px;
+  border: none;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.card-btn--primary {
+  background: var(--ink);
+  color: #fff;
+}
+.card-btn--primary:hover {
+  background: #444444; /* 黑底明显变浅（中灰），悬停反馈清晰可见 */
+}
+.card-btn--ghost {
+  background: #fff;
+  color: rgba(14, 14, 14, 0.72);
+  border: 1px solid rgba(14, 14, 14, 0.12);
+}
+.card-btn--ghost:hover {
+  background: rgba(14, 14, 14, 0.06);
+  border-color: rgba(14, 14, 14, 0.28);
+}
+
+/* ---- 右下角版本号 ---- */
+.version {
+  position: absolute;
+  right: 28px;
+  bottom: 22px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(14, 14, 14, 0.38);
+}
+
+/* ---- 自定义标题栏：整条顶部区域可拖拽，右侧三个按钮控制窗口 ---- */
+.titlebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  z-index: 10;
+}
+.win-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  height: 36px;
+}
+.win-btn {
+  width: 44px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+.win-btn:hover {
+  background: rgba(14, 14, 14, 0.06);
+}
+.win-btn--close:hover {
+  background: #e81123;
+  color: #fff;
+}
+/* 电影模式下标题栏按钮被禁用：彻底隐藏（视觉）+ 不可点击（功能），
+   但 titlebar 空白区域的拖拽仍保留。 */
+.win-btn:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================================================================
+   Watch View：观看界面 HUD 骨架（对齐 Figma「ShinPlayer · Watch View」28:549）
+   所有组件从屏幕边缘错峰飞入（不是闪现），HUD 锚定边缘，最大化时仍贴边。
+   ========================================================================= */
+#screen-watch {
+  display: block;
+  gap: 0;
+  overflow: hidden;
+}
+
+/* ---- 中央游戏画面占位 ---- */
+.watch-viewport {
+  position: absolute;
+  top: 340px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(14, 14, 14, 0.19);
+}
+
+/* ---- 顶部比分条 ---- */
+.scorebar {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  margin-left: -200px;
+  width: 400px;
+  height: 76px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+}
+.scorebar__bar {
+  position: absolute;
+  top: 0;
+  width: 140px;
+  height: 5px;
+}
+.scorebar__bar--t {
+  left: 0;
+  border-radius: 14px 0 0 0;
+  background: var(--t);
+}
+.scorebar__bar--ct {
+  right: 0;
+  border-radius: 0 14px 0 0;
+  background: var(--ct);
+}
+.scorebar__team,
+.scorebar__num {
+  position: absolute;
+  top: 33px;
+  font-family: var(--mono);
+  color: var(--ink);
+  line-height: 1;
+}
+.scorebar__team {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+.scorebar__num {
+  font-size: 20px;
+  font-weight: 700;
+}
+/* 阵营贴两侧边缘，比分数字靠中间（靠近计时器），二者之间留出空隙 */
+.scorebar__team--t { left: 24px; }
+.scorebar__num--t { left: 120px; }
+.scorebar__num--ct { right: 120px; }
+.scorebar__team--ct { right: 24px; }
+.scorebar__map {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.scorebar__timer {
+  position: absolute;
+  top: 33px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 22px;
+  color: var(--ink);
+}
+.scorebar__round {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* ---- 右上击杀信息流 ---- */
+.killfeed {
+  position: absolute;
+  top: 50px;
+  right: 16px;
+  width: 152px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 8px 6px;
+}
+.killfeed__row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  height: 26px;
+}
+.killfeed__attacker {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--t);
+}
+.killfeed__victim {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ct);
+}
+.killfeed__weapon {
+  width: 22px;
+  height: 10px;
+  border-radius: 2px;
+  background: rgba(14, 14, 14, 0.45);
+}
+.killfeed__headshot {
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  background: rgba(14, 14, 14, 0.35);
+}
+
+/* ---- 左右双方 5 人面板（类名带 watch- 前缀，避免与 File Loaded 卡片内 .roster 冲突） ---- */
+.watch-roster {
+  position: absolute;
+  top: 270px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.watch-roster--t { left: 16px; }
+.watch-roster--ct { right: 16px; }
+.player-card {
+  position: relative;
+  width: 248px;
+  height: 52px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+}
+.player-card__bar {
+  position: absolute;
+  top: 0;
+  width: 6px;
+  height: 52px;
+}
+.player-card--t .player-card__bar {
+  left: 0;
+  border-radius: 8px 0 0 8px;
+  background: var(--t);
+}
+.player-card--ct .player-card__bar {
+  right: 0;
+  border-radius: 0 8px 8px 0;
+  background: var(--ct);
+}
+.player-card__name {
+  position: absolute;
+  top: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+.player-card--t .player-card__name { left: 16px; }
+.player-card--ct .player-card__name { right: 16px; text-align: right; } /* 与 T 侧对称：名字距各自卡片外缘 16px（队色竖条 6px + 10px 留白） */
+.player-card__hp {
+  position: absolute;
+  top: 30px;
+  width: 140px;
+  height: 5px;
+  border-radius: 2px;
+  background: #7ac74f;
+}
+.player-card--t .player-card__hp { left: 16px; }
+.player-card--ct .player-card__hp { right: 16px; }
+.player-card__armor {
+  position: absolute;
+  top: 38px;
+  width: 140px;
+  height: 3px;
+  border-radius: 2px;
+  background: #8aa0b0;
+}
+.player-card--t .player-card__armor { left: 16px; }
+.player-card--ct .player-card__armor { right: 16px; }
+.player-card__util {
+  position: absolute;
+  top: 28px;
+  width: 12px;
+  height: 13px;
+  border-radius: 2px;
+  background: rgba(14, 14, 14, 0.30);
+}
+.player-card--t .player-card__util { right: 72px; }
+.player-card--t .player-card__util + .player-card__util { right: 54px; }
+.player-card--ct .player-card__util { left: 72px; }
+.player-card--ct .player-card__util + .player-card__util { left: 54px; }
+
+/* ---- 底部控制栏 ---- */
+.controlbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.85);
+}
+.controlbar__timeline {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 10px;
+  height: 4px;
+}
+.controlbar__track {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: rgba(14, 14, 14, 0.20);
+}
+.controlbar__parsed {
+  position: absolute;
+  left: 360px;
+  width: 388px;
+  top: 0;
+  height: 4px;
+  background: rgba(14, 14, 14, 0.40);
+}
+.controlbar__played {
+  position: absolute;
+  left: 0;
+  width: 360px;
+  top: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(14, 14, 14, 0.60);
+}
+.controlbar__play {
+  position: absolute;
+  left: 24px;
+  top: 26px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink);
+}
+.controlbar__speed {
+  position: absolute;
+  left: 64px;
+  top: 29px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+}
+.controlbar__pov {
+  position: absolute;
+  right: 16px;
+  top: 29px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* 播放/暂停、倍速、视角、进度条：可点击区域（功能后续接入，先给可点光标提示） */
+.controlbar__play,
+.controlbar__speed,
+.controlbar__pov,
+.controlbar__timeline {
+  cursor: pointer;
+}
+
+/* ---- 从屏幕边缘飞入动画（进入 Watch View 时触发） ---- */
+@keyframes fly-top {
+  from { opacity: 0; transform: translateY(-120px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fly-right {
+  from { opacity: 0; transform: translateX(180px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fly-left {
+  from { opacity: 0; transform: translateX(-300px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fly-bottom {
+  from { opacity: 0; transform: translateY(100px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes watch-fade {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+#screen-watch.is-active .watch-viewport {
+  animation: watch-fade 0.5s ease 0.05s both;
+}
+#screen-watch.is-active .scorebar {
+  animation: fly-top 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+#screen-watch.is-active .killfeed {
+  animation: fly-right 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+}
+#screen-watch.is-active .controlbar {
+  animation: fly-bottom 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both;
+}
+#screen-watch.is-active .player-card--t {
+  animation: fly-left 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+#screen-watch.is-active .player-card--ct {
+  animation: fly-right 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+#screen-watch.is-active .player-card--t:nth-child(1) { animation-delay: 0.18s; }
+#screen-watch.is-active .player-card--t:nth-child(2) { animation-delay: 0.22s; }
+#screen-watch.is-active .player-card--t:nth-child(3) { animation-delay: 0.26s; }
+#screen-watch.is-active .player-card--t:nth-child(4) { animation-delay: 0.30s; }
+#screen-watch.is-active .player-card--t:nth-child(5) { animation-delay: 0.34s; }
+#screen-watch.is-active .player-card--ct:nth-child(1) { animation-delay: 0.18s; }
+#screen-watch.is-active .player-card--ct:nth-child(2) { animation-delay: 0.22s; }
+#screen-watch.is-active .player-card--ct:nth-child(3) { animation-delay: 0.26s; }
+#screen-watch.is-active .player-card--ct:nth-child(4) { animation-delay: 0.30s; }
+#screen-watch.is-active .player-card--ct:nth-child(5) { animation-delay: 0.34s; }
+
+/* ---- 电影裁剪模式（cinematic letterbox）----
+   上下纯黑边，把观看画面裁成 2.35:1 宽银幕。
+   黑边 z-index 高于 HUD（进入电影模式后隐藏上下 HUD，只留中央画面），
+   但低于 ESC 菜单（电影模式下仍可呼出菜单退出）。 */
+.cinema-bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: #000;
+  z-index: 5;
+  pointer-events: none;
+  transition: height 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.cinema-bar--top { top: 0; }
+.cinema-bar--bottom { bottom: 0; }
+#screen-watch.is-cinema .cinema-bar {
+  /* 画面高 = 视口宽 / 2.35，上下黑边各占剩余高度的一半；宽于 2.35:1 时退化为 0。 */
+  height: max(0px, calc((100vh - 100vw / 2.35) / 2));
+}
+
+/* 电影裁剪模式下 HUD 退场：比分条 / 击杀流 / 双方面板 / 控制栏一并淡出，
+   只留中央画面，保证画面纯净。HUD 隐藏由独立的 is-hud-hidden 控制（与幕布的
+   is-cinema 解耦），这样退出时能「先收幕布、幕布走完再恢复 HUD」。
+   opacity 用 !important 覆盖进入动画（fly-*）fill-mode:both 锁定的 opacity:1。 */
+.scorebar,
+.killfeed,
+.watch-roster--t,
+.watch-roster--ct,
+.controlbar {
+  transition: opacity 0.35s ease;
+}
+#screen-watch.is-hud-hidden .scorebar,
+#screen-watch.is-hud-hidden .killfeed,
+#screen-watch.is-hud-hidden .watch-roster--t,
+#screen-watch.is-hud-hidden .watch-roster--ct,
+#screen-watch.is-hud-hidden .controlbar {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* ---- ESC 调试菜单 ---- */
+.esc-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.esc-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.esc-btn {
+  min-width: 104px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(14, 14, 14, 0.05);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.esc-btn:hover {
+  background: rgba(14, 14, 14, 0.12);
+}
+.esc-btn.is-on {
+  color: var(--t);
+  background: rgba(224, 165, 38, 0.16);
+}
+.esc-btn--exit:hover {
+  background: rgba(232, 17, 35, 0.16);
+  color: #e81123;
+}
+
+/* ---- 退出二次确认 dialog ---- */
+.exit-dialog {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 14, 14, 0.32);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+.exit-dialog.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.exit-dialog__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  min-width: 340px;
+  padding: 28px 32px 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(14, 14, 14, 0.24);
+  transform: translateY(8px);
+  transition: transform 0.18s ease;
+}
+.exit-dialog.is-open .exit-dialog__card {
+  transform: translateY(0);
+}
+.exit-dialog__title {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.exit-dialog__desc {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: rgba(14, 14, 14, 0.55);
+}
+.exit-dialog__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.exit-dialog__actions .card-btn {
+  width: auto;
+  min-width: 120px;
+  height: 38px;
+  padding: 0 20px;
+}

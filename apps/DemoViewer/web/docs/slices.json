@@ -1,0 +1,243 @@
+{
+  "source": "https://csdemo.tv/assets/index-E0opA-yG.js",
+  "slices": [
+    {
+      "slice": "1/34",
+      "file": "src/vendor/three-r184.js",
+      "start": 1,
+      "end": 28860,
+      "role": "three.js r184 完整内联（核心 + 附加组件：OrbitControls、CSS2DRenderer、GLTFLoader、meshopt 解码、PMREM、GGX 卷积等）"
+    },
+    {
+      "slice": "2/34",
+      "file": "src/app/01-timeline-utils.js",
+      "start": 28861,
+      "end": 29162,
+      "role": "回合/时间纯函数：炸弹下包拆包状态、计时文本、回合阶段（freeze/live/over/planted）"
+    },
+    {
+      "slice": "3/34",
+      "file": "src/app/02-map-assets.js",
+      "start": 29163,
+      "end": 29746,
+      "role": "maps.csdemo.tv 地图清单客户端 + overview.txt 解析成雷达坐标映射（R_ 前的函数层）"
+    },
+    {
+      "slice": "4/34",
+      "file": "src/app/03-map-classification.js",
+      "start": 29747,
+      "end": 29970,
+      "role": "地图分类/破坏删除（Av：classifyDeletions/breaks/matched）+ 视锥剔除（Fv：setView/cull/sphereVisible）"
+    },
+    {
+      "slice": "5/34",
+      "file": "src/app/04-lighting-shader.js",
+      "start": 29971,
+      "end": 31491,
+      "role": "自研光照系统 zv：directLight/indirectLight/probeSample/envBrdfApprox/octEncode/CustomToneMapping"
+    },
+    {
+      "slice": "6/34",
+      "file": "src/app/05-scene-lighting.js",
+      "start": 31492,
+      "end": 32300,
+      "role": "场景光照管理 Ly：usesCs2Map/setCs2/setClassic/createMaterial/ambientCube"
+    },
+    {
+      "slice": "7/34",
+      "file": "src/app/06-world-props.js",
+      "start": 32301,
+      "end": 32967,
+      "role": "世界道具 Eb：死亡标记（death-label/death-name）、CSS3D 图层"
+    },
+    {
+      "slice": "8/34",
+      "file": "src/app/07-physics-engine.js",
+      "start": 32968,
+      "end": 33613,
+      "role": "自研物理引擎 Ex：solveJoint/step/boneTransforms/staticFriction/solveContactVelocities"
+    },
+    {
+      "slice": "9/34",
+      "file": "src/app/08-physics-model.js",
+      "start": 33614,
+      "end": 33718,
+      "role": "物理模型/姿势 Bx：bodiesOf/poseOf/modelSpace/placeChild"
+    },
+    {
+      "slice": "10/34",
+      "file": "src/app/09-trajectory-recorder.js",
+      "start": 33719,
+      "end": 34297,
+      "role": "轨迹/碰撞记录器 Kx：advanceTo/sample/collidersOf/shaderPrototypes"
+    },
+    {
+      "slice": "11/34",
+      "file": "src/app/10-character-model.js",
+      "start": 34298,
+      "end": 35809,
+      "role": "角色模型 gS：pose/骨骼姿势/break pieces"
+    },
+    {
+      "slice": "12/34",
+      "file": "src/app/11-character-renderer.js",
+      "start": 35810,
+      "end": 37125,
+      "role": "角色渲染 zw：characters 贴图/胶囊兜底"
+    },
+    {
+      "slice": "13/34",
+      "file": "src/app/12-fire-shader.js",
+      "start": 37126,
+      "end": 37844,
+      "role": "燃烧瓶/火墙 shader uE：activeAt/footprintShape/noise/tracePatches"
+    },
+    {
+      "slice": "14/34",
+      "file": "src/app/13-fire-manager.js",
+      "start": 37845,
+      "end": 38343,
+      "role": "火焰管理 YE：updateFire/removeScorch/HazardVolumes/InfernoScorch"
+    },
+    {
+      "slice": "15/34",
+      "file": "src/app/14-blast-effects.js",
+      "start": 38344,
+      "end": 39079,
+      "role": "爆炸/闪光效果 cD：begin/show/end/blast"
+    },
+    {
+      "slice": "16/34",
+      "file": "src/app/15-depth-material.js",
+      "start": 39080,
+      "end": 39174,
+      "role": "深度材质/深度预处理 HD：render/depthMaterialFor/compileAsync"
+    },
+    {
+      "slice": "17/34",
+      "file": "src/app/16-scene-renderer.js",
+      "start": 39175,
+      "end": 39543,
+      "role": "场景渲染器 qD：setShadowQuality/render/beginRenderFrame/静态阴影/大气"
+    },
+    {
+      "slice": "18/34",
+      "file": "src/app/17-smoke-voxels.js",
+      "start": 39544,
+      "end": 39727,
+      "role": "烟雾体素解码 tO：dissipationFrame/seedPointsAtTick/occupancy"
+    },
+    {
+      "slice": "19/34",
+      "file": "src/app/18-smoke-volume.js",
+      "start": 39728,
+      "end": 40907,
+      "role": "烟雾体积渲染 lO：writeFramePair/disturbance/edgeAwareSmoke/shaderScenes"
+    },
+    {
+      "slice": "20/34",
+      "file": "src/app/19-wireframe-geometry.js",
+      "start": 40908,
+      "end": 41380,
+      "role": "线框几何 XO：fromWireframeGeometry/fromEdgesGeometry"
+    },
+    {
+      "slice": "21/34",
+      "file": "src/app/20-line-material.js",
+      "start": 41381,
+      "end": 41590,
+      "role": "线段材质 ZO：linewidth/dashed/alphaToCoverage"
+    },
+    {
+      "slice": "22/34",
+      "file": "src/app/21-tracers.js",
+      "start": 41591,
+      "end": 42174,
+      "role": "弹道曳光/轨迹线 gk：setData/impactAt/render/computeLineDistances"
+    },
+    {
+      "slice": "23/34",
+      "file": "src/app/22-transport-controls.js",
+      "start": 42175,
+      "end": 43246,
+      "role": "播放控制条 xA：controls/timeline/round-timeline/scrubber"
+    },
+    {
+      "slice": "24/34",
+      "file": "src/app/23-death-fade.js",
+      "start": 43247,
+      "end": 43602,
+      "role": "死亡淡入叠加 oj：death-fade-*"
+    },
+    {
+      "slice": "25/34",
+      "file": "src/app/24-performance-panel.js",
+      "start": 43603,
+      "end": 44733,
+      "role": "性能面板 vj：performance-*/stats-live-*/fps-chart"
+    },
+    {
+      "slice": "26/34",
+      "file": "src/app/25-team-logos.js",
+      "start": 44734,
+      "end": 45086,
+      "role": "队伍 logo oM：hosted-logo-fallback/emblem tone"
+    },
+    {
+      "slice": "27/34",
+      "file": "src/app/26-scorebar-hud.js",
+      "start": 45087,
+      "end": 45384,
+      "role": "顶部比分条 HUD jM：hud/scorebar/sb-t-score/bomb 状态"
+    },
+    {
+      "slice": "28/34",
+      "file": "src/app/27-player-panels.js",
+      "start": 45385,
+      "end": 45563,
+      "role": "玩家面板 KM：pp/pp-defuse-meter"
+    },
+    {
+      "slice": "29/34",
+      "file": "src/app/28-radar.js",
+      "start": 45564,
+      "end": 48976,
+      "role": "2D 雷达 fN：radar-canvas/radar-resize/radar-ctrls"
+    },
+    {
+      "slice": "30/34",
+      "file": "src/app/29-catalogue-client.js",
+      "start": 48977,
+      "end": 49253,
+      "role": "data.csdemo.tv 职业比赛目录客户端（v2 指针 + generation + 校验 + jP 错误）"
+    },
+    {
+      "slice": "31/34",
+      "file": "src/app/30-artifact-codec.js",
+      "start": 49254,
+      "end": 49469,
+      "role": "CSDA 容器校验/解码（CF + Z 错误）"
+    },
+    {
+      "slice": "32/34",
+      "file": "src/app/31-hosted-demo.js",
+      "start": 49470,
+      "end": 50816,
+      "role": "托管 demo 下载（sha256/gunzip）+ parser worker 桥接 + IndexedDB + 队伍识别（YI）"
+    },
+    {
+      "slice": "33/34",
+      "file": "src/app/32-app-shell.js",
+      "start": 50817,
+      "end": 52714,
+      "role": "AppShell：落地页/播放页骨架 + 最近场次 + 主题 + 设置 + 入口"
+    },
+    {
+      "slice": "34/34",
+      "file": "src/app/33-landing-backdrop.js",
+      "start": 52715,
+      "end": 53504,
+      "role": "落地页 3D 背景动画 JR：landing-backdrop-canvas/mirage A 执行"
+    }
+  ]
+}

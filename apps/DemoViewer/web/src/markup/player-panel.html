@@ -1,0 +1,23 @@
+<span class="pp-name">${ZM(t.name)}</span>
+      <span class="pp-kd" title="${t.kills} kills, ${t.deaths} deaths">
+        <span class="pp-kd-stat pp-kd-kills">${GM(`crosshair`, `pp-kd-ic`)}<span class="pp-kd-n">${t.kills}</span></span>
+        <span class="pp-kd-stat pp-kd-deaths">${GM(`skull`, `pp-kd-ic`)}<span class="pp-kd-n">${t.deaths}</span></span>
+      </span>
+    </div>
+    <div class="pp-line pp-gear">
+      ${c}
+      <span class="pp-util-list">${f}${o}</span>
+      <span class="pp-money">$${t.money.toLocaleString(`en-US`)}</span>
+    </div>
+    <div class="pp-line pp-status${m}">
+      <span class="pp-hp" title="Health ${l}">${l}</span>
+      <span class="pp-bars" aria-hidden="true">
+        <span class="pp-bar pp-hp-bar" title="Health ${l}">
+          <span class="pp-hp-trail" style="--from:${h}%;width:${l}%"></span>
+          <span class="pp-hp-fill" style="--from:${n}%;width:${l}%"></span>
+        </span>
+        <span class="pp-bar pp-armor-bar${t.helmet ? ` pp-helmet` : ``}" title="${d}">
+          <span class="pp-armor-fill" style="--from:${r}%;width:${u}%"></span>
+        </span>
+      </span>
+    </div>

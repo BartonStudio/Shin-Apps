@@ -1,0 +1,17 @@
+{
+  "name": "shingatekeeper-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ShinGatekeeper 前端：门禁远程控制界面。**无业务依赖** —— MD5 / AES-128-ECB 都是自实现（签名算法见 src/api/signer.js），运行时依赖只有 iobject-js 与平台 webui。",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "smoke": "node tools/smoke.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.11.0",
+    "vite": "^8.3.0"
+  }
+}

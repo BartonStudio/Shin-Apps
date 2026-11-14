@@ -1,0 +1,159 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：radar — 2D 雷达
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.radar {
+  z-index: 13;
+  align-items: flex-start;
+  gap: 0.55rem;
+  display: flex;
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+}
+.radar-map {
+  line-height: 0;
+  position: relative;
+}
+.radar-canvas {
+  max-width: var(--radar-limit, 480px);
+  max-height: var(--radar-limit, 480px);
+  background: var(--radar-bg);
+  box-shadow:
+    0 0 0 0.5px var(--pc-hairline),
+    0 2px 6px #0000000d,
+    0 10px 30px #00000029;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 14px;
+  display: block;
+  overflow: hidden;
+}
+.radar-resize {
+  cursor: nwse-resize;
+  pointer-events: auto;
+  touch-action: none;
+  border-radius: 0 0 14px;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.radar-resize:before {
+  content: "";
+  border-right: 2.5px solid var(--pc-tertiary);
+  border-bottom: 2.5px solid var(--pc-tertiary);
+  border-radius: 0 0 6px;
+  width: 0.7rem;
+  height: 0.7rem;
+  transition:
+    border-color 0.15s,
+    opacity 0.15s;
+  position: absolute;
+  bottom: 0.45rem;
+  right: 0.45rem;
+}
+.radar-resize:hover:before,
+.radar-resize.active:before {
+  border-color: var(--pc-secondary);
+}
+.radar-btn {
+  border: 0;
+  border-bottom: 1px solid var(--pc-separator);
+  width: 2.15rem;
+  height: 2.15rem;
+  color: var(--pc-label);
+  cursor: pointer;
+  pointer-events: auto;
+  background: 0 0;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+  display: flex;
+}
+.radar-btn:last-child {
+  border-bottom: 0;
+}
+.radar-btn:hover {
+  background: var(--pc-hover);
+}
+.radar-btn:active {
+  background: var(--pc-press);
+}
+.radar-leave svg,
+.leave-fab svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  width: 1.15rem;
+  height: 1.15rem;
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.radar {
+    top: var(--viewer-edge);
+    left: var(--viewer-edge);
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.radar {
+    top: calc(5.25rem + var(--safe-top));
+    left: calc(0.5rem + var(--safe-left));
+    gap: 0.35rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.radar-resize {
+    display: none;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.radar-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.radar,
+  .leave-fab {
+    top: calc(0.5rem + var(--safe-top));
+    left: calc(0.5rem + var(--safe-left));
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.radar,
+  .leave-fab,
+  .settings-fab,
+  .performance-fab {
+    top: calc(0.5rem + var(--safe-top));
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.radar-btn {
+    border-bottom: 0;
+    border-right: 1px solid var(--pc-separator);
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.radar-btn:last-child {
+    border-right: 0;
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.radar-map {
+    display: block;
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.radar {
+    flex-direction: column-reverse;
+  }
+}

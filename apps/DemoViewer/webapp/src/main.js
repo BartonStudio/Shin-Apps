@@ -1,0 +1,511 @@
+import './style.css';
+import { initIObjectBridge, invokeWindow, subscribeHostEvents } from './iobject.js';
+
+/**
+ * DemoViewer 前端壳：initializing → empty state。
+ *
+ * initializing 不加载任何真实资源，只是把副标题（subtitle）循环换成几行假步骤，
+ * 走完后切到 empty state（拖放 .dem 文件）。
+ *
+ * 调试：加 ?screen=empty 直接落在空状态，跳过假初始化。
+ */
+
+const STEPS = [
+  'Initializing renderer',
+  'Loading shaders',
+  'Preparing replay engine',
+  'Warming up workspace',
+];
+const STEP_MS = 900;
+
+// 加载 .dem 时的假步骤（复用 initializing 的进度点样式），固定 2 秒走完。
+const LOADING_STEPS = [
+  'Loading demo',
+  'Parsing match data',
+  'Building scoreboard',
+  'Preparing replay',
+];
+const LOADING_MS = 2000;
+
+const initializingScreen = document.querySelector('#screen-initializing');
+const emptyScreen = document.querySelector('#screen-empty');
+const loadedScreen = document.querySelector('#screen-loaded');
+const watchScreen = document.querySelector('#screen-watch');
+const blockedScreen = document.querySelector('#screen-blocked');
+const caption = document.querySelector('#caption-initializing');
+const dots = Array.from(document.querySelectorAll('#steps .dot'));
+const versionEl = document.querySelector('.version');
+
+// 空状态 / 加载中的 DOM 引用（提前声明，供 playLoading 与调试分支使用）。
+const dropzone = document.querySelector('.dropzone');
+const dropzoneError = document.querySelector('#dropzone-error');
+const loadedFileName = document.querySelector('#loaded-file-name');
+const dropzoneLoading = document.querySelector('#dropzone-loading');
+const dropzoneLoadingText = document.querySelector('#dropzone-loading-text');
+const dropzoneLoadingDots = Array.from(document.querySelectorAll('#dropzone-loading .dot'));
+
+const SCREENS = {
+  initializing: initializingScreen,
+  empty: emptyScreen,
+  loaded: loadedScreen,
+  watch: watchScreen,
+  blocked: blockedScreen,
+};
+
+// 各屏 mark 的「视觉宽度」：initializing 用大 mark（780）；empty 用小 mark 但整屏 scale(1.2)
+// 故视觉 480×1.2=576；loaded 用小 mark 1:1 视觉 480。用它算出屏间切换的 LOGO 缩放比例。
+const MARK_VISUAL_WIDTH = {
+  initializing: 780,
+  empty: 576,
+  loaded: 480,
+};
+let currentScreenName = null;
+let loadingTimer = null;
+
+function show(name) {
+  document.body.classList.toggle('is-initializing', name === 'initializing');
+  // 版本号只在非观看界面显示；进入观看界面直接隐藏（无动画，直接消失）。
+  if (versionEl) versionEl.style.display = name === 'watch' ? 'none' : '';
+
+  const target = SCREENS[name] || emptyScreen;
+  const current = document.querySelector('.screen.is-active');
+
+  // 首次（无旧状态）直接显示，无过渡。
+  if (!current) {
+    target.classList.add('is-active');
+    currentScreenName = name;
+    return;
+  }
+  if (current === target) {
+    currentScreenName = name;
+    return;
+  }
+
+  // 交叉过渡：旧屏淡出 + 旧 LOGO 缩放；新屏淡入 + 新 LOGO 从缩放态回弹到正常。
+  const oldMark = current.querySelector('.mark');
+  const newMark = target.querySelector('.mark');
+
+  // 新屏先激活，随后由 transition 把 opacity 从 0 拉到 1。
+  target.classList.add('is-active');
+
+  if (oldMark && newMark) {
+    // 缩放比例 = 两屏 mark 视觉宽度之比（如 empty 576 → loaded 480，ratio=1.2）。
+    const oldW = MARK_VISUAL_WIDTH[currentScreenName] || 1;
+    const newW = MARK_VISUAL_WIDTH[name] || 1;
+    const ratio = oldW / newW;
+
+    // 新 LOGO 起点：从旧尺寸回弹到正常。
+    newMark.style.transition = 'none';
+    newMark.style.transform = `scale(${ratio})`;
+    void newMark.offsetWidth; // 强制重排，确保起始态被渲染
+    newMark.style.transition = '';
+    newMark.style.transform = 'scale(1)';
+
+    // 旧 LOGO 终点：缩向目标尺寸（方向相反）。
+    oldMark.style.transform = `scale(${1 / ratio})`;
+  }
+
+  current.classList.remove('is-active');
+  currentScreenName = name;
+}
+
+function setStep(index) {
+  caption.classList.remove('is-changing');
+  // 强制重排，让 fade 动画每次都能重新触发
+  void caption.offsetWidth;
+  caption.textContent = STEPS[index];
+  caption.classList.add('is-changing');
+
+  dots.forEach((dot, i) => dot.classList.toggle('is-on', i === index));
+}
+
+/* ----------------------------------------------------------------------
+ * 运行环境门禁：只允许在 ShinPlayer WebView2 宿主内运行。
+ *   第一层：window.chrome.webview 是 WebView2 宿主的标志，普通浏览器/静态服务器没有。
+ *   第二层：iobject 桥握手成功（Connect + getChildItem('Webview')）才放行，
+ *           挡住「其他 WebView2 宿主」（它们没有对应 domain / 对象树）。
+ * -------------------------------------------------------------------- */
+const params = new URLSearchParams(window.location.search);
+const requestedScreen = params.get('screen');
+
+if (typeof window.chrome?.webview === 'undefined') {
+  // 非法环境：立即拦截，不跑假初始化，避免泄露 UI。
+  show('blocked');
+} else {
+  startBoot(requestedScreen);
+}
+
+async function startBoot(requestedScreen) {
+  // 订阅宿主事件（窗口关闭请求 / 文件选中 / 上传完成），替代 chrome.webview 文本监听。
+  subscribeHostEvents({
+    onWindowCloseRequested: () => setExitDialog(true),
+    onFileSelected: ({ path, canceled }) => {
+      if (path) loadDemo(path);
+      else if (canceled) clearLoadError();
+    },
+    onFileUploaded: ({ name, size }) => {
+      console.log('[DemoViewer] 上传完成:', name, size);
+    },
+  }).catch((err) => console.warn('[DemoViewer] 订阅宿主事件失败:', err));
+
+  // 后台连接 iobject 桥（幂等，失败会内部重试）。
+  const bridgeReady = initIObjectBridge();
+
+  if (requestedScreen === 'empty' || requestedScreen === 'loaded' || requestedScreen === 'watch') {
+    // 调试：?screen=empty / ?screen=loaded / ?screen=watch 直落对应状态，跳过假初始化。
+    show(await isAuthorized(bridgeReady) ? requestedScreen : 'blocked');
+    return;
+  }
+  if (requestedScreen === 'loading') {
+    // 调试：?screen=loading 显示空状态，并在 dropzone 内播放加载中动画（2 秒后进 File Loaded）。
+    if (!(await isAuthorized(bridgeReady))) { show('blocked'); return; }
+    show('empty');
+    playLoading(() => show('loaded'));
+    return;
+  }
+
+  // 正常：假初始化 → 结束前确认 iobject 桥 → empty 或 blocked。
+  show('initializing');
+  let index = 0;
+  setStep(index);
+  const timer = setInterval(() => {
+    index += 1;
+    if (index >= STEPS.length) {
+      clearInterval(timer);
+      isAuthorized(bridgeReady).then((ok) => show(ok ? 'empty' : 'blocked'));
+      return;
+    }
+    setStep(index);
+  }, STEP_MS);
+}
+
+// 在超时内等 iobject 桥握手成功；成功 true，失败/超时 false。
+async function isAuthorized(bridgePromise, timeoutMs = 6000) {
+  try {
+    await Promise.race([
+      bridgePromise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('host verify timeout')), timeoutMs)),
+    ]);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/* ----------------------------------------------------------------------
+ * 自定义标题栏：最小化 / 最大化 / 关闭 / 拖拽移动
+ * 通过 iobject 桥（WebviewHost::Invoke）驱动 native 侧窗口操作。
+ * 窗口命令 fire-and-forget；begin-drag 的 native 侧是同步模态循环，必须不等待响应。
+ * -------------------------------------------------------------------- */
+
+// 窗口命令 → WebviewHost::Invoke 方法名映射。
+const WINDOW_METHOD = {
+  minimize: 'Minimize',
+  'toggle-maximize': 'ToggleMaximize',
+  close: 'Close',
+  'begin-drag': 'BeginDrag',
+  'confirm-exit': 'ConfirmExit',
+};
+
+async function postWindow(action) {
+  try {
+    // 取消退出 = 撤销最小化唤出时的置顶（对应 SetAlwaysOnTop(false)）。
+    if (action === 'cancel-exit') {
+      await invokeWindow('SetAlwaysOnTop', { topmost: false });
+      return;
+    }
+    const method = WINDOW_METHOD[action];
+    if (!method) {
+      console.warn('[DemoViewer] 未知窗口命令:', action);
+      return;
+    }
+    await invokeWindow(method, {});
+  } catch (err) {
+    console.warn('[DemoViewer] 窗口命令走 iobject 失败:', action, err);
+  }
+}
+
+const btnMinimize = document.querySelector('#btn-minimize');
+const btnMaximize = document.querySelector('#btn-maximize');
+const btnClose = document.querySelector('#btn-close');
+const titlebar = document.querySelector('#titlebar');
+
+let maximized = false;
+const ICON_MAX = '\u25a1';  // □
+const ICON_RESTORE = '\u2750';  // ❐
+
+btnMinimize?.addEventListener('click', () => postWindow('minimize'));
+
+btnClose?.addEventListener('click', () => postWindow('close'));
+
+function toggleMaximize() {
+  postWindow('toggle-maximize');
+  // 本地镜像最大化状态，切换图标（□ / ❐）。
+  maximized = !maximized;
+  btnMaximize.textContent = maximized ? ICON_RESTORE : ICON_MAX;
+}
+
+btnMaximize?.addEventListener('click', toggleMaximize);
+
+// 标题栏空白区域按下 → 等鼠标真正移动后再触发 native 的系统级拖拽。
+// 不能在 mousedown 立即 begin-drag：native 的拖拽是同步模态循环（SendMessage
+// WM_NCLBUTTONDOWN），会吞掉第二次点击，页面 dblclick 永远收不到 → 双击最大化失效。
+const DRAG_THRESHOLD = 4;  // px 死区
+let dragPending = false;
+let dragStartX = 0;
+let dragStartY = 0;
+
+titlebar?.addEventListener('mousedown', (event) => {
+  if (event.button !== 0) return;                 // 仅响应左键
+  if (event.target.closest('.win-btn')) return;   // 按钮不触发拖拽
+  dragPending = true;
+  dragStartX = event.clientX;
+  dragStartY = event.clientY;
+});
+
+window.addEventListener('mousemove', (event) => {
+  if (!dragPending) return;
+  const dx = event.clientX - dragStartX;
+  const dy = event.clientY - dragStartY;
+  if (dx * dx + dy * dy < DRAG_THRESHOLD * DRAG_THRESHOLD) return;
+  dragPending = false;
+  postWindow('begin-drag');
+});
+
+window.addEventListener('mouseup', () => {
+  dragPending = false;
+});
+
+// 标题栏空白区域双击 → 最大化 / 还原（与原生标题栏行为一致）。
+titlebar?.addEventListener('dblclick', (event) => {
+  if (event.target.closest('.win-btn')) return;   // 按钮上双击不触发
+  if (watchScreen?.classList.contains('is-cinema')) return;  // 电影模式下禁止双击最大化/还原
+  toggleMaximize();
+});
+
+/* ----------------------------------------------------------------------
+ * 空状态：
+ *   · 点击 dropzone → 弹原生「打开 .dem」对话框（native IFileOpenDialog）。
+ *   · 拖放 .dem 到 dropzone → 用 postMessageWithAdditionalObjects 把 File 对象
+ *     原样传给 native（不读内容），native 经 ICoreWebView2File.Path 拿绝对路径自己读文件。
+ * -------------------------------------------------------------------- */
+dropzone?.addEventListener('click', async () => {
+  try {
+    // 走 iobject 的 OpenFileDialog：native 弹框后把 path/canceled 直接回填，无需再等 fileSelected 事件。
+    const res = await invokeWindow('OpenFileDialog', {});
+    if (res?.path) {
+      loadDemo(res.path);
+    } else {
+      clearLoadError();  // 用户取消对话框：清掉错误红字，恢复默认状态
+    }
+  } catch (err) {
+    console.warn('[DemoViewer] 打开文件对话框失败:', err);
+  }
+});
+
+// 拖放：前端只做视觉反馈 + 把 File 对象交给 native，绝不读文件内容。
+
+// 全局兜底：文件拖到非 dropzone 区域时，阻止 WebView2 的默认行为
+// （默认会导航/用系统程序打开该文件，弹出文件窗口）。只拦截，不做任何处理。
+window.addEventListener('dragover', (event) => event.preventDefault());
+window.addEventListener('drop', (event) => event.preventDefault());
+
+let dragDepth = 0;
+dropzone?.addEventListener('dragenter', (event) => {
+  event.preventDefault();
+  dragDepth += 1;
+  dropzone.classList.add('dragover');
+});
+dropzone?.addEventListener('dragover', (event) => {
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'copy';   // 光标变「可复制」，提示可松手
+});
+dropzone?.addEventListener('dragleave', () => {
+  dragDepth -= 1;
+  if (dragDepth <= 0) {
+    dragDepth = 0;
+    dropzone.classList.remove('dragover');
+  }
+});
+dropzone?.addEventListener('drop', (event) => {
+  event.preventDefault();
+  dragDepth = 0;
+  dropzone.classList.remove('dragover');
+
+  const file = event.dataTransfer?.files?.[0];
+  if (!file) return;
+  if (!/\.dem$/i.test(file.name)) return;   // 只认 .dem
+
+  const wv = window.chrome?.webview;
+  if (typeof wv?.postMessageWithAdditionalObjects === 'function') {
+    wv.postMessageWithAdditionalObjects({ type: 'window', action: 'drop-file' }, [file]);
+  } else {
+    console.warn('[DemoViewer] 当前 WebView2 Runtime 不支持 postMessageWithAdditionalObjects');
+  }
+});
+
+/* ----------------------------------------------------------------------
+ * 拖放 .dem 加载入口：native 回推 fileSelected，汇聚到这里。
+ * （文件对话框已改走 iobject OpenFileDialog 直接拿返回值，不再走此事件。）
+ * -------------------------------------------------------------------- */
+function showLoadError(reason) {
+  if (!dropzoneError) return;
+  dropzoneError.textContent = reason;
+  dropzoneError.classList.remove('is-visible');
+  void dropzoneError.offsetWidth;   // 强制重排，确保动画每次都能重新触发
+  dropzoneError.classList.add('is-visible');
+}
+
+function clearLoadError() {
+  if (!dropzoneError) return;
+  dropzoneError.classList.remove('is-visible');
+  dropzoneError.textContent = '';
+}
+
+// 加载中动画：在 dropzone 内播放 subtitle + 进度点（样式搬自 initializing 的 caption/steps），
+// 固定 LOADING_MS 走完，全程停留在空状态屏。
+function setLoadingText(text, index) {
+  if (!dropzoneLoadingText) return;
+  dropzoneLoadingText.classList.remove('is-changing');
+  void dropzoneLoadingText.offsetWidth;  // 强制重排，让 fade 动画每次都能重新触发
+  dropzoneLoadingText.textContent = text;
+  dropzoneLoadingText.classList.add('is-changing');
+  dropzoneLoadingDots.forEach((dot, i) => dot.classList.toggle('is-on', i === index));
+}
+
+function playLoading(onDone) {
+  if (loadingTimer) {
+    clearInterval(loadingTimer);
+    loadingTimer = null;
+  }
+  dropzone?.classList.add('is-loading');
+  let index = 0;
+  setLoadingText(LOADING_STEPS[index], index);
+  loadingTimer = setInterval(() => {
+    index += 1;
+    if (index >= LOADING_STEPS.length) {
+      clearInterval(loadingTimer);
+      loadingTimer = null;
+      dropzone?.classList.remove('is-loading');
+      if (onDone) onDone();
+      return;
+    }
+    setLoadingText(LOADING_STEPS[index], index);
+  }, LOADING_MS / LOADING_STEPS.length);
+}
+
+function loadDemo(path) {
+  console.log('[DemoViewer] 开始加载：', path);
+  // 先清掉上一次的错误（若有）。
+  clearLoadError();
+  // TODO: 后续在这里接入 cpp 解析器。目前默认一律视为加载成功
+  //（占位数据，接上解析器后换成真实的文件信息 / 比分 / 名单）。
+  if (loadedFileName) {
+    const sep = Math.max(path.lastIndexOf('\\'), path.lastIndexOf('/'));
+    loadedFileName.textContent = sep >= 0 ? path.slice(sep + 1) : path;
+  }
+  // 先在 dropzone 内播放加载中动画，固定 2 秒后进入加载成功。
+  playLoading(() => show('loaded'));
+}
+
+// File Loaded 屏：CANCEL 回到空状态重新拖放；OPEN DEMO 暂为占位。
+document.querySelector('#btn-cancel-loaded')?.addEventListener('click', () => show('empty'));
+document.querySelector('#btn-open-demo')?.addEventListener('click', () => {
+  console.log('[DemoViewer] OPEN DEMO → 进入观看界面（骨架）');
+  show('watch');
+});
+
+/* ----------------------------------------------------------------------
+ * 退出二次确认 dialog：
+ *   标题栏 X / 任务栏「关闭窗口」→ native WM_CLOSE 被拦截，回推
+ *   WindowCloseRequested → 这里弹确认框；确认后 postWindow('confirm-exit')
+ *   让 native 放行并真正关闭。ESC 菜单的 EXIT（退出观看）不经过此确认。
+ * -------------------------------------------------------------------- */
+const exitDialog = document.querySelector('#exit-dialog');
+const btnExitConfirm = document.querySelector('#btn-exit-confirm');
+const btnExitCancel = document.querySelector('#btn-exit-cancel');
+
+function setExitDialog(open) {
+  exitDialog?.classList.toggle('is-open', open);
+  exitDialog?.setAttribute('aria-hidden', String(!open));
+}
+
+btnExitConfirm?.addEventListener('click', () => {
+  setExitDialog(false);
+  postWindow('confirm-exit');
+});
+btnExitCancel?.addEventListener('click', () => {
+  setExitDialog(false);
+  // 撤销最小化唤出时的置顶（postWindow 里 cancel-exit → invokeWindow SetAlwaysOnTop(false)）。
+  postWindow('cancel-exit');
+});
+
+// 接收 native 回推的一次性业务事件（WindowCloseRequested / fileSelected / fileUploaded）
+// 已改为 IObject 事件订阅（subscribeHostEvents，见 startBoot），不再走 chrome.webview 文本通道。
+
+/* ----------------------------------------------------------------------
+ * 观看界面 · ESC 调试菜单 + 电影裁剪模式
+ *   · ESC：开关调试菜单（仅 Watch View 下）。
+ *   · CROP：切换电影裁剪模式（上下黑边 → 2.35:1 宽银幕）。
+ *   · EXIT：退出观看，回到 File Loaded。
+ * 菜单按钮横向排布，EXIT 位于 CROP 右侧（与 Figma 骨架约定一致）。
+ * -------------------------------------------------------------------- */
+const escMenu = document.querySelector('#esc-menu');
+const btnCrop = document.querySelector('#btn-crop');
+const btnExit = document.querySelector('#btn-exit');
+
+function setEscMenu(open) {
+  escMenu?.classList.toggle('is-open', open);
+}
+
+// 幕布收起/展开时长，需与 style.css 里 .cinema-bar 的 transition 保持一致。
+const CINEMA_BAR_MS = 1200;
+// 退出电影模式时 HUD 恢复的延迟：不必等幕布完全消失（1200ms），
+// 幕布收到约一半就提前开始刷 UI，提升切换效率。
+const HUD_RESTORE_DELAY_MS = 600;
+let hudRestoreTimer = null;
+
+function setCinema(on) {
+  if (on) {
+    // 进入电影模式：HUD 淡出（0.35s，快）+ 幕布展开（1.2s，慢）。
+    watchScreen?.classList.add('is-hud-hidden');
+    watchScreen?.classList.add('is-cinema');
+  } else {
+    // 退出电影模式：先收幕布，幕布收到约一半就提前恢复 HUD（提升效率）。
+    watchScreen?.classList.remove('is-cinema');
+    clearTimeout(hudRestoreTimer);
+    hudRestoreTimer = setTimeout(() => {
+      watchScreen?.classList.remove('is-hud-hidden');
+    }, HUD_RESTORE_DELAY_MS);
+  }
+  btnCrop?.classList.toggle('is-on', on);
+  btnCrop?.setAttribute('aria-pressed', String(on));
+  // 电影模式下禁用标题栏按钮（幕布遮蔽时避免误点/误触），退出时恢复；
+  // 只禁用按钮本身，titlebar 空白区域的拖拽不受影响。
+  if (btnMinimize) btnMinimize.disabled = on;
+  if (btnMaximize) btnMaximize.disabled = on;
+  if (btnClose) btnClose.disabled = on;
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  if (currentScreenName !== 'watch') return;
+  setEscMenu(!escMenu?.classList.contains('is-open'));
+});
+
+btnCrop?.addEventListener('click', () => {
+  setCinema(!watchScreen?.classList.contains('is-cinema'));
+  setEscMenu(false); // 点击后关闭菜单，便于观察裁剪效果
+});
+
+btnExit?.addEventListener('click', () => {
+  setEscMenu(false);
+  setCinema(false);
+  show('loaded');
+});
+
+/* ----------------------------------------------------------------------
+ * IObject 桥接：连接 native WebviewBridge，拿到 Webview 节点并绑定默认全局热键。
+ * （Ctrl+Shift+I → DevTools；后续 title/size/zoom 通道、上传下载、业务对象树都走这里。）
+ * 连接由上方 startBoot 的环境门禁负责发起；窗口命令（invokeWindow）按需等待桥就绪。
+ * -------------------------------------------------------------------- */

@@ -1,0 +1,1540 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：hosted — 职业比赛三段式选择器
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.hosted-panel {
+  background: var(--landing-surface);
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  box-shadow: var(--landing-panel-shadow);
+  border-radius: 20px;
+  flex-direction: column;
+  padding: 1.75rem 2rem;
+  display: flex;
+}
+.hosted-heading {
+  margin-bottom: 1rem;
+}
+.hosted-demos {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.hosted-menu {
+  grid-template-columns: minmax(11rem, 0.75fr) minmax(19rem, 1.1fr) minmax(22rem, 1.4fr);
+  gap: 0.75rem;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+}
+.hosted-picker {
+  background: var(--landing-group);
+  border-radius: 16px;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 0.65rem;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.9rem;
+  display: grid;
+  overflow: hidden;
+}
+.hosted-picker-label {
+  color: var(--muted);
+  letter-spacing: -0.005em;
+  margin: 0;
+  padding-inline: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.hosted-event-grid {
+  overscroll-behavior: contain;
+  grid-template-columns: 1fr;
+  align-content: start;
+  gap: 0.65rem;
+  min-height: 0;
+  padding-right: 0.65rem;
+  display: grid;
+  overflow-y: auto;
+}
+.hosted-event-card {
+  min-width: 0;
+  min-height: 4.6rem;
+  color: var(--text);
+  background: var(--panel-raised);
+  box-shadow: var(--landing-card-shadow);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.25s var(--landing-ease),
+    transform 0.25s var(--landing-ease);
+  border: 0;
+  border-radius: 12px;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0.8rem;
+  display: flex;
+}
+.hosted-event-card:hover:not(:disabled):not(.active),
+.hosted-match-card:hover:not(:disabled):not(.active),
+.hosted-segment:hover:not(:disabled):not(.active) {
+  box-shadow: var(--landing-card-shadow-hover);
+}
+.hosted-event-card.active,
+.hosted-match-card.active,
+.hosted-segment.active {
+  background: var(--landing-tint);
+  box-shadow: var(--landing-selected);
+}
+.hosted-event-card:focus-visible,
+.hosted-match-card:focus-visible,
+.hosted-segment:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.hosted-event-card:active:not(:disabled),
+.hosted-match-card:active:not(:disabled),
+.hosted-segment:active:not(:disabled) {
+  transition-duration: 0.1s;
+  transform: scale(0.985);
+}
+.hosted-event-card:disabled:not(.active),
+.hosted-match-card:disabled:not(.active) {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: 0 0 0 0.5px #0000000d;
+}
+.hosted-event-card:disabled:not(.active) .hosted-logo img {
+  filter: grayscale();
+}
+.hosted-logo {
+  color: var(--muted);
+  flex: none;
+  place-items: center;
+  display: grid;
+  position: relative;
+  overflow: hidden;
+}
+.hosted-logo img {
+  object-fit: contain;
+  width: 76%;
+  height: 76%;
+  position: absolute;
+  inset: 12%;
+}
+.hosted-logo.loaded .hosted-logo-fallback,
+.hosted-logo.pending .hosted-logo-fallback {
+  visibility: hidden;
+}
+.hosted-logo.fade-in img {
+  animation: logo-fade-in 0.22s var(--landing-ease, ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+.hosted-logo.fade-in img {
+    animation: none;
+  }
+}
+.hosted-logo-fallback {
+  letter-spacing: 0.04em;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.hosted-event-logo {
+  border-radius: 10px;
+  width: 3rem;
+  height: 3rem;
+}
+.hosted-event-copy {
+  gap: 0.12rem;
+  min-width: 0;
+  display: grid;
+}
+.hosted-event-copy strong {
+  letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.92rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+.hosted-event-copy span {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+.hosted-match-grid {
+  overscroll-behavior: contain;
+  grid-template-columns: 1fr;
+  align-content: start;
+  gap: 0.65rem;
+  min-height: 0;
+  padding-right: 0.65rem;
+  display: grid;
+  overflow-y: auto;
+}
+.hosted-match-picker {
+  container: hosted-match-picker/inline-size;
+}
+.hosted-match-card {
+  min-width: 0;
+  color: var(--text);
+  background: var(--panel-raised);
+  box-shadow: var(--landing-card-shadow);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.25s var(--landing-ease),
+    transform 0.25s var(--landing-ease);
+  border: 0;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  display: grid;
+}
+.hosted-match-teams {
+  grid-template-columns: minmax(0, 1fr) 6rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  display: grid;
+}
+.hosted-match-team {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  display: grid;
+}
+.hosted-match-team:last-child {
+  text-align: right;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.hosted-match-team:last-child .hosted-team-logo {
+  order: 2;
+}
+.hosted-match-team:last-child .hosted-match-team-name {
+  order: 1;
+}
+.hosted-match-team-name {
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.hosted-match-score strong {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1;
+}
+.hosted-team-logo {
+  border: 0;
+  width: 2.8rem;
+  height: 2.8rem;
+}
+:is(.hosted-team-logo, .hosted-event-logo) .logo-white {
+  filter: brightness(0.16);
+}
+:root[data-theme="dark"] :is(.hosted-team-logo, .hosted-event-logo) .logo-white {
+  filter: none;
+}
+.hosted-versus {
+  color: var(--tertiary);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.hosted-match-center {
+  justify-items: center;
+  gap: 0.18rem;
+  min-width: 0;
+  display: grid;
+}
+.hosted-match-date {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-size: 0.7rem;
+}
+.hosted-match-score {
+  align-items: center;
+  gap: 0.45rem;
+  display: flex;
+}
+.hosted-match-card-meta {
+  max-width: 100%;
+  color: var(--muted);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  overflow: hidden;
+}
+@container hosted-match-picker (width<=26rem) {
+.hosted-match-card {
+    height: max-content;
+  }
+}
+@container hosted-match-picker (width<=26rem) {
+.hosted-match-team,
+  .hosted-match-team:last-child {
+    text-align: center;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 0.25rem;
+  }
+}
+@container hosted-match-picker (width<=26rem) {
+.hosted-match-team:last-child .hosted-team-logo,
+  .hosted-match-team:last-child .hosted-match-team-name {
+    order: 0;
+  }
+}
+@container hosted-match-picker (width<=18rem) {
+.hosted-match-card {
+    padding-inline: 0.6rem;
+  }
+}
+@container hosted-match-picker (width<=18rem) {
+.hosted-match-teams {
+    grid-template-columns: minmax(0, 1fr) 4.5rem minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+}
+.hosted-map-column {
+  --map-slots: min(var(--map-count, 3), 2.5);
+  --map-gaps: max(0, min(var(--map-count, 3), 3) - 1);
+  --map-card-height: 4.7rem;
+  grid-template-rows: minmax(min-content, 1fr) auto;
+  gap: 0.75rem;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+}
+.hosted-segment-list {
+  min-width: 0;
+  min-height: calc(var(--map-slots) * var(--map-card-height) + var(--map-gaps) * 0.5rem);
+  contain: size;
+  overscroll-behavior: contain;
+  align-content: start;
+  gap: 0.5rem;
+  padding-right: 0.65rem;
+  display: grid;
+  overflow-y: auto;
+}
+.hosted-event-grid::-webkit-scrollbar {
+  width: 5px;
+}
+.hosted-match-grid::-webkit-scrollbar {
+  width: 5px;
+}
+.hosted-segment-list::-webkit-scrollbar {
+  width: 5px;
+}
+.hosted-map-details-body::-webkit-scrollbar {
+  width: 5px;
+}
+.hosted-event-grid::-webkit-scrollbar-track {
+  background: 0 0;
+}
+.hosted-match-grid::-webkit-scrollbar-track {
+  background: 0 0;
+}
+.hosted-segment-list::-webkit-scrollbar-track {
+  background: 0 0;
+}
+.hosted-map-details-body::-webkit-scrollbar-track {
+  background: 0 0;
+}
+.hosted-event-grid::-webkit-scrollbar-thumb {
+  background: var(--landing-scrollbar);
+  border-radius: 999px;
+}
+.hosted-match-grid::-webkit-scrollbar-thumb {
+  background: var(--landing-scrollbar);
+  border-radius: 999px;
+}
+.hosted-segment-list::-webkit-scrollbar-thumb {
+  background: var(--landing-scrollbar);
+  border-radius: 999px;
+}
+.hosted-map-details-body::-webkit-scrollbar-thumb {
+  background: var(--landing-scrollbar);
+  border-radius: 999px;
+}
+.hosted-event-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--landing-scrollbar-hover);
+}
+.hosted-match-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--landing-scrollbar-hover);
+}
+.hosted-segment-list::-webkit-scrollbar-thumb:hover {
+  background: var(--landing-scrollbar-hover);
+}
+.hosted-map-details-body::-webkit-scrollbar-thumb:hover {
+  background: var(--landing-scrollbar-hover);
+}
+.hosted-segment {
+  background: var(--panel-raised);
+  min-height: 4.7rem;
+  box-shadow: var(--landing-card-shadow);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.25s var(--landing-ease),
+    transform 0.25s var(--landing-ease);
+  border: 0;
+  border-radius: 12px;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+  align-items: center;
+  padding: 0.55rem 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: grid;
+}
+.hosted-map-picker {
+  container: hosted-map-picker/inline-size;
+}
+.hosted-map-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  place-items: center;
+  font-size: 0.68rem;
+  display: grid;
+  position: relative;
+  overflow: hidden;
+}
+.hosted-map-icon img {
+  object-fit: contain;
+  width: calc(100% - 0.5rem);
+  height: calc(100% - 0.5rem);
+  position: absolute;
+  inset: 0.25rem;
+}
+.hosted-map-icon.loaded > span {
+  visibility: hidden;
+}
+.hosted-segment-map-info {
+  grid-template-columns: 3rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  padding-right: 0.75rem;
+  display: grid;
+}
+.hosted-segment-map-info .hosted-map-icon {
+  width: 3rem;
+  height: 3rem;
+}
+.hosted-segment-label {
+  justify-items: start;
+  gap: 0.1rem;
+  min-width: 0;
+  display: grid;
+}
+.hosted-segment-label strong {
+  letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  font-size: 0.98rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+.hosted-map-decider {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+.hosted-segment-teams {
+  --hosted-pick-slot: 2.6rem;
+  --hosted-team-logo-size: 2.5rem;
+  --hosted-score-slot: 1.5rem;
+  border-left: 1px solid var(--border);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-self: stretch;
+  place-items: center;
+  min-width: 0;
+  display: grid;
+  position: relative;
+}
+.hosted-segment-teams:after {
+  content: "-";
+  color: var(--tertiary);
+  pointer-events: none;
+  font-size: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hosted-segment-team {
+  grid-template-columns: var(--hosted-pick-slot) var(--hosted-team-logo-size) var(--hosted-score-slot);
+  place-items: center;
+  gap: 0.3rem;
+  display: grid;
+}
+.hosted-segment-team:last-child {
+  grid-template-columns: var(--hosted-score-slot) var(--hosted-team-logo-size) var(--hosted-pick-slot);
+}
+.hosted-segment-team .hosted-team-logo {
+  width: var(--hosted-team-logo-size);
+  height: var(--hosted-team-logo-size);
+  grid-area: 1/2;
+}
+.hosted-map-pick-marker {
+  background: color-mix(in srgb, var(--accent) 11%, var(--panel-raised));
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  grid-area: 1/1;
+  padding: 0.2rem calc(0.5rem + 0.027em) 0.2rem calc(0.5rem - 0.027em);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+@supports (text-box: trim-both cap alphabetic) {
+.hosted-map-pick-marker {
+    text-box: trim-both cap alphabetic;
+    padding-block: 0.37rem;
+  }
+}
+.hosted-segment-team:last-child .hosted-map-pick-marker {
+  grid-column: 3;
+}
+.hosted-segment-score {
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  white-space: nowrap;
+  grid-area: 1/3;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.hosted-segment-team:last-child .hosted-segment-score {
+  grid-column: 1;
+}
+.hosted-segment-score.hosted-segment-positive {
+  color: var(--landing-good);
+}
+.hosted-segment-score.hosted-segment-negative {
+  color: var(--landing-bad);
+}
+.hosted-segment-score.hosted-segment-neutral {
+  color: inherit;
+}
+@container hosted-map-picker (width<=22rem) {
+.hosted-segment-list {
+    --map-card-height: 7.45rem;
+  }
+}
+@container hosted-map-picker (width<=22rem) {
+.hosted-segment {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+    height: max-content;
+  }
+}
+@container hosted-map-picker (width<=22rem) {
+.hosted-segment-map-info {
+    padding-right: 0;
+  }
+}
+@container hosted-map-picker (width<=22rem) {
+.hosted-segment-teams {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding: 0.4rem 0 0;
+  }
+}
+@container hosted-map-picker (width<=16rem) {
+.hosted-segment-teams {
+    --hosted-pick-slot: 2.2rem;
+    --hosted-team-logo-size: 2rem;
+    --hosted-score-slot: 1.25rem;
+  }
+}
+@container hosted-map-picker (width<=16rem) {
+.hosted-segment-team {
+    gap: 0.2rem;
+  }
+}
+@container hosted-map-picker (width<=14rem) {
+.hosted-segment-teams {
+    --hosted-pick-slot: 1.5rem;
+    --hosted-team-logo-size: 1.5rem;
+  }
+}
+@container hosted-map-picker (width<=14rem) {
+.hosted-segment-team {
+    gap: 0.1rem;
+  }
+}
+@container hosted-map-picker (width<=14rem) {
+.hosted-map-pick-marker {
+    padding-inline: 0.15rem;
+    font-size: 0.55rem;
+  }
+}
+.hosted-map-details {
+  background: var(--landing-group);
+  border-radius: 16px;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  overflow: hidden;
+  container-type: inline-size;
+}
+.hosted-map-details-body {
+  overscroll-behavior: contain;
+  min-width: 0;
+  height: 35rem;
+  min-height: 0;
+  max-height: 100%;
+  padding: 0 0.8rem 0.8rem;
+  overflow: auto;
+}
+.hosted-map-details-body .hosted-status {
+  overflow-wrap: anywhere;
+  flex-wrap: wrap;
+}
+.hosted-map-details-header {
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(0.5rem, 2cqi, 1rem);
+  min-width: 0;
+  padding: clamp(0.8rem, 3cqi, 1.4rem) 0.8rem;
+  display: flex;
+}
+.hosted-map-heading {
+  align-items: center;
+  gap: clamp(0.5rem, 2cqi, 1rem);
+  min-width: 0;
+  display: flex;
+}
+.hosted-map-heading .hosted-map-icon {
+  flex: none;
+  width: clamp(3rem, 15cqi, 5.5rem);
+  height: clamp(3rem, 15cqi, 5.5rem);
+}
+.hosted-map-heading-copy {
+  justify-items: start;
+  gap: 0.5rem;
+  min-width: 0;
+  display: grid;
+}
+.hosted-map-details-title {
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  margin: 0;
+  font-size: clamp(1.1rem, 4cqi, 1.4rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.hosted-map-mock-badge {
+  background: var(--landing-fill);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 0.12rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+.hosted-round-history {
+  min-width: 0;
+  margin-top: 1.1rem;
+}
+.hosted-round-history-heading {
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+}
+.hosted-round-history-heading h5 {
+  letter-spacing: -0.01em;
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.hosted-round-history-legend {
+  gap: 0.5rem;
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+}
+.hosted-round-history-scroll {
+  overscroll-behavior-x: contain;
+  background: var(--panel-raised);
+  box-shadow: var(--landing-card-shadow);
+  scrollbar-width: thin;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+.hosted-round-history-table {
+  width: 100%;
+  min-width: var(--round-history-width);
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--panel-raised);
+  text-align: center;
+}
+.hosted-round-history-table th,
+.hosted-round-history-table td {
+  padding: 0.15rem 0;
+}
+.hosted-round-history-table thead {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+.hosted-round-history-table th:first-child {
+  z-index: 1;
+  background: var(--panel-raised);
+  width: 2.5rem;
+  position: sticky;
+  left: 0;
+}
+.hosted-round-history-table .hosted-team-logo {
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: auto;
+}
+.hosted-round-history-table tbody tr + tr > * {
+  border-top: 1px solid var(--border);
+}
+.hosted-round-history-table .hosted-round-phase-start {
+  border-left: 1px solid var(--border-strong);
+}
+.hosted-round-history-table th,
+.hosted-round-history-table td {
+  border-color: var(--border);
+}
+.hosted-round-win {
+  vertical-align: middle;
+  border-radius: 6px;
+  place-items: center;
+  width: 1.3rem;
+  height: 1.5rem;
+  display: inline-grid;
+}
+.hosted-round-ct {
+  color: var(--ct);
+}
+.hosted-round-t {
+  color: var(--t);
+}
+.hosted-round-icon {
+  width: 1rem;
+  height: 1rem;
+  -webkit-mask: var(--round-icon) center / contain no-repeat;
+  mask: var(--round-icon) center / contain no-repeat;
+  background: currentColor;
+  display: block;
+}
+.hosted-round-clock {
+  box-sizing: border-box;
+  background: 0 0;
+  border: 1.5px solid;
+  border-radius: 50%;
+  position: relative;
+  mask: none;
+}
+.hosted-round-unknown {
+  background: 0 0;
+  font-weight: 700;
+  line-height: 1;
+  mask: none;
+}
+.hosted-round-clock:after {
+  content: "";
+  border-bottom: 1.5px solid;
+  border-left: 1.5px solid;
+  width: 4px;
+  height: 5px;
+  position: absolute;
+  top: 2px;
+  left: 5px;
+}
+.hosted-round-history-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.hosted-round-history-empty {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.8rem;
+}
+.hosted-scoreboard-score {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.hosted-map-scoreboard {
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  width: 100%;
+  min-width: 22rem;
+  font-size: 1rem;
+}
+.hosted-scoreboard-player-column {
+  width: 100%;
+}
+.hosted-scoreboard-stat-column {
+  width: 1%;
+}
+.hosted-scoreboard-team-column {
+  width: 3.5rem;
+}
+.hosted-scoreboard-player-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 6rem;
+  max-width: 8rem;
+  display: block;
+  overflow: hidden;
+}
+.hosted-map-scoreboard th,
+.hosted-map-scoreboard td {
+  border-bottom: 1px solid var(--landing-hairline);
+  text-align: right;
+  padding: 0.45rem 0.5rem;
+}
+.hosted-map-scoreboard th:first-child {
+  text-align: left;
+  padding-left: 1rem;
+}
+.hosted-map-scoreboard thead {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.hosted-map-scoreboard thead th {
+  border-bottom: 0;
+  font-weight: 600;
+}
+.hosted-scoreboard-sort {
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  border-radius: 4px;
+  padding: 0;
+  position: relative;
+}
+.hosted-scoreboard-sort:hover,
+.hosted-map-scoreboard th[aria-sort] .hosted-scoreboard-sort {
+  color: var(--accent);
+}
+.hosted-scoreboard-sort:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.hosted-map-scoreboard th[aria-sort] .hosted-scoreboard-sort:after {
+  content: "";
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  width: 0.2rem;
+  height: 0.2rem;
+  position: absolute;
+  top: 45%;
+  right: -0.4rem;
+  transform: rotate(45deg);
+}
+.hosted-map-scoreboard th[aria-sort="ascending"] .hosted-scoreboard-sort:after {
+  transform: rotate(225deg);
+}
+.hosted-map-scoreboard tbody tr > * {
+  background: var(--panel-raised);
+  transition: background-color 0.15s;
+}
+.hosted-map-scoreboard tbody tr:hover > :not(.hosted-scoreboard-identity) {
+  background: color-mix(in srgb, var(--accent) 5%, var(--panel-raised));
+}
+.hosted-map-scoreboard tbody th[scope="row"] {
+  font-weight: 500;
+}
+.hosted-map-scoreboard tbody td {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.hosted-map-scoreboard .hosted-scoreboard-identity {
+  border-bottom: 0;
+  border-left: 1px solid var(--landing-hairline);
+  background: var(--panel-raised);
+  vertical-align: middle;
+  padding-inline: 0.4rem;
+}
+.hosted-map-scoreboard .hosted-scoreboard-score {
+  letter-spacing: -0.02em;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1;
+}
+.hosted-map-scoreboard .hosted-scoreboard-positive {
+  color: var(--landing-good);
+}
+.hosted-map-scoreboard .hosted-scoreboard-negative {
+  color: var(--landing-bad);
+}
+.hosted-map-scoreboard .hosted-scoreboard-neutral {
+  color: inherit;
+}
+.hosted-scoreboard-team-stack {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  display: flex;
+}
+.hosted-scoreboard-team-stack .hosted-team-logo {
+  width: 2.3rem;
+  height: 2.3rem;
+}
+.hosted-map-scoreboard tbody + tbody tr:first-child > * {
+  background-clip: padding-box;
+  border-top: 0.8rem solid #0000;
+}
+.hosted-map-scoreboard tbody tr:first-child > th:first-child {
+  border-top-left-radius: 12px;
+}
+.hosted-map-scoreboard tbody tr:last-child > th:first-child {
+  border-bottom-left-radius: 12px;
+}
+.hosted-map-scoreboard .hosted-scoreboard-identity {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.hosted-map-scoreboard tbody + tbody tr:first-child > th:first-child {
+  border-top-left-radius: 12px calc(12px + 0.8rem);
+}
+.hosted-map-scoreboard tbody + tbody .hosted-scoreboard-identity {
+  border-top-right-radius: 12px calc(12px + 0.8rem);
+}
+.hosted-map-scoreboard tbody tr:last-child th,
+.hosted-map-scoreboard tbody tr:last-child td {
+  border-bottom: 0;
+}
+.hosted-watch,
+.hosted-retry {
+  background: var(--accent);
+  min-height: 2.6rem;
+  color: var(--on-accent);
+  font: inherit;
+  letter-spacing: -0.01em;
+  transition:
+    background-color 0.2s ease,
+    transform 0.25s var(--landing-ease);
+  border: 0;
+  border-radius: 10px;
+  flex: none;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+.hosted-watch {
+  white-space: nowrap;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  min-height: 2.6rem;
+  padding-inline: 1.15rem 1.35rem;
+  font-size: clamp(0.86rem, 3cqi, 0.95rem);
+  display: inline-flex;
+}
+.hosted-watch:not(:disabled):before {
+  content: "";
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  background: currentColor;
+  border-radius: 1px;
+  flex: none;
+  width: 0.62em;
+  height: 0.72em;
+}
+.hosted-watch:hover:not(:disabled),
+.hosted-retry:hover {
+  background: color-mix(in srgb, var(--accent) 90%, black);
+}
+.hosted-watch:active:not(:disabled),
+.hosted-retry:active {
+  background: color-mix(in srgb, var(--accent) 80%, black);
+  transition-duration: 0.1s;
+  transform: scale(0.97);
+}
+.hosted-watch:focus-visible,
+.hosted-retry:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.hosted-watch:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+.hosted-status {
+  border: 1px dashed var(--border);
+  min-height: 4.5rem;
+  color: var(--muted);
+  text-align: center;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  font-size: 0.88rem;
+  display: flex;
+}
+.hosted-retry {
+  cursor: pointer;
+}
+@media (width<=1000px) {
+.hosted-demos {
+    overscroll-behavior: contain;
+    overflow-y: auto;
+  }
+}
+@media (width<=1000px) {
+.hosted-menu {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+@media (width<=1000px) {
+.hosted-picker,
+  .hosted-event-grid,
+  .hosted-match-grid {
+    overflow: visible;
+  }
+}
+@media (width<=1000px) {
+.hosted-map-column,
+  .hosted-map-details {
+    grid-template-rows: auto auto;
+  }
+}
+@media (width>=901px) and (width<=1600px) {
+.hosted-demos {
+    overflow: hidden;
+  }
+}
+@media (width>=901px) and (width<=1600px) {
+.hosted-menu {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1.4fr);
+    height: 100%;
+  }
+}
+@media (width>=901px) and (width<=1600px) {
+.hosted-picker {
+    padding: 0.65rem;
+    overflow: hidden;
+  }
+}
+@media (width>=901px) and (width<=1600px) {
+.hosted-event-grid,
+  .hosted-match-grid {
+    overflow-y: auto;
+  }
+}
+@media (width>=901px) and (width<=1600px) {
+.hosted-map-column {
+    grid-template-rows: minmax(min-content, 1fr) minmax(0, auto);
+  }
+}
+@media (width>=901px) and (width<=1600px) {
+.hosted-map-details {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+}
+@media (width>=901px) and (width<=1600px) {
+.hosted-segment-list {
+    max-height: none;
+  }
+}
+@media (width>=901px) and (height<=800px) {
+.hosted-map-column {
+    grid-template-rows: minmax(min-content, 1fr) minmax(0, auto);
+  }
+}
+@media (width>=901px) and (height<=800px) {
+.hosted-map-details-body {
+    height: min(35rem, 38vh);
+  }
+}
+@media (width>=901px) {
+.hosted-demos {
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--landing-scrollbar) transparent;
+    overflow-y: auto;
+  }
+}
+@media (width>=901px) {
+.hosted-map-column {
+    min-height: calc(3.6rem + var(--map-slots) * var(--map-card-height) + var(--map-gaps) * 0.5rem + 0.75rem + 14rem);
+  }
+}
+@media (width>=901px) and (width<=920px) {
+.hosted-map-column {
+    --map-card-height: 7.45rem;
+  }
+}
+@media (width<=560px) {
+.hosted-panel {
+    padding: 1.25rem;
+  }
+}
+@media (width<=560px) {
+.hosted-match-team,
+  .hosted-match-team:last-child {
+    text-align: center;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+@media (width<=560px) {
+.hosted-match-team:last-child .hosted-team-logo,
+  .hosted-match-team:last-child .hosted-match-team-name {
+    order: 0;
+  }
+}
+@media (width<=560px) {
+.hosted-match-team-name {
+    max-width: min(100%, 6.5rem);
+  }
+}
+.loading-team-logo.hosted-team-logo,
+.loading-glyph {
+  border-radius: 20px;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+.loading-team-logo.hosted-team-logo {
+  background: var(--panel-raised);
+  box-shadow: var(--landing-card-shadow);
+}
+.loading-team-logo .hosted-logo-fallback {
+  font-size: 1.05rem;
+}
+:root[data-theme="dark"] .hosted-logo img.logo-black {
+  filter: invert() brightness(0.94);
+}
+.sb-logo .hosted-logo-fallback {
+  color: var(--pc-label);
+  font-size: inherit;
+  letter-spacing: inherit;
+}
+.sbd-mark.hosted-logo img {
+  width: 100%;
+  height: 100%;
+  inset: 0;
+}
+.sbd-mark .hosted-logo-fallback {
+  color: var(--pc-secondary);
+  font-size: 0.55rem;
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-demos,
+  .hosted-picker {
+    overflow: visible;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-menu {
+    height: auto;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-event-grid {
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;
+    padding: 0 0 0.5rem;
+    display: flex;
+    overflow-x: auto;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-event-card {
+    scroll-snap-align: start;
+    flex: 0 0 14rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-match-grid {
+    max-height: min(24rem, 60dvh);
+    overflow-y: auto;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-map-column,
+  .hosted-map-details {
+    grid-template-rows: auto auto;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-map-column {
+    min-height: 0;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-segment-list {
+    contain: none;
+    min-height: 0;
+    max-height: 18rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-map-details-body {
+    height: auto;
+    max-height: none;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.hosted-scoreboard-sort {
+    min-width: 44px;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-demos {
+    overflow: hidden;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-menu {
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    height: 100%;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-heading {
+    display: none;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-picker {
+    background: 0 0;
+    border: 0;
+    border-radius: 0;
+    gap: 0.35rem;
+    padding: 0;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-event-grid,
+  .hosted-segment-list {
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;
+    scrollbar-gutter: auto;
+    gap: 0.5rem;
+    max-height: none;
+    padding: 0 0 0.25rem;
+    display: flex;
+    overflow: auto hidden;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-event-card,
+  .hosted-segment {
+    scroll-snap-align: start;
+    flex: none;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-event-card {
+    gap: 0.5rem;
+    width: 14rem;
+    min-height: 3.75rem;
+    padding: 0.5rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-event-logo {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-event-copy span {
+    white-space: nowrap;
+    font-size: 0.7rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-picker {
+    overflow: hidden;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-grid {
+    max-height: none;
+    overflow: hidden auto;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-map-column {
+    gap: 0.35rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment {
+    isolation: isolate;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: 0.25rem;
+    width: 8rem;
+    height: auto;
+    min-height: 4.25rem;
+    padding: 0.35rem;
+    position: relative;
+    overflow: hidden;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-map-info {
+    justify-content: center;
+    padding: 0;
+    display: flex;
+    position: static;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-map-info .hosted-map-icon,
+  .hosted-segment-pick-backdrop {
+    z-index: 0;
+    aspect-ratio: 1;
+    opacity: 0.2;
+    pointer-events: none;
+    width: auto;
+    height: 100%;
+    display: grid;
+    position: absolute;
+    top: 0;
+    left: -1.75rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-map-info .hosted-map-icon img {
+    width: 100%;
+    height: 100%;
+    inset: 0;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-map-info .hosted-map-icon > span {
+    visibility: hidden;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-pick-backdrop {
+    opacity: 0.85;
+    width: 1.25rem;
+    height: 1.25rem;
+    top: 0.3rem;
+    left: auto;
+    right: 0.3rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-pick-backdrop .hosted-team-logo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-pick-backdrop .hosted-team-logo img {
+    width: 100%;
+    height: 100%;
+    inset: 0;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-pick-backdrop .hosted-logo-fallback {
+    font-size: 0.55rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-label {
+    z-index: 1;
+    justify-items: center;
+    position: relative;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-map-decider,
+  .hosted-map-pick-marker {
+    display: none;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-teams {
+    border: 0;
+    grid-template-columns: 1.5rem 0.5rem 1.5rem;
+    gap: 0.5rem;
+    width: fit-content;
+    margin-inline: auto;
+    padding: 0;
+    position: static;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-teams:after {
+    z-index: 1;
+    grid-area: 1/2;
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-team {
+    grid-area: 1/1;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-team:last-child {
+    grid-column: 3;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-team .hosted-team-logo {
+    display: none;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-segment-team .hosted-segment-score,
+  .hosted-segment-team:last-child .hosted-segment-score {
+    z-index: 1;
+    grid-column: 1;
+    line-height: 1.5rem;
+    position: relative;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-map-details {
+    background: 0 0;
+    border: 0;
+    border-radius: 0;
+    display: block;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-map-details-header {
+    padding: 0;
+    display: block;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-map-heading,
+  .hosted-map-details-body {
+    display: none;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-watch {
+    border-radius: 12px;
+    width: 100%;
+    min-height: 3rem;
+    font-size: 1rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-card.active,
+  .hosted-match-card:hover:not(:disabled),
+  .hosted-match-card:focus-visible:not(:active) {
+    background: var(--panel-raised);
+    box-shadow: var(--landing-card-shadow);
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-card:focus-visible:not(:active) {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-event-card:active:not(:disabled),
+  .hosted-match-card:active:not(:disabled),
+  .hosted-segment:active:not(:disabled) {
+    background: var(--landing-tint);
+    transform: scale(0.98);
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-watch:active:not(:disabled) {
+    filter: brightness(0.92);
+    transform: scale(0.98);
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-summary {
+    gap: 0.5rem;
+    padding: 0.25rem 0 0.5rem;
+    display: grid;
+    container: hosted-match-picker/inline-size;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-summary .hosted-match-team .hosted-team-logo {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-summary .hosted-match-team-name {
+    font-size: 1.05rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-summary .hosted-match-score {
+    font-size: 1.9rem;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-summary-event {
+    min-width: 0;
+    color: var(--muted);
+    justify-content: center;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-summary-event > span:last-child {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+  }
+}
+@media (width<=700px) and (orientation: portrait), (width<=1000px) and (pointer: coarse) and (orientation: portrait) {
+.hosted-match-summary-event .hosted-event-logo {
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}

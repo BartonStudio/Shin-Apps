@@ -1,0 +1,304 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：overlays — 全屏叠加层：开镜/致盲/受击/死亡回放/准星
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.crosshair-overlay {
+  pointer-events: none;
+  z-index: 12;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.75);
+}
+.scope-overlay {
+  pointer-events: none;
+  z-index: 11;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.18s ease-in-out,
+    visibility 0s linear 0.18s;
+  position: absolute;
+  inset: 0;
+}
+.scope-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.scope-sniper {
+  transition: none;
+}
+.scope-rifle-blur {
+  -webkit-backdrop-filter: blur(8px);
+  mask-image: radial-gradient(circle, #0000 32vmin, #000 calc(32vmin + 1px));
+}
+.scope-rifle-lens,
+.scope-rifle-dot {
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.scope-rifle-lens {
+  border: 2px solid #b9c3bea6;
+  width: 64vmin;
+  height: 64vmin;
+  box-shadow: 0 0 0 1px #00000073;
+}
+.scope-rifle-dot {
+  background: #7cff00;
+  width: 4px;
+  height: 4px;
+  box-shadow: 0 0 5px 1px #7cff00a6;
+}
+@media (prefers-reduced-motion: reduce) {
+.scope-overlay {
+    transition: none;
+  }
+}
+.blind-overlay {
+  z-index: 12;
+  pointer-events: none;
+  will-change: opacity;
+  background: #fff;
+  position: absolute;
+  inset: 0;
+}
+.damage-overlay {
+  z-index: 12;
+  pointer-events: none;
+  will-change: opacity;
+  background: radial-gradient(circle, #0000 42%, #be122414 70%, #be12246b 100%);
+  position: absolute;
+  inset: 0;
+  box-shadow:
+    inset 0 0 0 6px #ff3737,
+    inset 0 0 96px 24px #be1224d9;
+}
+.death-fade-overlay {
+  z-index: 10;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+.death-fade-backdrop {
+  opacity: 0;
+  will-change: opacity;
+  background: #000;
+  transition: opacity 0.25s ease-out;
+  position: absolute;
+  inset: 0;
+}
+.death-fade-overlay.is-active .death-fade-backdrop {
+  opacity: 0.38;
+  transition-duration: 0.45s;
+  transition-timing-function: ease-in;
+}
+.death-fade-label {
+  width: min(36rem, 100% - 2rem);
+  min-height: 6.5rem;
+  color: var(--pc-label);
+  font-family: var(--pc-font);
+  background: var(--pc-glass);
+  backdrop-filter: blur(28px) saturate(180%);
+  box-shadow:
+    inset 0 0.5px 0 var(--pc-glass-edge),
+    0 0 0 0.5px var(--pc-hairline),
+    0 14px 40px #00000038;
+  opacity: 0;
+  transition:
+    opacity 0.22s ease-out,
+    transform 0.42s var(--pc-ease);
+  border: 0;
+  border-radius: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  display: grid;
+  position: absolute;
+  top: 66%;
+  left: 50%;
+  overflow: hidden;
+  transform: translate(-50%, 0.5rem) scale(0.98);
+}
+.death-fade-overlay.is-active .death-fade-label {
+  opacity: 1;
+  transition-delay: 0.18s;
+  transform: translate(-50%);
+}
+.death-fade-heading {
+  letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  font-size: 1.15rem;
+  font-weight: 700;
+  overflow: hidden;
+}
+.death-fade-detail {
+  min-height: 1.25rem;
+  color: var(--pc-secondary);
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+}
+.death-fade-combat {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+  display: grid;
+}
+.death-fade-damage {
+  min-width: 0;
+  padding: 0.6rem 1.25rem;
+}
+.death-fade-damage-heading {
+  color: var(--pc-secondary);
+  margin-bottom: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.death-fade-damage-row {
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+  display: grid;
+}
+.death-fade-damage-amount {
+  --dmg: var(--pc-label);
+  color: var(--dmg);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  background: color-mix(in srgb, var(--dmg) 13%, transparent);
+  border-radius: 7px;
+  padding: 0.18rem 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.death-fade-damage-taken .death-fade-damage-amount {
+  --dmg: var(--pc-damage-taken);
+}
+.death-fade-damage-dealt .death-fade-damage-amount {
+  --dmg: var(--pc-damage-dealt);
+}
+.death-fade-damage-name {
+  color: var(--pc-label);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+.death-fade-actions {
+  pointer-events: auto;
+  grid-column: 1/-1;
+  justify-content: flex-start;
+  padding: 0.4rem 0.65rem 0.75rem 1.25rem;
+  display: flex;
+}
+.death-fade-action-group {
+  gap: 0.4rem;
+  display: flex;
+}
+.death-fade-action:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+.death-fade-damage-empty {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-style: italic;
+}
+.death-fade-icon,
+.death-fade-mod {
+  background: currentColor;
+  flex: none;
+  width: 2.3rem;
+  height: 1rem;
+  display: inline-block;
+  mask-position: 50%;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+.death-fade-modifier {
+  align-items: center;
+  gap: 0.25rem;
+  display: inline-flex;
+}
+.death-fade-mod {
+  width: 1rem;
+}
+.death-fade-skull {
+  width: 1.1rem;
+}
+@media (width<=720px) {
+.death-fade-label {
+    grid-template-columns: 1fr;
+    width: min(28rem, 100% - 1rem);
+  }
+}
+@media (width<=720px) {
+.death-fade-combat {
+    border: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+.death-fade-backdrop,
+  .death-fade-label {
+    transition: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+.death-fade-overlay.is-active .death-fade-label {
+    transition-delay: 0s;
+  }
+}
+.blind-indicator {
+  border: 1px solid var(--border-strong);
+  background: var(--surface-overlay-strong);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  z-index: 30;
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+  position: absolute;
+  top: calc(50% + 4rem);
+  left: 50%;
+  transform: translate(-50%);
+}
+.blind-indicator[hidden] {
+  display: none;
+}
+.death-label {
+  --team-color: #aaa;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.52;
+  transform: translate(-50%, -100%);
+}
+.death-name {
+  text-align: center;
+  color: var(--team-color);
+  text-shadow: 0 1px 2px #000000d9;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.death-fade-label {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.death-fade-combat {
+    border: 0;
+  }
+}

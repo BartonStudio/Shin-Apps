@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>SHIN::GATEKEEPER</title>
+  <!-- 空 favicon：否则每次加载都会打一条 404，冒烟里会混进一条无意义的 console.error -->
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles/app.css">
+</head>
+<body>
+  <header id="head">
+    <span class="brand">SHIN::GATEKEEPER</span>
+    <span id="conn-dot" class="dot"></span>
+    <span id="conn-text">未连接</span>
+    <span class="spacer"></span>
+    <span id="conn-target" class="dim"></span>
+    <button id="btn-connect">连接</button>
+    <button id="btn-disconnect">断开</button>
+  </header>
+
+  <main>
+    <section class="sec" id="sec-session">
+      <div class="sec-body">
+        <div class="kv">
+          <span class="k">token</span>
+          <span id="token-view" class="v mono elide">(未设置)</span>
+        </div>
+
+        <div class="row">
+          <input id="token-input" spellcheck="false" autocomplete="off" placeholder="app:xxxxxxxx…">
+          <button id="btn-set">写入</button>
+          <button id="btn-logout">登出</button>
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="row">
+          <input id="mobile" inputmode="numeric" autocomplete="off" placeholder="手机号" class="w-mobile">
+          <button id="btn-sms">发短信</button>
+        </div>
+        <div class="row">
+          <input id="code" inputmode="numeric" autocomplete="off" placeholder="验证码" class="w-code">
+          <button id="btn-login">登录</button>
+        </div>
+
+        <div class="kv">
+          <span class="k">info</span>
+          <span id="session-info" class="v dim elide">—</span>
+        </div>
+      </div>
+      <h2 class="sec-title">会话</h2>
+    </section>
+
+    <section class="sec" id="sec-doors">
+      <div class="sec-body">
+        <div id="door-list"></div>
+        <div class="sep"></div>
+        <div class="row">
+          <input id="door-custom" inputmode="numeric" autocomplete="off" placeholder="doorControlId">
+          <button id="btn-open-custom">开门</button>
+        </div>
+      </div>
+      <h2 class="sec-title">门禁</h2>
+    </section>
+
+    <section class="sec" id="sec-feed">
+      <div class="sec-body">
+        <div id="feed"></div>
+      </div>
+      <h2 class="sec-title">事件</h2>
+    </section>
+  </main>
+
+  <!-- CRT 装饰层：扫描线 + 暗角。纯装饰，不吃事件。 -->
+  <div class="crt" aria-hidden="true"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

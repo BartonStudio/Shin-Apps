@@ -1,0 +1,405 @@
+{
+  "fetchedAt": "2026-11-03T16:44:51.105Z",
+  "files": [
+    {
+      "file": "raw/assets\\csplayer_parser_bg-qigVgicw.wasm",
+      "bytes": 3210168,
+      "sha256": "8d0935a40e9fcc0e510bd47a360b0ffeb67465b21f262ffe4f29cd43733caaf1"
+    },
+    {
+      "file": "raw/assets\\GLTFLoader-maChTRxv.js",
+      "bytes": 44256,
+      "sha256": "c79fa5a1ca2b688d96e6714c840364c00efcd24ca2fb8d472ab66c7b79937995"
+    },
+    {
+      "file": "raw/assets\\index-CKB5zRpH.css",
+      "bytes": 129424,
+      "sha256": "0108498d4d1fd5b334b7997157e468a0ecd5b6265e782f2a6362843c5f50e67d"
+    },
+    {
+      "file": "raw/assets\\index-E0opA-yG.js",
+      "bytes": 1334759,
+      "sha256": "4772ebb845c740037762ee193d799c91cd864970c9c584f59e3c686dde50539a"
+    },
+    {
+      "file": "raw/assets\\mapGeometry.worker-BGvfBalF.js",
+      "bytes": 257144,
+      "sha256": "1d11de850f3e70bdc611f47e887c06a6b70c8869f1132a45e79bfbc43829b378"
+    },
+    {
+      "file": "raw/assets\\parser.worker-Cvx4vjXK.js",
+      "bytes": 46139,
+      "sha256": "5cd1b7fcdd245baae6ee1f7b9df3bd945aa68e9b9142920691e92aafad2db09d"
+    },
+    {
+      "file": "raw/backdrop\\mirage-a-execute.bin",
+      "bytes": 38422,
+      "sha256": "c886d1d4f24a9f4cfa4d1d99eda971f69f70e45e41cd1c98c240212e74f0da65"
+    },
+    {
+      "file": "raw/backdrop\\still-landscape-dark.jpg",
+      "bytes": 4425,
+      "sha256": "25b80e44339e570753c189a1d113fbc8d657985e222f0b9d1dd400c0d24493c9"
+    },
+    {
+      "file": "raw/backdrop\\still-landscape.jpg",
+      "bytes": 5590,
+      "sha256": "6962969b62ef2fa415caeb2d98bb5941851b7f994cd7ca34defdaa560b62a9c4"
+    },
+    {
+      "file": "raw/backdrop\\still-portrait-dark.jpg",
+      "bytes": 2346,
+      "sha256": "e613dfc0aa2aafe782b6b7647d91ae0bf74a7b7c1e01d0eedf604c1693c6a703"
+    },
+    {
+      "file": "raw/backdrop\\still-portrait.jpg",
+      "bytes": 2867,
+      "sha256": "370d40bbfeeccfbecad65012260a98135571b951aad99a3385b0967c33b0f367"
+    },
+    {
+      "file": "raw/data\\catalogue-pointer.json",
+      "bytes": 253,
+      "sha256": "5a3fef973b4954d9d5deea1cccd349a63eec912b82fee51e5683f71ca6ca5755"
+    },
+    {
+      "file": "raw/data\\catalogue.json",
+      "bytes": 291184,
+      "sha256": "0d93f4c978bba8ce686e3ddd003cbff282916328ffe8895c3b31e291729b4bda"
+    },
+    {
+      "file": "raw/data\\maps-index.json",
+      "bytes": 196,
+      "sha256": "6e617f470f221175db7ae67546e34a9d8d786948f838554438aa6a87a5fc09bc"
+    },
+    {
+      "file": "raw/data\\maps-manifest.json",
+      "bytes": 41982,
+      "sha256": "281356a45afb703aa433eda6ed73986c6b933e03b1e433da94ac59651701a15b"
+    },
+    {
+      "file": "raw/favicon.svg",
+      "bytes": 260,
+      "sha256": "0fc35d75fa8572f774eea7d63dc7892a13aa46417a29d8549c779fdcb3234edf"
+    },
+    {
+      "file": "raw/fonts\\BarlowSemiCondensed-400.woff2",
+      "bytes": 22300,
+      "sha256": "d03a7a5f6b74534c80699289d4f6495fdb09a7596774a4ede79129d2f8bb67b1"
+    },
+    {
+      "file": "raw/fonts\\BarlowSemiCondensed-500.woff2",
+      "bytes": 22428,
+      "sha256": "0d7513795eaf8fdab7f340144841bd2d9fac7d9303c03aa6b525a2c908e9b371"
+    },
+    {
+      "file": "raw/fonts\\BarlowSemiCondensed-600.woff2",
+      "bytes": 22984,
+      "sha256": "f158417e9207b5362f9b71a2fe779ce5bb836ad972f38445c3163af39d2c998d"
+    },
+    {
+      "file": "raw/fonts\\BarlowSemiCondensed-700.woff2",
+      "bytes": 23244,
+      "sha256": "fb958c8c20a05552ac8a85d925d96028d52565792650e941a5fe96b6997aa5cb"
+    },
+    {
+      "file": "raw/icons\\weapons\\ak47.svg",
+      "bytes": 1907,
+      "sha256": "b317549492de2aa6e3880fa575252a11767de71a3c0fe9799fd6ba9a8106d54c"
+    },
+    {
+      "file": "raw/icons\\weapons\\armor.svg",
+      "bytes": 1999,
+      "sha256": "122552febb38e0a80b9ec3e93feeb42ff449a9bf3c84933f978f5d89c62315a8"
+    },
+    {
+      "file": "raw/icons\\weapons\\armor_helmet.svg",
+      "bytes": 3475,
+      "sha256": "22128cffdafcc115f8a059e16c34ae6d5527373c9717ee1b99ca23c52870e459"
+    },
+    {
+      "file": "raw/icons\\weapons\\aug.svg",
+      "bytes": 2827,
+      "sha256": "9fff2c89e435171709eb4f9dc7d7b76103f429367d8d83ceb652306f5dbe68a1"
+    },
+    {
+      "file": "raw/icons\\weapons\\awp.svg",
+      "bytes": 2407,
+      "sha256": "fa7e0bb5f434e49f95609265808031b6db84a4af7ec6ecebe6518dc86e35f557"
+    },
+    {
+      "file": "raw/icons\\weapons\\bizon.svg",
+      "bytes": 19750,
+      "sha256": "4dca2318c5c704f86070ea69f00d1e2243b984a9f5cad5a3481683efc40cc036"
+    },
+    {
+      "file": "raw/icons\\weapons\\blind_kill.svg",
+      "bytes": 743,
+      "sha256": "74cf97dafde8921a10c8e98647a5de0dd0877543ec5cffb4ecf23bdfc8d8f680"
+    },
+    {
+      "file": "raw/icons\\weapons\\c4.svg",
+      "bytes": 3339,
+      "sha256": "f95b5559c60c530c7ecbaf3c774131854e145671a8ca042ed8a5d1f7c51a3597"
+    },
+    {
+      "file": "raw/icons\\weapons\\crosshair.svg",
+      "bytes": 1322,
+      "sha256": "14078159bbb2f437588688035007dbdba5cda66eff5cea9562ec208fd88576bf"
+    },
+    {
+      "file": "raw/icons\\weapons\\cz75a.svg",
+      "bytes": 2641,
+      "sha256": "2aced2274d6c4de2596ebdcf55e94b8016b0ec6fccc5f3e03d832f775ccf0b5e"
+    },
+    {
+      "file": "raw/icons\\weapons\\deagle.svg",
+      "bytes": 2067,
+      "sha256": "3bbdfda5bfca4f5894bae8d2b926c34b4f8bad5540f4daa252695160642d90fa"
+    },
+    {
+      "file": "raw/icons\\weapons\\decoy.svg",
+      "bytes": 1271,
+      "sha256": "b1c662d86d57981fb1924a4fb3f5d04ed8e1393dd6b27f5d6ba75c047a061cd7"
+    },
+    {
+      "file": "raw/icons\\weapons\\defuser.svg",
+      "bytes": 2117,
+      "sha256": "1bbbb918b822ae1b9c6b2380c4b20ecb6b5b50530e125cea078f0b8ff1cd7517"
+    },
+    {
+      "file": "raw/icons\\weapons\\elite.svg",
+      "bytes": 4609,
+      "sha256": "eb73da8f6c71f6f5c8cb130a846c0b990548b896852131498eb43d8c0be71036"
+    },
+    {
+      "file": "raw/icons\\weapons\\famas.svg",
+      "bytes": 2689,
+      "sha256": "99f31654c6a738a2f4b1cda1c35ae42f9044a17ffea7960642e8ef56f7f97e0a"
+    },
+    {
+      "file": "raw/icons\\weapons\\fiveseven.svg",
+      "bytes": 1676,
+      "sha256": "07443bc166ef2097633517ff5ac26b0e25124dd75490885570215979ee883126"
+    },
+    {
+      "file": "raw/icons\\weapons\\flashbang.svg",
+      "bytes": 911,
+      "sha256": "343e59886104c726518f42b2424bbfb2dd012a4f40d7a19ca9fbc3ed41518e8a"
+    },
+    {
+      "file": "raw/icons\\weapons\\g3sg1.svg",
+      "bytes": 4346,
+      "sha256": "f56622fb7fca0d6dbe725af1f676af950456ee6e6b464f1369e3714050249309"
+    },
+    {
+      "file": "raw/icons\\weapons\\galilar.svg",
+      "bytes": 3132,
+      "sha256": "c246e00bd64c7c499781923f926a8b7f17575c3c1dba8cd521e179674b7b0fed"
+    },
+    {
+      "file": "raw/icons\\weapons\\glock.svg",
+      "bytes": 1734,
+      "sha256": "cdba9613a4585ca12ef24e6a1439a3dba3b3aff13680d2bf21c31b9ec5b9ae67"
+    },
+    {
+      "file": "raw/icons\\weapons\\headshot.svg",
+      "bytes": 1923,
+      "sha256": "7e90b631e66182e2fca88f49cfc151aa5811d887f2d20891f9e0132c95c7d3bf"
+    },
+    {
+      "file": "raw/icons\\weapons\\healthshot.svg",
+      "bytes": 852,
+      "sha256": "7c1eb2e321665cb6845c210ac087ba4c140ec15dbfbb9b577d38ac64dee6a97b"
+    },
+    {
+      "file": "raw/icons\\weapons\\hegrenade.svg",
+      "bytes": 11807,
+      "sha256": "8ee8e3d8489e08e9ce532282bb8682fdfbe9a08890f9713483d5fc749a7ad691"
+    },
+    {
+      "file": "raw/icons\\weapons\\hkp2000.svg",
+      "bytes": 1469,
+      "sha256": "c0c5654132969cee49eaa6e73aa9cbe43789e1fd682a1ac59b66492a4ca0936a"
+    },
+    {
+      "file": "raw/icons\\weapons\\incgrenade.svg",
+      "bytes": 3055,
+      "sha256": "f37a4b2c8c011d5541f30bfc2660f380e61f98a568eb5c510915856b2a6fc60b"
+    },
+    {
+      "file": "raw/icons\\weapons\\knife.svg",
+      "bytes": 1845,
+      "sha256": "15118d886a42bf055670743a9e3224750774477e9ce571faa0e9a7f3fbf7f278"
+    },
+    {
+      "file": "raw/icons\\weapons\\knife_bowie.svg",
+      "bytes": 1259,
+      "sha256": "3c358fe9834734fbb3f922af9106b44c5337d37f2242e519ec5535af544b72fb"
+    },
+    {
+      "file": "raw/icons\\weapons\\knife_gypsy_jackknife.svg",
+      "bytes": 879,
+      "sha256": "4354a5109acbcb37cd6cf5894cc4b8e47950a62eb67bd341665a05a1a6fb0c5a"
+    },
+    {
+      "file": "raw/icons\\weapons\\knife_m9_bayonet.svg",
+      "bytes": 2465,
+      "sha256": "c1b4272ee4911cca51cb415a7a43f3638ca73c2b5cdd6056666063786465c8e5"
+    },
+    {
+      "file": "raw/icons\\weapons\\knife_t.svg",
+      "bytes": 1332,
+      "sha256": "18b0435f5b3b886a7fbec3588ea480d380fcdeb0739942322c63581952a05708"
+    },
+    {
+      "file": "raw/icons\\weapons\\m249.svg",
+      "bytes": 3708,
+      "sha256": "97aa0507a53c83af65d01c7751ca8d5071bb37760b7e3acbbb63907408af42d4"
+    },
+    {
+      "file": "raw/icons\\weapons\\m4a1.svg",
+      "bytes": 2541,
+      "sha256": "085269e28a613f71b49186061d29963d9158bd5a9ffed6ca982a26b66bce5e86"
+    },
+    {
+      "file": "raw/icons\\weapons\\m4a1_silencer.svg",
+      "bytes": 3105,
+      "sha256": "8d521857acca89f1d36165feacf2d71916cfa4756a5ca15412bfa9d19d199e2c"
+    },
+    {
+      "file": "raw/icons\\weapons\\mac10.svg",
+      "bytes": 2224,
+      "sha256": "56532d93ebb30d11683303c3b61c620aa3aedc1608b4cfb22108bcc14ea49966"
+    },
+    {
+      "file": "raw/icons\\weapons\\mag7.svg",
+      "bytes": 11807,
+      "sha256": "edd37605640812ec1046fb6c4606a302ad1bd67688f67d14b7c6c24a6673fd25"
+    },
+    {
+      "file": "raw/icons\\weapons\\molotov.svg",
+      "bytes": 1426,
+      "sha256": "28b8d81b9bccec7116b912a7228fcabc2ba11cd6ed4d0888329f671383cd2a43"
+    },
+    {
+      "file": "raw/icons\\weapons\\mp5sd.svg",
+      "bytes": 1663,
+      "sha256": "c73096da5d2778f399e7a457826df5adcc72f891f8a9f0f4c34bcc1fb7c3b95e"
+    },
+    {
+      "file": "raw/icons\\weapons\\mp7.svg",
+      "bytes": 9389,
+      "sha256": "1f663e15875286dc9d6e5f3b9bbbbd1a87bc478f610ef3b3a223f421277e68a1"
+    },
+    {
+      "file": "raw/icons\\weapons\\mp9.svg",
+      "bytes": 7039,
+      "sha256": "0c6122b418dfb849a7467389d1fa25faaea50c187738de8368391314d596bfd3"
+    },
+    {
+      "file": "raw/icons\\weapons\\negev.svg",
+      "bytes": 12348,
+      "sha256": "4647521e4b828dc004a885b977853dd83a195fb72f1a5678e2cc980150407587"
+    },
+    {
+      "file": "raw/icons\\weapons\\noscope.svg",
+      "bytes": 851,
+      "sha256": "3c6d6144c444f630d5c4d980df3de2368310c789d6d346747345711a1d23dbf7"
+    },
+    {
+      "file": "raw/icons\\weapons\\nova.svg",
+      "bytes": 12042,
+      "sha256": "73ccdc8f88de444babfe1ea08983c7aa9c092731ae22cf420897d42458784a18"
+    },
+    {
+      "file": "raw/icons\\weapons\\p250.svg",
+      "bytes": 5406,
+      "sha256": "5609f94d42516c532d891e07859a2347660f802369ba12757c41d404a783c73b"
+    },
+    {
+      "file": "raw/icons\\weapons\\p90.svg",
+      "bytes": 2453,
+      "sha256": "f7b20ab4902bbf01eca201f9a2a3c6bffe73a944296667ae1261740c820affd7"
+    },
+    {
+      "file": "raw/icons\\weapons\\penetrate.svg",
+      "bytes": 548,
+      "sha256": "5dfa9e2173fccc0c8c3f4935549d1b59ce73c073e2c47053ff6f9e6d4163333c"
+    },
+    {
+      "file": "raw/icons\\weapons\\revolver.svg",
+      "bytes": 2932,
+      "sha256": "6edabbd82a86c377a6b0eb35fbdcf039d244b3fb0cdd7744653120d3d9f0c3cb"
+    },
+    {
+      "file": "raw/icons\\weapons\\sawedoff.svg",
+      "bytes": 11229,
+      "sha256": "cbbf3bbf6b2c2a80c7eaae11ad5420466a18e2efe9b45249babbc62eb255709f"
+    },
+    {
+      "file": "raw/icons\\weapons\\scar20.svg",
+      "bytes": 14041,
+      "sha256": "96939a6c95c0762eda6746263aab5cc214021ef311b6f7839779c77cd9c15adc"
+    },
+    {
+      "file": "raw/icons\\weapons\\sg556.svg",
+      "bytes": 12224,
+      "sha256": "6426814cdd318a77aaf344056ef7f1fa87f13d089a90abcfeecb17817000aac3"
+    },
+    {
+      "file": "raw/icons\\weapons\\skull.svg",
+      "bytes": 1499,
+      "sha256": "3a1bcf2e6ee7a0b3ab6620282f98e829e556a925fb98a9bb5d0c119090aefe69"
+    },
+    {
+      "file": "raw/icons\\weapons\\smokegrenade.svg",
+      "bytes": 623,
+      "sha256": "e23b9bda5b04e80b6f59413375dd6aa20caef7407a3ca9338277943eeb1909a6"
+    },
+    {
+      "file": "raw/icons\\weapons\\smoke_kill.svg",
+      "bytes": 1393,
+      "sha256": "b8752c9ac73e56c6748ac5e4894abddd83daf3f3ba759b50afab241858f13a26"
+    },
+    {
+      "file": "raw/icons\\weapons\\ssg08.svg",
+      "bytes": 11490,
+      "sha256": "e1c2d6da93aa89ab9a941751b160f9d6b57ec2cc4f023d7a57c3a6d711b9b029"
+    },
+    {
+      "file": "raw/icons\\weapons\\taser.svg",
+      "bytes": 1568,
+      "sha256": "5ae16d5cc4a95aa87d96f54b6a92a6d8f62b689fb4ca338ef77e7e9a0aaab3e8"
+    },
+    {
+      "file": "raw/icons\\weapons\\tec9.svg",
+      "bytes": 8585,
+      "sha256": "668fe13f0b25294b118cbf2fa968857440ec8d11a7d9cb56f83bf83809570e2d"
+    },
+    {
+      "file": "raw/icons\\weapons\\ump45.svg",
+      "bytes": 4464,
+      "sha256": "01b65eded244f3850097d68cc4ddf2884bf59202aeb6c08dbfc1b96f3cd377dc"
+    },
+    {
+      "file": "raw/icons\\weapons\\usp_silencer.svg",
+      "bytes": 1745,
+      "sha256": "26f389c8b2a3b6157a8c8fdfb8569d57c0092e393d4cb58025f130593d7b60f0"
+    },
+    {
+      "file": "raw/icons\\weapons\\xm1014.svg",
+      "bytes": 2847,
+      "sha256": "d0799931a9c78c7211cf849d73c2695d235c11725beef64fabd75ca908e428e4"
+    },
+    {
+      "file": "raw/index.html",
+      "bytes": 1259,
+      "sha256": "3c358fe9834734fbb3f922af9106b44c5337d37f2242e519ec5535af544b72fb"
+    },
+    {
+      "file": "raw/maps\\de_mirage_lights.json",
+      "bytes": 23195,
+      "sha256": "6cb9d93e3b9b33e70527cc34faa8e955d90056b04a9aade6d58431b559529ef0"
+    }
+  ]
+}

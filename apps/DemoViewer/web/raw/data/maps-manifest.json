@@ -1,0 +1,1261 @@
+{
+  "format": "csdemo-map-release-v1",
+  "release": "2000940-26393695",
+  "compression": "EXT_meshopt_compression",
+  "coordinate_system": "source2-hammer-z-up",
+  "selection_profile": "default-plus-enabled-func-brush-v1",
+  "source2viewer_version": "20.0.6980+a06886f7d06049052d32a7381ec05523064a2ca0",
+  "steam_build_id": "26393695",
+  "client_version": "2000940",
+  "server_version": "2000940",
+  "patch_version": "1.41.9.5",
+  "source_revision": "11198439",
+  "version_date": "Nov 02 2026",
+  "version_time": "16:17:08",
+  "maps": [
+    {
+      "name": "de_ancient",
+      "files": {
+        "collision": {
+          "path": "objects/20c000e1603e32962e1138c8fd9ed5db465824c79083bad62f4268a9257f0b04.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 6712420,
+          "sha256": "20c000e1603e32962e1138c8fd9ed5db465824c79083bad62f4268a9257f0b04"
+        },
+        "overview": {
+          "path": "objects/f6b420a983e2702c3c0d903a901483b6bc61fcf5eef2b6fb62da485ba93eb3c1.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 447,
+          "sha256": "f6b420a983e2702c3c0d903a901483b6bc61fcf5eef2b6fb62da485ba93eb3c1"
+        },
+        "logo": {
+          "path": "objects/90582fa135f77ea6fdc3b98402cd7da1d5a5fb8522de513a68717e84d476ac53.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 44446,
+          "sha256": "90582fa135f77ea6fdc3b98402cd7da1d5a5fb8522de513a68717e84d476ac53"
+        },
+        "colored": {
+          "path": "objects/4ae3d7b0088d9425c5300f0e4d782131c4c2a0f47c4d407543f8487cbeb4a3fc.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 10694420,
+          "sha256": "4ae3d7b0088d9425c5300f0e4d782131c4c2a0f47c4d407543f8487cbeb4a3fc",
+          "source_sha256": "108d4439cdf36d7e2784ccf96a3242f9920bbcb7ba3c8350321de92ce26c8413"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/cb6adca45e32ecff0b131f742c129324ba5e2dd695247f61d2d21d85ef2c581c.png",
+          "content_type": "image/png",
+          "bytes": 89550,
+          "sha256": "cb6adca45e32ecff0b131f742c129324ba5e2dd695247f61d2d21d85ef2c581c"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 496846,
+      "triangle_count": 958598,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "default",
+            "metal",
+            "rock",
+            "wood_crate",
+            "wood_panel",
+            "wood_plank"
+          ],
+          "vertex_count": 496838,
+          "triangle_count": 958586
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "wood_panel"
+          ],
+          "vertex_count": 8,
+          "triangle_count": 12
+        }
+      ],
+      "color_source_sha256": "108d4439cdf36d7e2784ccf96a3242f9920bbcb7ba3c8350321de92ce26c8413"
+    },
+    {
+      "name": "de_ancient_night",
+      "files": {
+        "collision": {
+          "path": "objects/c0f3ac2ce74ebab5911ff8fdd993807bfb717dfd2684f370522b10ef715922d8.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 6765316,
+          "sha256": "c0f3ac2ce74ebab5911ff8fdd993807bfb717dfd2684f370522b10ef715922d8"
+        },
+        "overview": {
+          "path": "objects/f6b420a983e2702c3c0d903a901483b6bc61fcf5eef2b6fb62da485ba93eb3c1.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 447,
+          "sha256": "f6b420a983e2702c3c0d903a901483b6bc61fcf5eef2b6fb62da485ba93eb3c1"
+        },
+        "logo": {
+          "path": "objects/6e9f5c1013fbf78693811f0798e0127a5640e10f9445e926f3060f5be2ab9811.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 238537,
+          "sha256": "6e9f5c1013fbf78693811f0798e0127a5640e10f9445e926f3060f5be2ab9811"
+        },
+        "colored": {
+          "path": "objects/313799e97f02e8ebc3f82c3822f02157a4812ddc7202df7f744c83b7b105bab9.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 10800300,
+          "sha256": "313799e97f02e8ebc3f82c3822f02157a4812ddc7202df7f744c83b7b105bab9",
+          "source_sha256": "f0d65a51a972fa002c528c372c8aa64c94c738a445d2a9f125091533682f51f4"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/f1f7754f1c2fa6ce9657f44f846f02ffb83c7c925fbeeeaae842d2fb70821e77.png",
+          "content_type": "image/png",
+          "bytes": 77264,
+          "sha256": "f1f7754f1c2fa6ce9657f44f846f02ffb83c7c925fbeeeaae842d2fb70821e77"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 501105,
+      "triangle_count": 966110,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "metal",
+            "metal_sheetmetal",
+            "rock",
+            "wood_crate",
+            "wood_panel",
+            "wood_plank"
+          ],
+          "vertex_count": 501097,
+          "triangle_count": 966098
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "wood_panel"
+          ],
+          "vertex_count": 8,
+          "triangle_count": 12
+        }
+      ],
+      "color_source_sha256": "f0d65a51a972fa002c528c372c8aa64c94c738a445d2a9f125091533682f51f4"
+    },
+    {
+      "name": "de_anubis",
+      "files": {
+        "collision": {
+          "path": "objects/ce3b3c9eb9285bc53314bd4169617739834e0645a2abb0276736d443e904f890.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 4728120,
+          "sha256": "ce3b3c9eb9285bc53314bd4169617739834e0645a2abb0276736d443e904f890"
+        },
+        "overview": {
+          "path": "objects/f83755ed8a85365923ac565d3fbd2ab1391e75d8b89cfd759da9214bf80e9fff.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 254,
+          "sha256": "f83755ed8a85365923ac565d3fbd2ab1391e75d8b89cfd759da9214bf80e9fff"
+        },
+        "logo": {
+          "path": "objects/e0aea902caf7256eb7af473de0b7ca471a49035e8f368d52e7a2b07aeec3171c.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 59422,
+          "sha256": "e0aea902caf7256eb7af473de0b7ca471a49035e8f368d52e7a2b07aeec3171c"
+        },
+        "colored": {
+          "path": "objects/1ac6d0a9757517dbe2a1f862c253a8d925d42d576668eff4bf1d158d00170552.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 6745784,
+          "sha256": "1ac6d0a9757517dbe2a1f862c253a8d925d42d576668eff4bf1d158d00170552",
+          "source_sha256": "dc39f9922a26268dc005fb0ac808f015e70e1d09993d86319aec9f751520ae54"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/b8f07c36edb13e34dbfaabf9a74e057961ac4fb29545d98d16ff9b7c4e6d1206.png",
+          "content_type": "image/png",
+          "bytes": 218922,
+          "sha256": "b8f07c36edb13e34dbfaabf9a74e057961ac4fb29545d98d16ff9b7c4e6d1206"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 383724,
+      "triangle_count": 673869,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "boulder",
+            "carpet",
+            "clay",
+            "concrete",
+            "default",
+            "glass",
+            "metal",
+            "metalvehicle",
+            "metalvent",
+            "plastic",
+            "pottery",
+            "potterylarge",
+            "rock",
+            "rubber",
+            "sand",
+            "solidmetal",
+            "wood",
+            "wood_basket",
+            "wood_crate",
+            "wood_dense",
+            "wood_panel",
+            "wood_plank",
+            "wood_solid",
+            "wood_tree"
+          ],
+          "vertex_count": 383724,
+          "triangle_count": 673869
+        }
+      ],
+      "color_source_sha256": "dc39f9922a26268dc005fb0ac808f015e70e1d09993d86319aec9f751520ae54"
+    },
+    {
+      "name": "de_boulder",
+      "files": {
+        "collision": {
+          "path": "objects/f50f733a2b54f45188a545775f68ee5871f5a06f357c35f83ce2cf23308c866e.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 45778940,
+          "sha256": "f50f733a2b54f45188a545775f68ee5871f5a06f357c35f83ce2cf23308c866e"
+        },
+        "logo": {
+          "path": "objects/f11a7e6a3889f60037add66372baed159bbc48e4371ebadb2ddff87b3105dc5e.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 20866,
+          "sha256": "f11a7e6a3889f60037add66372baed159bbc48e4371ebadb2ddff87b3105dc5e"
+        }
+      },
+      "radars": [],
+      "missing_assets": [
+        "overview",
+        "radar:default"
+      ],
+      "vertex_count": 3549712,
+      "triangle_count": 7691698,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "brass_bell_large",
+            "brass_bell_medium",
+            "brass_bell_small",
+            "brass_bell_smallest",
+            "brick",
+            "cardboard",
+            "carpet",
+            "chain",
+            "computer",
+            "concrete",
+            "default",
+            "flesh",
+            "foliage",
+            "fruit",
+            "glass",
+            "grass",
+            "metal",
+            "metal_bouncy",
+            "no_decal",
+            "paper",
+            "plastic",
+            "plastic_tape",
+            "pottery",
+            "potterylarge",
+            "rock",
+            "sand",
+            "wood",
+            "wood_furniture",
+            "wood_panel",
+            "wood_plank"
+          ],
+          "vertex_count": 3549524,
+          "triangle_count": 7691410
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "wood_plank"
+          ],
+          "vertex_count": 188,
+          "triangle_count": 288
+        }
+      ]
+    },
+    {
+      "name": "de_cache",
+      "files": {
+        "collision": {
+          "path": "objects/41044c67e56c0e4487c6bc4dcd561a786a679275725cd408bb588ceb2b4c57fa.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 9885180,
+          "sha256": "41044c67e56c0e4487c6bc4dcd561a786a679275725cd408bb588ceb2b4c57fa"
+        },
+        "overview": {
+          "path": "objects/4344e0364bc9ec31f9f3fc04fe24aacb465e5252f8c173e661cebec586b54c0d.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 527,
+          "sha256": "4344e0364bc9ec31f9f3fc04fe24aacb465e5252f8c173e661cebec586b54c0d"
+        },
+        "logo": {
+          "path": "objects/f7ce0d355a4f854108e100a0f5014f150f07195c45a0df9f45d880f5edb51371.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 28218,
+          "sha256": "f7ce0d355a4f854108e100a0f5014f150f07195c45a0df9f45d880f5edb51371"
+        },
+        "colored": {
+          "path": "objects/b0ad23b5d0ce8f508b140527a6a750858e118c1d1bc6ec8af803d2644cce18a7.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 12426028,
+          "sha256": "b0ad23b5d0ce8f508b140527a6a750858e118c1d1bc6ec8af803d2644cce18a7",
+          "source_sha256": "57eed1409661eca97e5c76a1bddaf6d2fdbe6a2225b13bf7137e5ff6c314ce9c"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/94c058b3deaa5cc24be81006322da3af1ef0bbded116160a3fcdea6d87227967.png",
+          "content_type": "image/png",
+          "bytes": 93413,
+          "sha256": "94c058b3deaa5cc24be81006322da3af1ef0bbded116160a3fcdea6d87227967"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 874416,
+      "triangle_count": 1599816,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "chainlink",
+            "concrete",
+            "glass",
+            "metal",
+            "metal_barrel",
+            "metal_sheetmetal",
+            "plastic",
+            "porcelain",
+            "rubber",
+            "vrf_unknown_key_2214245875"
+          ],
+          "vertex_count": 874416,
+          "triangle_count": 1599816
+        }
+      ],
+      "color_source_sha256": "57eed1409661eca97e5c76a1bddaf6d2fdbe6a2225b13bf7137e5ff6c314ce9c"
+    },
+    {
+      "name": "de_debris",
+      "files": {
+        "collision": {
+          "path": "objects/b039c9c76ba6f08cc602596d2e1e3f40c831e0c930fd5f226c1c7bde531241fa.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 4132308,
+          "sha256": "b039c9c76ba6f08cc602596d2e1e3f40c831e0c930fd5f226c1c7bde531241fa"
+        },
+        "logo": {
+          "path": "objects/8eb890901c89ebf4edb0f1116c1ea1b910ee7d9a6360cc73bb29295d02bd87f1.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 18021,
+          "sha256": "8eb890901c89ebf4edb0f1116c1ea1b910ee7d9a6360cc73bb29295d02bd87f1"
+        },
+        "colored": {
+          "path": "objects/d74f27d06e5450cf8d97d710b13d0ff763d46214aaf83a3ad9cc4557c577969c.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 6252192,
+          "sha256": "d74f27d06e5450cf8d97d710b13d0ff763d46214aaf83a3ad9cc4557c577969c",
+          "source_sha256": "03a9c69ae24724821a2aeeca6eb448d04667dc11193172bd1b9fc3697c7e7033"
+        }
+      },
+      "radars": [],
+      "missing_assets": [
+        "overview",
+        "radar:default"
+      ],
+      "vertex_count": 317592,
+      "triangle_count": 573452,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "brass_bell_large",
+            "computer",
+            "concrete",
+            "default",
+            "dirt",
+            "foliage",
+            "glass",
+            "glassbottle",
+            "metal",
+            "metal_dumpster",
+            "metal_sheetmetal",
+            "metalpanel",
+            "plaster",
+            "plastic",
+            "plastic_barrel",
+            "plastic_box",
+            "plastic_milkcrate",
+            "rock",
+            "soccerball",
+            "vrf_unknown_key_2214245875",
+            "watermelon",
+            "wood",
+            "wood_crate",
+            "wood_panel",
+            "wood_plank",
+            "wood_solid",
+            "wood_tree"
+          ],
+          "vertex_count": 317592,
+          "triangle_count": 573452
+        }
+      ],
+      "color_source_sha256": "03a9c69ae24724821a2aeeca6eb448d04667dc11193172bd1b9fc3697c7e7033"
+    },
+    {
+      "name": "de_dust2",
+      "files": {
+        "collision": {
+          "path": "objects/6d3327fdd891de13ff880b73a34108d45d5ef8cecc28b00267f62d3c47f6c2a0.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 2767484,
+          "sha256": "6d3327fdd891de13ff880b73a34108d45d5ef8cecc28b00267f62d3c47f6c2a0"
+        },
+        "overview": {
+          "path": "objects/97947e99bc7930fc06dc15af3dcf942dbca5ca1c6f36119a089615fd4b383620.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 541,
+          "sha256": "97947e99bc7930fc06dc15af3dcf942dbca5ca1c6f36119a089615fd4b383620"
+        },
+        "logo": {
+          "path": "objects/10e06cbec1c6d35dd1c746e9eec6abbc47dccdf29c720aa3e11e88c713d73bab.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 236842,
+          "sha256": "10e06cbec1c6d35dd1c746e9eec6abbc47dccdf29c720aa3e11e88c713d73bab"
+        },
+        "colored": {
+          "path": "objects/fec0fee051f6a251f637c3381018d66bb0dacc0d1bf37dc919747d93f3da08cc.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 4393488,
+          "sha256": "fec0fee051f6a251f637c3381018d66bb0dacc0d1bf37dc919747d93f3da08cc",
+          "source_sha256": "85bf6b97c64553d96230b32533c8aaedb9d97cfb02b44d258ae8479445f4ebb5"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/0828297130ce26db25a299806ff743df9104de634a3e64b52b358f6f4399354d.png",
+          "content_type": "image/png",
+          "bytes": 175761,
+          "sha256": "0828297130ce26db25a299806ff743df9104de634a3e64b52b358f6f4399354d"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 238216,
+      "triangle_count": 420430,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "carpet",
+            "chainlink",
+            "computer",
+            "concrete",
+            "default",
+            "dirt",
+            "glass",
+            "metal",
+            "metal_dumpster",
+            "metal_sand_barrel",
+            "metalpanel",
+            "metalvehicle",
+            "metalvent",
+            "plastic",
+            "pottery",
+            "rock",
+            "rubbertire",
+            "sand",
+            "solidmetal",
+            "tile",
+            "vrf_unknown_key_2838185980",
+            "wood",
+            "wood_basket",
+            "wood_crate",
+            "wood_dense",
+            "wood_panel",
+            "wood_plank",
+            "wood_solid",
+            "wood_tree"
+          ],
+          "vertex_count": 238192,
+          "triangle_count": 420394
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "metalpanel",
+            "sand"
+          ],
+          "vertex_count": 24,
+          "triangle_count": 36
+        }
+      ],
+      "color_source_sha256": "85bf6b97c64553d96230b32533c8aaedb9d97cfb02b44d258ae8479445f4ebb5"
+    },
+    {
+      "name": "de_eldorado",
+      "files": {
+        "collision": {
+          "path": "objects/fb4ba12fae71f21a992e6ddb68f725fe1dc2f28392997d16c227dcd2f3cb5be7.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 7155944,
+          "sha256": "fb4ba12fae71f21a992e6ddb68f725fe1dc2f28392997d16c227dcd2f3cb5be7"
+        },
+        "logo": {
+          "path": "objects/c17e987e98ca17e697afee6157cb1d0a6d7c290d81ef2008669f7a9789d390e0.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 22883,
+          "sha256": "c17e987e98ca17e697afee6157cb1d0a6d7c290d81ef2008669f7a9789d390e0"
+        },
+        "colored": {
+          "path": "objects/80c04ff717418045a81e8b4a4d29dd9f6c6f6ebe8abfc6c176360f181ba6504c.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 12157536,
+          "sha256": "80c04ff717418045a81e8b4a4d29dd9f6c6f6ebe8abfc6c176360f181ba6504c",
+          "source_sha256": "d77c7f8d5abda53a88caf6126b3fbc5f36cce2d80b04dd24e56e9ad4d39bd234"
+        }
+      },
+      "radars": [],
+      "missing_assets": [
+        "overview",
+        "radar:default"
+      ],
+      "vertex_count": 534142,
+      "triangle_count": 1035418,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "boulder",
+            "chain",
+            "cloth",
+            "default",
+            "fruit",
+            "glassbottle",
+            "metal",
+            "metal_box",
+            "metal_sand_barrel",
+            "metaldogtags",
+            "papertowel",
+            "plastic",
+            "rock",
+            "rubber",
+            "rubbertire",
+            "vrf_unknown_key_2214245875",
+            "wood",
+            "wood_basket",
+            "wood_panel",
+            "wood_plank"
+          ],
+          "vertex_count": 534142,
+          "triangle_count": 1035418
+        }
+      ],
+      "color_source_sha256": "d77c7f8d5abda53a88caf6126b3fbc5f36cce2d80b04dd24e56e9ad4d39bd234"
+    },
+    {
+      "name": "de_fachwerk",
+      "files": {
+        "collision": {
+          "path": "objects/a27d57c144600f8ac65c208dc9f532dd7e0038f19e2d873363c16f1cf1a50749.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 29855052,
+          "sha256": "a27d57c144600f8ac65c208dc9f532dd7e0038f19e2d873363c16f1cf1a50749"
+        },
+        "logo": {
+          "path": "objects/d13f60d838e21118492a38887365046a2f886e1c243a23b2080a7c32e416e80f.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 22926,
+          "sha256": "d13f60d838e21118492a38887365046a2f886e1c243a23b2080a7c32e416e80f"
+        },
+        "colored": {
+          "path": "objects/1f30cce1a27be9982d67ce5e5b74f2b19783c7fe5c36ab4996cb140920ec9755.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 25712652,
+          "sha256": "1f30cce1a27be9982d67ce5e5b74f2b19783c7fe5c36ab4996cb140920ec9755",
+          "source_sha256": "42db48bd30f25bf1b109b791aeb5e6d8487af018d97f4597e50f249112d32cd3"
+        }
+      },
+      "radars": [],
+      "missing_assets": [
+        "overview",
+        "radar:default"
+      ],
+      "vertex_count": 2432569,
+      "triangle_count": 5362787,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "brick",
+            "carpet",
+            "chain",
+            "cloth",
+            "computer",
+            "concrete",
+            "concrete_block",
+            "concrete_polished",
+            "default",
+            "foliage",
+            "glass",
+            "grass",
+            "metal",
+            "metal_shield",
+            "metalvent",
+            "paper",
+            "plastic",
+            "plastic_tape",
+            "porcelain",
+            "rock",
+            "rubber",
+            "rubbertire",
+            "upholstery",
+            "vrf_unknown_key_2214245875",
+            "vrf_unknown_key_2838185980",
+            "wood",
+            "wood_box",
+            "wood_crate",
+            "wood_dense",
+            "wood_furniture",
+            "wood_panel",
+            "wood_plank",
+            "wood_tree"
+          ],
+          "vertex_count": 2432537,
+          "triangle_count": 5362739
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "wood"
+          ],
+          "vertex_count": 32,
+          "triangle_count": 48
+        }
+      ],
+      "color_source_sha256": "42db48bd30f25bf1b109b791aeb5e6d8487af018d97f4597e50f249112d32cd3"
+    },
+    {
+      "name": "de_inferno",
+      "files": {
+        "collision": {
+          "path": "objects/5baefbe7101b213a3a1f8a11773ec6c7a9f20ca8882d549d2f76eb39c7d7bdf3.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 17359924,
+          "sha256": "5baefbe7101b213a3a1f8a11773ec6c7a9f20ca8882d549d2f76eb39c7d7bdf3"
+        },
+        "overview": {
+          "path": "objects/ff93b0ff1f6705ccfb4daf3b038dd88ccdf3ca776823667c19782650e94d2c54.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 414,
+          "sha256": "ff93b0ff1f6705ccfb4daf3b038dd88ccdf3ca776823667c19782650e94d2c54"
+        },
+        "logo": {
+          "path": "objects/05175e695e8014ec72d563f85aa11ce896da659ff7f091e138bf0fe2f27b4af4.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 34361,
+          "sha256": "05175e695e8014ec72d563f85aa11ce896da659ff7f091e138bf0fe2f27b4af4"
+        },
+        "colored": {
+          "path": "objects/4dbca2ff8cc97ac94ac85deb04bb4a4051fc40077cd2aa3e282725c50c6668e2.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 17469328,
+          "sha256": "4dbca2ff8cc97ac94ac85deb04bb4a4051fc40077cd2aa3e282725c50c6668e2",
+          "source_sha256": "a431430b7e1f0010cb9fe857205b71754c87de17d01e7f4adaf6c0831b489f39"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/53e1d660d5e61a9b876cc56725c2e891c56efcb788657520fa9c10fec321dce3.png",
+          "content_type": "image/png",
+          "bytes": 136914,
+          "sha256": "53e1d660d5e61a9b876cc56725c2e891c56efcb788657520fa9c10fec321dce3"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 1377656,
+      "triangle_count": 2530710,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "brass_bell_large",
+            "brass_bell_medium",
+            "brass_bell_small",
+            "brass_bell_smallest",
+            "brass_bell_smallest_g",
+            "canister",
+            "cloth",
+            "computer",
+            "concrete",
+            "concrete_block",
+            "concrete_polished",
+            "default",
+            "glass",
+            "glassbottle",
+            "metal",
+            "metal_box",
+            "metal_sheetmetal",
+            "paper",
+            "papercup",
+            "plastic",
+            "plastic_milkcrate",
+            "plasticbottle",
+            "porcelain",
+            "rock",
+            "rubber",
+            "vrf_unknown_key_2838185980",
+            "wood",
+            "wood_basket",
+            "wood_dense",
+            "wood_furniture",
+            "wood_panel",
+            "wood_plank"
+          ],
+          "vertex_count": 1377432,
+          "triangle_count": 2530270
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "concrete"
+          ],
+          "vertex_count": 224,
+          "triangle_count": 440
+        }
+      ],
+      "color_source_sha256": "a431430b7e1f0010cb9fe857205b71754c87de17d01e7f4adaf6c0831b489f39"
+    },
+    {
+      "name": "de_mirage",
+      "files": {
+        "collision": {
+          "path": "objects/adf4c16439f7e85a52da36a76ef03ea6c9276ea8a534695884cc393bb9f4bf45.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 824572,
+          "sha256": "adf4c16439f7e85a52da36a76ef03ea6c9276ea8a534695884cc393bb9f4bf45"
+        },
+        "overview": {
+          "path": "objects/f201fd608d6ea0bd091920620a4f74e97197d26caf36f133875b58d5ba1d77fe.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 640,
+          "sha256": "f201fd608d6ea0bd091920620a4f74e97197d26caf36f133875b58d5ba1d77fe"
+        },
+        "logo": {
+          "path": "objects/8605361cbe80e073cca617552092131bd910d6aecb38ac294ac638bc21f6cf36.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 14463,
+          "sha256": "8605361cbe80e073cca617552092131bd910d6aecb38ac294ac638bc21f6cf36"
+        },
+        "colored": {
+          "path": "objects/228c91fb54f987922dc74fadfbae5aa5d6f7b19c88040464acc9b5c670bd99ab.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 1591816,
+          "sha256": "228c91fb54f987922dc74fadfbae5aa5d6f7b19c88040464acc9b5c670bd99ab",
+          "source_sha256": "b094237008644887c8e950ecc3c3a91bd126758f56d066c49c189c2b0b41ce63"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/c8032f6c83ffca63c0a20ebdcc598a0e1aa618efd746e381e2db26f33a4a964f.png",
+          "content_type": "image/png",
+          "bytes": 143685,
+          "sha256": "c8032f6c83ffca63c0a20ebdcc598a0e1aa618efd746e381e2db26f33a4a964f"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 77025,
+      "triangle_count": 123491,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "boulder",
+            "brick",
+            "cardboard",
+            "carpet",
+            "chainlink",
+            "computer",
+            "concrete",
+            "default",
+            "dirt",
+            "glass",
+            "metal",
+            "metal_barrel",
+            "metal_sand_barrel",
+            "metalpanel",
+            "metalvehicle",
+            "metalvent",
+            "no_decal",
+            "plaster",
+            "plastic_box",
+            "pottery",
+            "rock",
+            "rubber",
+            "solidmetal",
+            "upholstery",
+            "wood",
+            "wood_basket",
+            "wood_furniture",
+            "wood_panel",
+            "wood_plank",
+            "wood_solid",
+            "wood_tree"
+          ],
+          "vertex_count": 76543,
+          "triangle_count": 122703
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "concrete",
+            "metalvent",
+            "vrf_unknown_key_2838185980",
+            "wood",
+            "wood_plank"
+          ],
+          "vertex_count": 482,
+          "triangle_count": 788
+        }
+      ],
+      "color_source_sha256": "b094237008644887c8e950ecc3c3a91bd126758f56d066c49c189c2b0b41ce63"
+    },
+    {
+      "name": "de_nuke",
+      "files": {
+        "collision": {
+          "path": "objects/efe0085385001d2a2b5a93347ff9d3b4fe7de9407f4962d3be9e44fadbf28d8d.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 972856,
+          "sha256": "efe0085385001d2a2b5a93347ff9d3b4fe7de9407f4962d3be9e44fadbf28d8d"
+        },
+        "overview": {
+          "path": "objects/877a8df76cee8e5abc4756df162790ed25c5f5dd994ed9d895a7bc3a9c3ac585.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 746,
+          "sha256": "877a8df76cee8e5abc4756df162790ed25c5f5dd994ed9d895a7bc3a9c3ac585"
+        },
+        "logo": {
+          "path": "objects/a6e0edc910841320eed4dbc6d6ca1ebc94f0048a98d4d85ce1a1022c39845760.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 70460,
+          "sha256": "a6e0edc910841320eed4dbc6d6ca1ebc94f0048a98d4d85ce1a1022c39845760"
+        },
+        "colored": {
+          "path": "objects/b60607c38db0c52cdea572c9c661cd532c6e56c7d8b516d3c304d13b49841543.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 2442116,
+          "sha256": "b60607c38db0c52cdea572c9c661cd532c6e56c7d8b516d3c304d13b49841543",
+          "source_sha256": "e2fab7cf7ee23d5dc4d7f2ee51def430abdce61e1b9f438ff65c331a4e840177"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/21167d05292e80eebe7b068f0bba36a2e3f9116d154d96952a8366cdcc72e6b1.png",
+          "content_type": "image/png",
+          "bytes": 96995,
+          "sha256": "21167d05292e80eebe7b068f0bba36a2e3f9116d154d96952a8366cdcc72e6b1"
+        },
+        {
+          "section": "lower",
+          "path": "objects/b8c4e659491ba79be60b7d3f9bc78bdaeb808afc2bae14bf3b25b1801220ebe0.png",
+          "content_type": "image/png",
+          "bytes": 96487,
+          "sha256": "b8c4e659491ba79be60b7d3f9bc78bdaeb808afc2bae14bf3b25b1801220ebe0"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 89784,
+      "triangle_count": 163589,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "carpet",
+            "chainlink",
+            "concrete",
+            "default",
+            "glass",
+            "metal",
+            "metal_barrel",
+            "metal_box",
+            "metalgrate",
+            "metalvehicle",
+            "metalvent",
+            "plastic",
+            "rubber",
+            "tile",
+            "vrf_unknown_key_2838185980",
+            "wood"
+          ],
+          "vertex_count": 89784,
+          "triangle_count": 163589
+        }
+      ],
+      "color_source_sha256": "e2fab7cf7ee23d5dc4d7f2ee51def430abdce61e1b9f438ff65c331a4e840177"
+    },
+    {
+      "name": "de_overpass",
+      "files": {
+        "collision": {
+          "path": "objects/bf49e59515e2f46f3aa27b72bec558386573150263f6978ecba0ac91daf1e009.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 8303020,
+          "sha256": "bf49e59515e2f46f3aa27b72bec558386573150263f6978ecba0ac91daf1e009"
+        },
+        "overview": {
+          "path": "objects/23b44305d79a15dc9feea71528a7015d6f3612044a8367f29b20c65aec2e7897.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 444,
+          "sha256": "23b44305d79a15dc9feea71528a7015d6f3612044a8367f29b20c65aec2e7897"
+        },
+        "logo": {
+          "path": "objects/b28ea0dc5e030bb4f70008cc8a64cc3300a3b6ea565fff29cf90ff08d2cbcfbb.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 23776,
+          "sha256": "b28ea0dc5e030bb4f70008cc8a64cc3300a3b6ea565fff29cf90ff08d2cbcfbb"
+        },
+        "colored": {
+          "path": "objects/e9bcff845c25fffdaec945cc046bf170b8ff22e853cbff581ca3b2cc4938ff0f.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 8318040,
+          "sha256": "e9bcff845c25fffdaec945cc046bf170b8ff22e853cbff581ca3b2cc4938ff0f",
+          "source_sha256": "fa0f5af9f2aef9d12bcc90c9fb03532b095fc7126e2e15044ef77eb6e196effb"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/2a59b62668e80037b5a88e980f56af360269f5ea581d52eb0669d78a981f0d96.png",
+          "content_type": "image/png",
+          "bytes": 290940,
+          "sha256": "2a59b62668e80037b5a88e980f56af360269f5ea581d52eb0669d78a981f0d96"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 695019,
+      "triangle_count": 1338356,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "cardboard",
+            "carpet",
+            "chainlink",
+            "concrete",
+            "default",
+            "dirt",
+            "glass",
+            "metal",
+            "metal_barrel",
+            "metal_box",
+            "metalgrate",
+            "metalpanel",
+            "metalvehicle",
+            "metalvent",
+            "no_decal",
+            "paintcan",
+            "plastic",
+            "plastic_box",
+            "rock",
+            "rubber",
+            "vrf_unknown_key_2838185980",
+            "wood",
+            "wood_crate",
+            "wood_panel",
+            "wood_plank",
+            "wood_tree"
+          ],
+          "vertex_count": 694951,
+          "triangle_count": 1338248
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "default"
+          ],
+          "vertex_count": 68,
+          "triangle_count": 108
+        }
+      ],
+      "color_source_sha256": "fa0f5af9f2aef9d12bcc90c9fb03532b095fc7126e2e15044ef77eb6e196effb"
+    },
+    {
+      "name": "de_poseidon",
+      "files": {
+        "collision": {
+          "path": "objects/2ee993f4fd66ddbde75ede14b5febc3d3c7311889ee1bb389010b4d9012eaf35.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 3095464,
+          "sha256": "2ee993f4fd66ddbde75ede14b5febc3d3c7311889ee1bb389010b4d9012eaf35"
+        },
+        "logo": {
+          "path": "objects/5447267ad484ba3214fa7756ccb47409145dddee4f5108bcf50de5c0f49ad830.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 19625,
+          "sha256": "5447267ad484ba3214fa7756ccb47409145dddee4f5108bcf50de5c0f49ad830"
+        },
+        "colored": {
+          "path": "objects/f0c0d3f5548fedfa51f9f329989937a00ccd4d7339b83a819e7422374c4b602b.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 3086656,
+          "sha256": "f0c0d3f5548fedfa51f9f329989937a00ccd4d7339b83a819e7422374c4b602b",
+          "source_sha256": "71a964ba59bd339234daf33c013c0de616c3d2b36780619aab941d7c85f98c4d"
+        }
+      },
+      "radars": [],
+      "missing_assets": [
+        "overview",
+        "radar:default"
+      ],
+      "vertex_count": 272313,
+      "triangle_count": 503247,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "carpet",
+            "cloth",
+            "concrete",
+            "concrete_polished",
+            "default",
+            "foliage",
+            "fruit",
+            "glass",
+            "metal",
+            "metalpanel",
+            "no_decal",
+            "paper",
+            "plastic",
+            "porcelain",
+            "rock",
+            "wood",
+            "wood_basket",
+            "wood_furniture",
+            "wood_tree"
+          ],
+          "vertex_count": 272313,
+          "triangle_count": 503247
+        }
+      ],
+      "color_source_sha256": "71a964ba59bd339234daf33c013c0de616c3d2b36780619aab941d7c85f98c4d"
+    },
+    {
+      "name": "de_train",
+      "files": {
+        "collision": {
+          "path": "objects/ca0f2c2ad485d213e1a40101f1068ac3033b8d1b8c76ba7724c85c22a262d9eb.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 9950668,
+          "sha256": "ca0f2c2ad485d213e1a40101f1068ac3033b8d1b8c76ba7724c85c22a262d9eb"
+        },
+        "overview": {
+          "path": "objects/13600850d41b034d973102602e5694e6c09057390d4d37490e605f54b71b4d55.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 547,
+          "sha256": "13600850d41b034d973102602e5694e6c09057390d4d37490e605f54b71b4d55"
+        },
+        "logo": {
+          "path": "objects/4121503501508853a5cb31f04828f33ba9de9e5032b1a2b6ff931fcd4e1383b5.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 20142,
+          "sha256": "4121503501508853a5cb31f04828f33ba9de9e5032b1a2b6ff931fcd4e1383b5"
+        },
+        "colored": {
+          "path": "objects/3e397049a216a307a5b20892d26649c8f87e6a1ec962aa5dbdac0a739c30eee3.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 15098684,
+          "sha256": "3e397049a216a307a5b20892d26649c8f87e6a1ec962aa5dbdac0a739c30eee3",
+          "source_sha256": "785cb0dcafed6407a2d99eb20d2700e1988ddc754bcccaf706a6b22e7371fe3b"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/ccdb11d6f9fbfb7bf199dfa35d58b3e86131a2c872f38b67502d1be3759e912e.png",
+          "content_type": "image/png",
+          "bytes": 146404,
+          "sha256": "ccdb11d6f9fbfb7bf199dfa35d58b3e86131a2c872f38b67502d1be3759e912e"
+        },
+        {
+          "section": "lower",
+          "path": "objects/bc1aa9b1bbcceb06b8e82b7e0980ae11188aa1d460a2e799da9ecd8e21e4d67a.png",
+          "content_type": "image/png",
+          "bytes": 135051,
+          "sha256": "bc1aa9b1bbcceb06b8e82b7e0980ae11188aa1d460a2e799da9ecd8e21e4d67a"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 804891,
+      "triangle_count": 1537100,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "chainlink",
+            "cloth",
+            "concrete",
+            "default",
+            "foliage",
+            "glass",
+            "metal",
+            "metal_barrel",
+            "metal_sheetmetal",
+            "metalgrate",
+            "paintcan",
+            "paper",
+            "plastic",
+            "rubber",
+            "rubbertire",
+            "solidmetal",
+            "vrf_unknown_key_2214245875",
+            "wood",
+            "wood_dense",
+            "wood_panel"
+          ],
+          "vertex_count": 804891,
+          "triangle_count": 1537100
+        }
+      ],
+      "color_source_sha256": "785cb0dcafed6407a2d99eb20d2700e1988ddc754bcccaf706a6b22e7371fe3b"
+    },
+    {
+      "name": "de_vertigo",
+      "files": {
+        "collision": {
+          "path": "objects/bfb07d66757ed53051322e0692c0f78bcf713f191b84e071c7c13b435ef677ff.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 1214196,
+          "sha256": "bfb07d66757ed53051322e0692c0f78bcf713f191b84e071c7c13b435ef677ff"
+        },
+        "overview": {
+          "path": "objects/61cd5156d443c10c898283dfb98cdfaf5befb2a24afa18e27f76b89b4d908541.txt",
+          "content_type": "text/plain; charset=utf-8",
+          "bytes": 767,
+          "sha256": "61cd5156d443c10c898283dfb98cdfaf5befb2a24afa18e27f76b89b4d908541"
+        },
+        "logo": {
+          "path": "objects/1e2b011874066e8f355b56fdbeb4bb9d0c972ebd109f96b7ae86a7c242a1d75b.svg",
+          "content_type": "image/svg+xml",
+          "bytes": 41677,
+          "sha256": "1e2b011874066e8f355b56fdbeb4bb9d0c972ebd109f96b7ae86a7c242a1d75b"
+        },
+        "colored": {
+          "path": "objects/4232bd8410a5c1fb21d08f0a93c570838a52aa6cf0e4bac22c4c4f94247a98e4.glb",
+          "content_type": "model/gltf-binary",
+          "bytes": 3385852,
+          "sha256": "4232bd8410a5c1fb21d08f0a93c570838a52aa6cf0e4bac22c4c4f94247a98e4",
+          "source_sha256": "b6fe5ba2a039c94266ac452534353eb179d749295e57b599fa352551f8d66e79"
+        }
+      },
+      "radars": [
+        {
+          "section": "default",
+          "path": "objects/d2e2e18668f951f7d3b7c6a4fe4580632d5de253d0991f4b9639f9eca73264bf.png",
+          "content_type": "image/png",
+          "bytes": 97762,
+          "sha256": "d2e2e18668f951f7d3b7c6a4fe4580632d5de253d0991f4b9639f9eca73264bf"
+        },
+        {
+          "section": "lower",
+          "path": "objects/61639197f940d9702f6cb5476a38ae932a821170cdb6405f14733a5b83e32723.png",
+          "content_type": "image/png",
+          "bytes": 123826,
+          "sha256": "61639197f940d9702f6cb5476a38ae932a821170cdb6405f14733a5b83e32723"
+        }
+      ],
+      "missing_assets": [],
+      "vertex_count": 111732,
+      "triangle_count": 192027,
+      "layers": [
+        {
+          "name": "default",
+          "tags": [],
+          "surface_properties": [
+            "carpet",
+            "chainlink",
+            "computer",
+            "concrete",
+            "default",
+            "metal",
+            "metal_barrel",
+            "metal_box",
+            "metal_dumpster",
+            "metalgrate",
+            "metalvehicle",
+            "metalvent",
+            "plastic",
+            "plastic_barrel",
+            "rock",
+            "rubber",
+            "sand",
+            "sheetrock",
+            "vrf_unknown_key_2838185980",
+            "wood",
+            "wood_plank"
+          ],
+          "vertex_count": 111559,
+          "triangle_count": 191761
+        },
+        {
+          "name": "entity:func_brush",
+          "tags": [],
+          "surface_properties": [
+            "default",
+            "metal_sheetmetal",
+            "tile"
+          ],
+          "vertex_count": 173,
+          "triangle_count": 266
+        }
+      ],
+      "color_source_sha256": "b6fe5ba2a039c94266ac452534353eb179d749295e57b599fa352551f8d66e79"
+    }
+  ]
+}

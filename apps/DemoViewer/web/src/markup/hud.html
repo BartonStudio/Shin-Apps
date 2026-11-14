@@ -1,0 +1,33 @@
+;((n.className = `hud`),
+        (n.innerHTML = `
+      <div class="hud-info">
+        <span class="hud-map">—</span>
+        <span class="hud-round"></span>
+      </div>
+      <div class="scorebar" hidden>
+        <span class="sb-team sb-t"><span class="sb-label sb-t-label">T</span><span class="sb-score sb-t-score">0</span></span>
+        <div class="sb-center">
+          <span class="sb-timer">0:00</span>
+          <div class="sb-status" hidden>
+            <span class="sb-bomb"></span>
+            <div class="sb-defuse"><div class="sb-defuse-fill"></div></div>
+          </div>
+          <span class="sb-round"></span>
+        </div>
+        <span class="sb-team sb-ct"><span class="sb-score sb-ct-score">0</span><span class="sb-label sb-ct-label">CT</span></span>
+      </div>
+      <div class="defuse-cue" hidden>
+        <div class="defuse-cue-ring" role="progressbar" aria-label="Bomb defuse progress" aria-valuemin="0" aria-valuemax="100">
+          <svg class="defuse-cue-circle" viewBox="0 0 100 100" aria-hidden="true">
+            <circle class="defuse-cue-track" cx="50" cy="50" r="40"></circle>
+            <path class="defuse-cue-arc" d="M 50 90 A 40 40 0 0 1 50 10" pathLength="100"></path>
+            <path class="defuse-cue-arc" d="M 50 90 A 40 40 0 0 0 50 10" pathLength="100"></path>
+          </svg>
+          <span class="defuse-cue-icon" aria-hidden="true"></span>
+        </div>
+        <span class="defuse-cue-heading"><span class="defuse-cue-name"></span><span class="defuse-cue-message"></span></span>
+        <span class="defuse-cue-time"></span>
+      </div>
+    `),
+        e.appendChild(n),
+        (this.root = n),

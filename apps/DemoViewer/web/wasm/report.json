@@ -1,0 +1,41 @@
+{
+  "file": "csplayer_parser_bg-qigVgicw.wasm",
+  "bytes": 3210168,
+  "ownSources": [
+    "first_pass\\parser.rs",
+    "first_pass\\prop_controller.rs",
+    "first_pass\\sendtables.rs",
+    "first_pass\\stringtables.rs",
+    "parse_demo.rs",
+    "second_pass\\collect_data.rs",
+    "second_pass\\entities.rs",
+    "second_pass\\game_events.rs",
+    "second_pass\\parser.rs",
+    "second_pass\\variants.rs"
+  ],
+  "registryDeps": [
+    "ahash-0.8.12",
+    "aho-corasick-1.1.4",
+    "bitter-0.7.1",
+    "bytes-1.12.1",
+    "crossbeam-epoch-0.9.20",
+    "lazy_static-1.5.0",
+    "memchr-2.8.3",
+    "phf_shared-0.11.3",
+    "rayon-1.12.0",
+    "rayon-core-1.13.0",
+    "regex-1.13.0",
+    "regex-automata-0.4.15",
+    "regex-syntax-0.8.11",
+    "serde-wasm-bindgen-0.6.5",
+    "snap-1.1.1",
+    "wasm-bindgen-0.2.126"
+  ],
+  "rustcCommits": [
+    "58cf8f9c35b355199727627d07ae34a4e2846d67"
+  ],
+  "wasmBindgenHash": [
+    "5663806b8b774ddf",
+    "acbe69b831453cec"
+  ]
+}

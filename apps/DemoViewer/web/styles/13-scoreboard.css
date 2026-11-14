@@ -1,0 +1,259 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：scoreboard — 计分板
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.scoreboard {
+  --sbd-cols: minmax(8.5rem, 1fr) repeat(3, 2.4rem) 3.1rem 3.4rem 4.6rem;
+  --sbd-pad: 0.8rem;
+  z-index: 30;
+  background: var(--pc-glass-strong);
+  backdrop-filter: blur(30px) saturate(180%);
+  width: min(41rem, 94vw);
+  box-shadow:
+    inset 0 0.5px 0 var(--pc-glass-edge),
+    0 0 0 0.5px var(--pc-hairline),
+    0 2px 6px #0000000d,
+    0 24px 64px #00000038;
+  color: var(--pc-label);
+  font-family: var(--pc-font);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  pointer-events: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pc-track) transparent;
+  animation: sbd-appear 0.32s var(--pc-ease) both;
+  border-radius: 24px;
+  padding: 0.35rem 0.5rem 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.scoreboard[hidden] {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+.scoreboard {
+    animation: none;
+  }
+}
+.sbd-ct {
+  --team: var(--pc-ct);
+}
+.sbd-t {
+  --team: var(--pc-t);
+}
+.sbd-team + .sbd-team {
+  margin-top: 1rem;
+}
+.sbd-head,
+.sbd-row {
+  grid-template-columns: var(--sbd-cols);
+  padding: 0 var(--sbd-pad);
+  align-items: center;
+  column-gap: 0.25rem;
+  display: grid;
+}
+.sbd-head {
+  height: 2.9rem;
+  box-shadow: inset 0 -1px 0 var(--pc-separator);
+  margin-bottom: 0.3rem;
+}
+.sbd-rows > .sbd-row:first-child:before {
+  display: none;
+}
+.sbd-head-team {
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  display: flex;
+}
+.sbd-head-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 650 0.9375rem/1.2 var(--pc-font);
+  letter-spacing: -0.01em;
+  overflow: hidden;
+}
+.sbd-mark {
+  flex: none;
+  place-items: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  display: grid;
+}
+.sbd-mark .logo-white {
+  filter: brightness(0.16);
+}
+:root[data-theme="dark"] .sbd-mark .logo-white {
+  filter: none;
+}
+.sbd-badge {
+  background: color-mix(in srgb, var(--team) 15%, transparent);
+  color: var(--team);
+  font: 700 0.5625rem/1 var(--pc-font);
+  border-radius: 6px;
+}
+.sbd-h {
+  height: 100%;
+  color: var(--pc-secondary);
+  font: 500 0.8125rem/1 var(--pc-font);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.2rem;
+  transition: color 0.15s;
+  display: flex;
+}
+.sbd-h.is-sorted {
+  color: var(--pc-label);
+  font-weight: 650;
+}
+.sbd-sort-icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  width: 0.5625rem;
+  height: 0.35rem;
+  transition:
+    opacity 0.15s ease,
+    rotate 0.25s var(--pc-ease);
+  flex: none;
+}
+.sbd-h.is-sorted .sbd-sort-icon {
+  opacity: 1;
+}
+.sbd-h.is-asc .sbd-sort-icon {
+  rotate: 180deg;
+}
+@media (hover: hover) {
+.sbd-h:hover {
+    color: var(--pc-label);
+  }
+}
+@media (hover: hover) {
+.sbd-h:not(.is-sorted):hover .sbd-sort-icon {
+    opacity: 0.4;
+  }
+}
+.sbd-h:active {
+  opacity: 0.6;
+}
+.sbd-row {
+  cursor: pointer;
+  border-radius: 10px;
+  height: 2.375rem;
+  transition: background-color 0.15s;
+  position: relative;
+}
+.sbd-row:before {
+  content: "";
+  top: 0;
+  left: var(--sbd-pad);
+  right: var(--sbd-pad);
+  border-top: 0.5px solid var(--pc-separator);
+  transition: opacity 0.15s;
+  position: absolute;
+}
+.sbd-row:is(:not(.sbd-dead):hover, .sbd-followed):before,
+.sbd-row:is(:not(.sbd-dead):hover, .sbd-followed) + .sbd-row:before {
+  opacity: 0;
+}
+.sbd-row:not(.sbd-dead):hover {
+  background: var(--pc-hover);
+}
+.sbd-row:not(.sbd-dead):active {
+  background: var(--pc-press);
+}
+.sbd-row.sbd-dead {
+  cursor: default;
+}
+.sbd-row.sbd-followed {
+  background: var(--pc-fill);
+}
+.sbd-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--team);
+  font: 600 0.875rem/1.2 var(--pc-font);
+  letter-spacing: -0.01em;
+  overflow: hidden;
+}
+.sbd-followed .sbd-name {
+  font-weight: 750;
+}
+.sbd-col {
+  text-align: right;
+  font: 400 0.875rem/1 var(--pc-font);
+}
+.sbd-col.is-sorted {
+  color: var(--pc-label);
+  font-weight: 600;
+}
+.sbd-col.sbd-col-money {
+  color: var(--pc-money);
+  font-weight: 600;
+}
+.sbd-col.sbd-col-money.is-sorted {
+  font-weight: 700;
+}
+.sbd-row.sbd-dead > * {
+  opacity: 0.4;
+}
+@media (width>=701px) and (width<=1600px), (width>=701px) and (height<=1200px) {
+.scoreboard {
+    max-height: calc(100% - 2rem);
+    overflow-y: auto;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.scoreboard {
+    --sbd-cols: minmax(0, 1fr) repeat(3, 1.4rem) 2.5rem 2.6rem 3.5rem;
+    --sbd-pad: 0.55rem;
+    max-height: calc(100% - 5.75rem - var(--safe-top) - var(--phone-tray-height));
+    padding-inline: 0.5rem;
+    border-radius: 22px;
+    padding: 0.25rem 0.3rem 0.35rem;
+    bottom: auto;
+    overflow: hidden auto;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.sbd-head,
+  .sbd-row {
+    column-gap: 0.15rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.sbd-head-team {
+    gap: 0.4rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.sbd-name,
+  .sbd-col {
+    font-size: 0.8125rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.sbd-h {
+    font-size: 0.75rem;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.sbd-row {
+    height: 44px;
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.scoreboard {
+    width: min(40rem, calc(100% - 1rem - var(--safe-left) - var(--safe-right)));
+    max-height: calc(100% - 5.25rem - var(--safe-top) - var(--phone-tray-height));
+    margin-inline: auto;
+  }
+}

@@ -1,0 +1,470 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：settings — 设置面板
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.leave-fab,
+.settings-fab,
+.performance-fab {
+  z-index: 13;
+  background: var(--pc-glass);
+  backdrop-filter: blur(28px) saturate(180%);
+  width: 1.9rem;
+  height: 1.9rem;
+  box-shadow:
+    inset 0 0.5px 0 var(--pc-glass-edge),
+    0 0 0 0.5px var(--pc-hairline),
+    0 6px 18px #0000001f;
+  color: var(--pc-label);
+  cursor: pointer;
+  pointer-events: auto;
+  border: 0;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  font-size: 1.15rem;
+  line-height: 1;
+  display: flex;
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+}
+.leave-fab:hover,
+.settings-fab:hover,
+.performance-fab:hover {
+  background: var(--pc-glass-strong);
+}
+.settings-fab {
+  top: 3.2rem;
+}
+.settings-panel {
+  z-index: 40;
+  background: var(--pc-glass-strong);
+  backdrop-filter: blur(30px) saturate(180%);
+  width: 22rem;
+  max-width: calc(100% - 1rem);
+  max-height: calc(100% - 2rem);
+  box-shadow:
+    inset 0 0.5px 0 var(--pc-glass-edge),
+    0 0 0 0.5px var(--pc-hairline),
+    0 2px 6px #0000000f,
+    0 18px 44px #00000038;
+  color: var(--pc-label);
+  font-family: var(--pc-font);
+  -webkit-font-smoothing: antialiased;
+  pointer-events: auto;
+  user-select: none;
+  border: 0;
+  border-radius: 18px;
+  flex-direction: column;
+  font-size: 13px;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  container-type: inline-size;
+}
+.settings-panel.settings-hidden {
+  display: none;
+}
+.settings-titlebar {
+  cursor: move;
+  touch-action: none;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.6rem 0.45rem 1rem;
+  display: flex;
+  position: relative;
+}
+.settings-title {
+  letter-spacing: -0.01em;
+  font-size: 15px;
+  font-weight: 600;
+}
+.settings-grip {
+  width: 20px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.settings-grip svg,
+.performance-grip svg {
+  width: 20px;
+  height: 12px;
+  fill: var(--pc-tertiary);
+  display: block;
+}
+.settings-close,
+.performance-close {
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  color: var(--pc-secondary);
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  border-radius: 999px;
+  place-items: center;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+  display: grid;
+}
+.settings-close:hover,
+.performance-close:hover,
+.settings-close:focus-visible,
+.performance-close:focus-visible {
+  background: var(--pc-fill);
+  color: var(--pc-label);
+}
+.settings-close:active,
+.performance-close:active {
+  background: var(--pc-press);
+}
+.settings-tabs {
+  border-bottom: 1px solid var(--pc-separator);
+  flex-shrink: 0;
+  justify-content: space-between;
+  gap: 0.15rem;
+  padding: 0 0.75rem;
+  display: flex;
+}
+.settings-tab {
+  appearance: none;
+  color: var(--pc-secondary);
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  border-bottom: 2px solid #0000;
+  margin-bottom: -1px;
+  padding: 0.45rem 0.25rem 0.55rem;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition:
+    color 0.12s,
+    border-color 0.12s;
+}
+.settings-tab:hover {
+  color: var(--pc-label);
+}
+.settings-tab.active {
+  color: var(--pc-label);
+  border-bottom-color: var(--pc-label);
+}
+.settings-body {
+  min-height: 0;
+  padding: 0.75rem;
+  overflow-y: auto;
+}
+.settings-section {
+  gap: 0.75rem;
+  min-width: 0;
+  display: grid;
+}
+.settings-group {
+  background: var(--pc-fill);
+  border-radius: 12px;
+  min-width: 0;
+  padding: 0.7rem 0.75rem;
+}
+.settings-group-title {
+  color: var(--pc-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.55rem;
+  font-size: 11px;
+  font-weight: 600;
+}
+.settings-group-content {
+  gap: 0.5rem;
+  min-width: 0;
+  display: grid;
+}
+.settings-choice-row {
+  grid-template-columns: 6rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+  display: grid;
+}
+.settings-choice-row > .settings-hint {
+  grid-column: 1/-1;
+}
+.settings-choice-label {
+  font-size: 13px;
+}
+.settings-choice-row + .settings-choice-row {
+  border-top: 1px solid var(--pc-separator);
+  padding-top: 0.5rem;
+}
+.settings-toggle-grid,
+.settings-metrics {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1rem;
+  display: grid;
+}
+.settings-placeholder {
+  color: var(--pc-secondary);
+  text-align: center;
+  padding: 1.4rem 0.5rem;
+  font-size: 13px;
+}
+.settings-seclabel {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pc-secondary);
+  margin: 0;
+  font-size: 11px;
+}
+.settings-hint {
+  color: var(--pc-secondary);
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.settings-seg {
+  background: var(--pc-fill);
+  border-radius: 9px;
+  gap: 2px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 2px;
+  display: flex;
+}
+.settings-seg-btn {
+  appearance: none;
+  text-align: center;
+  min-width: 0;
+  color: var(--pc-label);
+  line-height: 1.2;
+  font: inherit;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  border-radius: 7px;
+  flex: auto;
+  padding: 0.3rem 0.45rem;
+  font-size: 12px;
+  font-weight: 500;
+  transition:
+    background-color 0.15s,
+    box-shadow 0.15s;
+}
+.settings-seg-btn:hover {
+  background: var(--pc-hover);
+}
+.settings-seg-btn.active {
+  background: var(--pc-thumb);
+  font-weight: 600;
+  box-shadow:
+    0 0 0 0.5px #0000000a,
+    0 2px 6px #0000001f;
+}
+.settings-range {
+  color: var(--pc-label);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 8rem) 2.8rem;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+  margin: 0;
+  font-size: 13px;
+  display: grid;
+}
+.settings-range input {
+  width: 100%;
+  min-width: 0;
+  accent-color: var(--pc-switch-on);
+  margin: 0;
+}
+.settings-range output {
+  color: var(--pc-secondary);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.settings-color {
+  color: var(--pc-label);
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+  margin: 0.35rem 0;
+  font-size: 13px;
+  display: grid;
+}
+.settings-color input {
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  width: 1.6rem;
+  height: 1.25rem;
+  padding: 0;
+}
+.settings-metric-group > .settings-seclabel {
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+.settings-metric-group + .settings-metric-group {
+  border-left: 1px solid var(--pc-separator);
+  padding-left: 0.75rem;
+}
+.settings-metrics {
+  transition: opacity 0.15s;
+}
+.settings-metrics-off {
+  opacity: 0.45;
+  pointer-events: none;
+}
+@container (width<=20rem) {
+.settings-choice-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@container (width<=20rem) {
+.settings-range {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 6rem) 2.8rem;
+  }
+}
+@container (width<=16rem) {
+.settings-toggle-grid,
+  .settings-metrics {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.5rem;
+  }
+}
+@container (width<=16rem) {
+.settings-range {
+    grid-template-columns: minmax(0, 1fr) 2.8rem;
+  }
+}
+@container (width<=16rem) {
+.settings-range input {
+    grid-area: 2/1;
+    max-width: 8rem;
+  }
+}
+@container (width<=16rem) {
+.settings-range output {
+    grid-area: 1/2;
+  }
+}
+@container (width<=16rem) {
+.settings-metric-group + .settings-metric-group {
+    border-left: 0;
+    border-top: 1px solid var(--pc-separator);
+    padding: 0.5rem 0 0;
+  }
+}
+.settings-toggle {
+  cursor: pointer;
+  border-radius: 8px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  margin-inline: -0.45rem;
+  padding: 0.3rem 0.45rem;
+  display: flex;
+}
+.settings-toggle:hover {
+  background: var(--pc-hover);
+}
+.settings-toggle-label {
+  font-size: 13px;
+}
+.settings-switch {
+  background: var(--pc-switch-off);
+  border-radius: 999px;
+  flex: none;
+  width: 36px;
+  height: 22px;
+  transition: background-color 0.2s;
+  position: relative;
+}
+.settings-switch:after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  transition:
+    transform 0.25s var(--pc-ease),
+    background-color 0.2s ease;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  box-shadow:
+    0 0 0 0.5px #0000000a,
+    0 2px 4px #0003;
+}
+.settings-switch.on {
+  background: var(--pc-switch-on);
+}
+.settings-switch.on:after {
+  background: var(--pc-switch-knob);
+  transform: translate(14px);
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.leave-fab,
+  .settings-fab,
+  .performance-fab {
+    left: calc(0.5rem + var(--safe-left));
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.settings-fab {
+    top: calc(8.25rem + var(--safe-top));
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.settings-panel,
+  .performance-overlay {
+    width: calc(100% - 1rem - var(--safe-left) - var(--safe-right));
+    max-width: none;
+    max-height: calc(100% - 1rem - var(--safe-top) - var(--safe-bottom));
+    top: calc(0.5rem + var(--safe-top)) !important;
+    left: calc(0.5rem + var(--safe-left)) !important;
+    bottom: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.settings-close,
+  .performance-close,
+  .settings-tab,
+  .settings-seg-btn,
+  .settings-toggle {
+    min-height: 44px;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.settings-close,
+  .performance-close {
+    min-width: 44px;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.settings-range input {
+    min-height: 44px;
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.settings-body {
+    overscroll-behavior-y: contain;
+  }
+}
+@media (width<=1000px) and (orientation: landscape) and (pointer: coarse), (width<=700px) and (orientation: landscape) {
+.settings-fab {
+    left: calc(3.5rem + var(--safe-left));
+  }
+}

@@ -1,0 +1,132 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：leave-confirm — Leave demo? 解析中离开确认
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.leave-confirm {
+  z-index: 10001;
+  backdrop-filter: var(--blur-scrim);
+  opacity: 1;
+  background: #00000052;
+  place-items: center;
+  padding: 1rem;
+  transition: opacity 0.22s;
+  display: grid;
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+}
+.leave-confirm.leave-confirm-transitioning {
+  opacity: 0;
+  pointer-events: none;
+}
+.leave-confirm.hidden {
+  display: none;
+}
+.leave-confirm-panel {
+  background: color-mix(in srgb, var(--panel) 82%, transparent);
+  backdrop-filter: blur(40px) saturate(1.6);
+  width: min(21rem, 100%);
+  box-shadow:
+    var(--landing-panel-shadow),
+    0 24px 60px #00000038;
+  text-align: center;
+  transition:
+    opacity 0.22s ease,
+    transform 0.32s var(--landing-ease);
+  border-radius: 24px;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.6rem 1.4rem 1.25rem;
+  display: flex;
+  transform: scale(1);
+}
+.leave-confirm.leave-confirm-transitioning .leave-confirm-panel {
+  opacity: 0;
+  transform: scale(0.96);
+}
+.leave-confirm-panel h2 {
+  color: var(--text);
+  letter-spacing: -0.012em;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.leave-confirm-panel p {
+  color: var(--muted);
+  margin: 0.4rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+.leave-confirm-progress {
+  background: var(--landing-fill);
+  border-radius: 999px;
+  width: 100%;
+  height: 5px;
+  margin-top: 1.15rem;
+  overflow: hidden;
+}
+.leave-confirm-progress-fill {
+  border-radius: inherit;
+  background: var(--accent);
+  width: 0;
+  height: 100%;
+  transition: width 0.45s var(--landing-ease);
+}
+.leave-confirm-actions {
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  width: 100%;
+  margin-top: 1.35rem;
+  display: grid;
+}
+.leave-confirm-actions button {
+  background: var(--landing-fill);
+  min-height: 2.6rem;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    transform 0.16s var(--landing-ease);
+  border: 0;
+  border-radius: 999px;
+  padding: 0 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.leave-confirm-actions button:hover {
+  background: #76768033;
+}
+:root[data-theme="dark"] .leave-confirm-actions button:hover {
+  background: #76768057;
+}
+.leave-confirm-actions button:active {
+  transform: scale(0.97);
+}
+.leave-confirm-actions button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.leave-confirm-actions .leave-confirm-stay {
+  background: var(--accent);
+  color: #fff;
+}
+.leave-confirm-actions .leave-confirm-stay:hover {
+  background: color-mix(in srgb, var(--accent) 88%, #000);
+}
+.leave-confirm-leave {
+  color: var(--danger) !important;
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.leave-confirm {
+    padding: calc(0.5rem + var(--safe-top)) calc(0.5rem + var(--safe-right)) calc(0.5rem + var(--safe-bottom))
+      calc(0.5rem + var(--safe-left));
+  }
+}
+@media (width<=700px), (width<=1000px) and (pointer: coarse) {
+.leave-confirm-panel {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,2268 @@
+var e = {
+  de_mirage: [
+    { letter: `A`, x: -465, y: -2178 },
+    { letter: `B`, x: -2052, y: 279 },
+  ],
+}
+function t(t) {
+  return e[t]?.map((e) => ({ ...e }))
+}
+var n = 65536,
+  r = class {
+    blocks = []
+    count = 0
+    get length() {
+      return this.count
+    }
+    push(e) {
+      let t = Math.floor(this.count / n),
+        r = this.count % n,
+        i = this.blocks[t]
+      ;(i || ((i = { values: new Float64Array(n), types: new Uint8Array(n), other: new Map() }), this.blocks.push(i)),
+        typeof e == `number`
+          ? (i.values[r] = e)
+          : e === null
+            ? (i.types[r] = 1)
+            : e === void 0
+              ? (i.types[r] = 2)
+              : e === !0
+                ? (i.types[r] = 4)
+                : e === !1
+                  ? (i.types[r] = 5)
+                  : ((i.types[r] = 3), i.other.set(r, e)),
+        this.count++)
+    }
+    valueAt(e) {
+      if (!Number.isInteger(e) || e < 0 || e >= this.count) return
+      let t = this.blocks[Math.floor(e / n)],
+        r = e % n
+      switch (t.types[r]) {
+        case 1:
+          return null
+        case 2:
+          return
+        case 3:
+          return t.other.get(r)
+        case 4:
+          return !0
+        case 5:
+          return !1
+        default:
+          return t.values[r]
+      }
+    }
+  }
+function i(e, t) {
+  return Array.isArray(e) ? e[t] : e.valueAt(t)
+}
+var a = [`blue`, `green`, `yellow`, `orange`, `purple`]
+function o(e, t) {
+  return e.get(t)
+}
+function s(e) {
+  for (let t of e.values()) return t.length
+  return 0
+}
+var c = 5.2,
+  l = [
+    `X`,
+    `Y`,
+    `Z`,
+    `yaw`,
+    `pitch`,
+    `health`,
+    `team_num`,
+    `is_alive`,
+    `team_rounds_total`,
+    `duck_amount`,
+    `flash_duration`,
+    `flash_max_alpha`,
+    `zoom_lvl`,
+    `is_scoped`,
+    `accuracy_penalty`,
+    `is_in_reload`,
+    `CCSPlayerPawn.m_fFlags`,
+    `m_bPinPulled`,
+    `m_bStartedArming`,
+  ],
+  u =
+    `health,is_alive,team_num,armor_value,has_helmet,has_defuser,is_defusing,CCSPlayerPawn.m_flProgressBarStartTime,CCSPlayerPawn.m_iProgressBarDuration,bomb_site,balance,current_equip_value,active_weapon_name,active_weapon_ammo,total_ammo_left,inventory,crosshair_code,team_clan_name,player_color,round_start_time,game_time,is_terrorist_timeout,is_ct_timeout,terrorist_timeout_remaining,ct_timeout_remaining,num_terrorist_timeouts,num_ct_timeouts,is_technical_timeout`.split(
+      `,`,
+    ),
+  d = [`player_death`, `round_start`, `round_end`, `bomb_planted`, `bomb_defused`, `bomb_exploded`],
+  f = [
+    `smokegrenade_detonate`,
+    `smokegrenade_expired`,
+    `hegrenade_detonate`,
+    `flashbang_detonate`,
+    `inferno_startburn`,
+    `inferno_expire`,
+    `decoy_started`,
+    `decoy_detonate`,
+  ],
+  p = [
+    `bomb_planted`,
+    `bomb_dropped`,
+    `bomb_pickup`,
+    `bomb_defused`,
+    `bomb_exploded`,
+    `bomb_begindefuse`,
+    `bomb_abortdefuse`,
+  ],
+  m = {
+    player_death: `kill`,
+    round_start: `round_start`,
+    round_end: `round_end`,
+    bomb_planted: `bomb_planted`,
+    bomb_defused: `bomb_defused`,
+    bomb_exploded: `bomb_exploded`,
+  },
+  h = new Map([
+    [`still_in_progress`, 0],
+    [`bomb_exploded`, 1],
+    [`vip_escaped`, 2],
+    [`vip_killed`, 3],
+    [`t_saved`, 4],
+    [`ct_stopped_escape`, 5],
+    [`RoundEndReasonTerroristsStopped`, 6],
+    [`bomb_defused`, 7],
+    [`t_killed`, 8],
+    [`ct_killed`, 9],
+    [`draw`, 10],
+    [`hostage_rescued`, 11],
+    [`time_ran_out`, 12],
+    [`RoundEndReasonHostagesNotRescued`, 13],
+    [`terrorists_not_escaped`, 14],
+    [`vip_not_escaped`, 15],
+    [`game_start`, 16],
+    [`t_surrender`, 17],
+    [`ct_surrender`, 18],
+    [`t_planted`, 19],
+    [`ct_reached_hostage`, 20],
+  ]),
+  g = 1e6
+function _(e, t = g) {
+  if (!Number.isSafeInteger(t) || t < 0) throw RangeError(`Tick bound must be a nonnegative safe integer`)
+  let n = Math.ceil(Math.min(g, t) / Math.max(1, e)),
+    r = new Int32Array(n)
+  for (let t = 0; t < n; t++) r[t] = t * e
+  return r
+}
+function v(e, t = 64) {
+  return !Number.isFinite(e) || e <= 0 ? 32 : Math.min(t, Math.max(1, Math.round(e)))
+}
+function y(e, t, n, r, i, a, o, s, c, l, u, d, f = [], p, m = [], h = [], g, _) {
+  let v = c ?? new Map(),
+    { players: y, frames: b, startTick: x, endTick: C, teamAtTick: w, frameIndexAtTick: T, numPlayers: k } = M(e),
+    A = N(t, y, x, w),
+    j = P(A, C)
+  se(j, v)
+  let ee = I(v),
+    F = new Map()
+  for (let e of y) F.set(e.steamId, e.slot)
+  let L = we(i ?? [], a ?? [], F, p)
+  ;((L.infernos = f), d && O(d, L.effects))
+  let te = Pe(o ?? [], s ?? [], b, k, F, T),
+    { panelFrames: ne, weaponNames: re } = Le(v, F, k),
+    ie = ce(A, j, b, T, k, C),
+    ae = Ie(s ?? [], F),
+    oe = ue(le(l ?? [], v), j, F, C, u ?? []),
+    de = fe(v)
+  for (let e of y) {
+    let t = de.get(e.steamId)
+    t && (e.crosshairCode = t)
+  }
+  let he = pe(v)
+  for (let e of y) {
+    let t = he.get(e.steamId)
+    t && (e.clanName = t)
+  }
+  let ge = me(v)
+  for (let e of y) {
+    let t = ge.get(e.steamId)
+    t && (e.color = t)
+  }
+  let _e = b.frameTick.length,
+    ve = x <= C ? (C - x) / 64 : 0
+  return {
+    meta: {
+      mapName: n,
+      tickRate: 64,
+      sampleRate: r,
+      numPlayers: y.length,
+      numFrames: _e,
+      startTick: x,
+      endTick: C,
+      durationSeconds: ve,
+    },
+    players: y,
+    frames: b,
+    events: A,
+    rounds: j,
+    grenades: L,
+    tracers: te,
+    smokeVoxels: d ?? D(),
+    panelFrames: ne,
+    weaponNames: re,
+    deathMarkers: ie,
+    damage: ae,
+    bomb: oe,
+    timeouts: ee,
+    droppedWeapons: m,
+    weaponFires: S(h, F),
+    ...(g === void 0 ? {} : { mapEntities: g }),
+    ...(_ === void 0 ? {} : { deathRagdolls: E(_, F) }),
+  }
+}
+function b(e) {
+  let t = [],
+    n = (e) => Array.isArray(e) && e.length === 3 && e.every((e) => typeof e == `number` && Number.isFinite(e)),
+    r = (e, t) => {
+      if (!(!Array.isArray(e) || e.length !== t || !e.every(n))) return Float32Array.from(e.flat())
+    }
+  for (let i of e) {
+    if (
+      !Number.isInteger(i.entity_id) ||
+      !Number.isInteger(i.start_tick) ||
+      !Number.isInteger(i.end_tick) ||
+      i.end_tick <= i.start_tick ||
+      !Array.isArray(i.frames)
+    )
+      continue
+    let e = new Map(),
+      a = !0
+    for (let t of i.frames) {
+      if (!Number.isInteger(t.tick) || t.tick < i.start_tick || t.tick >= i.end_tick) continue
+      if (
+        !Array.isArray(t.positions) ||
+        t.positions.length > 64 ||
+        !Array.isArray(t.burning) ||
+        t.burning.length !== t.positions.length ||
+        !t.burning.every((e) => typeof e == `boolean`)
+      ) {
+        a = !1
+        break
+      }
+      let o = r(t.positions, t.positions.length)
+      if (!o) {
+        a = !1
+        break
+      }
+      e.set(t.tick, {
+        tick: t.tick,
+        positions: o,
+        burning: Uint8Array.from(t.burning, (e) => Number(e)),
+        ...(n(t.origin) ? { origin: Float32Array.from(t.origin) } : {}),
+        parentPositions: r(t.parent_positions, t.positions.length),
+        normals: r(t.normals, t.positions.length),
+      })
+    }
+    !a ||
+      e.size === 0 ||
+      t.push({
+        entityId: i.entity_id,
+        startTick: i.start_tick,
+        endTick: i.end_tick,
+        effectTick: Number.isInteger(i.effect_tick) ? i.effect_tick : void 0,
+        infernoType: i.inferno_type === 0 || i.inferno_type === 1 ? i.inferno_type : void 0,
+        lifetime: typeof i.lifetime == `number` && Number.isFinite(i.lifetime) && i.lifetime > 0 ? i.lifetime : void 0,
+        frames: [...e.values()].sort((e, t) => e.tick - t.tick),
+      })
+  }
+  return t.sort((e, t) => e.startTick - t.startTick || e.entityId - t.entityId)
+}
+var x = `weapon_fire`
+function S(e, t) {
+  let n = []
+  for (let r of e) {
+    let e = z(r.get(`tick`)),
+      i = t.get(R(r.get(`user_steamid`)) ?? ``)
+    e === void 0 || !Number.isInteger(e) || i === void 0 || n.push([e, i])
+  }
+  return (
+    n.sort((e, t) => e[0] - t[0] || e[1] - t[1]),
+    { ticks: Int32Array.from(n, ([e]) => e), slots: Uint8Array.from(n, ([, e]) => e) }
+  )
+}
+function C(e) {
+  let t = [],
+    n = (e) => Array.isArray(e) && e.length === 3 && e.every((e) => typeof e == `number` && Number.isFinite(e))
+  for (let r of e) {
+    if (
+      !Number.isInteger(r.entity_id) ||
+      !Number.isInteger(r.start_tick) ||
+      !Number.isInteger(r.end_tick) ||
+      !Number.isInteger(r.item_def) ||
+      r.end_tick <= r.start_tick ||
+      !Array.isArray(r.frames)
+    )
+      continue
+    let e = new Map()
+    for (let t of r.frames)
+      !Number.isInteger(t.tick) || t.tick < r.start_tick || t.tick >= r.end_tick || (n(t.position) && e.set(t.tick, t))
+    if (e.size === 0) continue
+    let i = [...e.values()].sort((e, t) => e.tick - t.tick),
+      a = new Int32Array(i.length),
+      o = new Float32Array(i.length * 3),
+      s = new Float32Array(i.length * 3)
+    ;(i.forEach((e, t) => {
+      ;((a[t] = e.tick), o.set(e.position, t * 3), n(e.rotation) && s.set(e.rotation, t * 3))
+    }),
+      t.push({
+        entityId: r.entity_id,
+        weapon: typeof r.weapon_name == `string` ? r.weapon_name : ``,
+        itemDef: r.item_def,
+        startTick: r.start_tick,
+        endTick: r.end_tick,
+        ticks: a,
+        positions: o,
+        angles: s,
+      }))
+  }
+  return t.sort((e, t) => e.startTick - t.startTick || e.entityId - t.entityId)
+}
+var w = 0.01
+function T(e, t = 2 ** 53 - 1) {
+  let n = (e) => Array.isArray(e) && e.length === 3 && e.every((e) => typeof e == `number` && Number.isFinite(e)),
+    r = e
+      .filter(
+        (e) =>
+          Number.isInteger(e.start_tick) &&
+          Number.isInteger(e.end_tick) &&
+          typeof e.class_name == `string` &&
+          e.class_name !== `` &&
+          n(e.origin) &&
+          Array.isArray(e.samples),
+      )
+      .map((e) => ({ ...e, end_tick: Math.min(e.end_tick, t) }))
+      .filter((e) => e.end_tick > e.start_tick)
+  r.sort((e, t) => e.start_tick - t.start_tick || e.entity_id - t.entity_id)
+  let i = (e, t) => e.every((e, n) => Math.abs(e - t[n]) <= w),
+    a = (e, t, n) => {
+      let r = e.hidden.length - 1
+      return e.hidden[r] === n && t.every((t, n) => e.angles[r * 3 + n] === t)
+    },
+    o = [],
+    s = new Map()
+  for (let e of r) {
+    let t = new Map()
+    for (let r of e.samples)
+      !Number.isInteger(r.tick) || r.tick < e.start_tick || r.tick >= e.end_tick || !n(r.angles) || t.set(r.tick, r)
+    let r = [...t.values()].sort((e, t) => e.tick - t.tick)
+    r.length === 0 && r.push({ tick: e.start_tick, angles: [0, 0, 0], hidden: !1 })
+    let c = [e.origin[0], e.origin[1], e.origin[2]],
+      l = s.get(e.start_tick) ?? [],
+      u = l.findIndex((t) => t.className === e.class_name && i(t.origin, c)),
+      d
+    ;(u >= 0
+      ? ((d = l[u]), l.splice(u, 1))
+      : ((d = {
+          className: e.class_name,
+          origin: c,
+          startTick: e.start_tick,
+          endTick: e.end_tick,
+          ticks: [],
+          angles: [],
+          hidden: [],
+        }),
+        o.push(d)),
+      r.forEach((t, n) => {
+        let r = +!!t.hidden
+        ;(d.ticks.length > 0 && a(d, t.angles, r)) ||
+          (d.ticks.push(n === 0 ? e.start_tick : t.tick),
+          d.angles.push(t.angles[0], t.angles[1], t.angles[2]),
+          d.hidden.push(r))
+      }),
+      (d.endTick = e.end_tick))
+    let f = s.get(e.end_tick)
+    f ? f.push(d) : s.set(e.end_tick, [d])
+  }
+  return o
+    .sort(
+      (e, t) =>
+        e.startTick - t.startTick ||
+        e.className.localeCompare(t.className) ||
+        e.origin[0] - t.origin[0] ||
+        e.origin[1] - t.origin[1] ||
+        e.origin[2] - t.origin[2],
+    )
+    .map((e) => ({
+      className: e.className,
+      origin: e.origin,
+      startTick: e.startTick,
+      endTick: e.endTick,
+      ticks: Int32Array.from(e.ticks),
+      angles: Float32Array.from(e.angles),
+      hidden: Uint8Array.from(e.hidden),
+    }))
+}
+function E(e, t) {
+  let n = (e, t) => Array.isArray(e) && e.length === t && e.every((e) => typeof e == `number` && Number.isFinite(e)),
+    r = []
+  for (let i of e) {
+    let e = t.get(typeof i.steamid == `string` ? i.steamid : ``)
+    e === void 0 ||
+      !Number.isInteger(i.tick) ||
+      !Number.isInteger(i.bone) ||
+      typeof i.headshot != `boolean` ||
+      !n(i.force, 3) ||
+      !n(i.eye_angles, 2) ||
+      r.push({
+        tick: i.tick,
+        slot: e,
+        force: [i.force[0], i.force[1], i.force[2]],
+        bone: i.bone,
+        headshot: i.headshot,
+        eyeAngles: [i.eye_angles[0], i.eye_angles[1]],
+      })
+  }
+  return r.sort((e, t) => e.tick - t.tick || e.slot - t.slot)
+}
+function D() {
+  return {
+    count: 0,
+    tickBegin: new Int32Array(),
+    detonation: new Float32Array(),
+    color: new Float32Array(),
+    bufferOffsets: new Int32Array(1),
+    buffers: new Uint8Array(),
+    frameOffsets: new Int32Array(1),
+    frameTicks: new Int32Array(),
+  }
+}
+function O(e, t) {
+  let n = t.filter((e) => e.kind === `smoke`)
+  if (n.length !== 0)
+    for (let t = 0; t < e.count; t++) {
+      let r = e.detonation[t * 3],
+        i = e.detonation[t * 3 + 1],
+        a = e.detonation[t * 3 + 2],
+        o = -1,
+        s = 1 / 0
+      for (let c = 0; c < n.length; c++) {
+        let l = n[c],
+          u = l.x - r,
+          d = l.y - i,
+          f = l.z - a
+        if (u * u + d * d + f * f > 25) continue
+        let p = Math.abs(l.startTick - e.tickBegin[t])
+        p < s && ((s = p), (o = c))
+      }
+      o >= 0 && (e.tickBegin[t] = n[o].startTick)
+    }
+}
+function k(e) {
+  let t = e.filter((e) => e.data && e.data.length > 0),
+    n = t.length,
+    r = new Int32Array(n),
+    i = new Float32Array(n * 3),
+    a = new Float32Array(n * 3),
+    o = new Int32Array(n + 1),
+    s = t.map(A),
+    c = new Int32Array(n + 1),
+    l = new Int32Array(s.reduce((e, t) => e + t.length, 0)),
+    u = 0,
+    d = 0
+  for (let e of t) d += e.data.length
+  let f = new Uint8Array(d),
+    p = 0
+  for (let e = 0; e < n; e++) {
+    let n = t[e]
+    ;((r[e] = s[e].length ? s[e][0] - 1 : n.tick_begin),
+      (c[e] = u),
+      l.set(s[e], u),
+      (u += s[e].length),
+      (i[e * 3] = n.detonation[0]),
+      (i[e * 3 + 1] = n.detonation[1]),
+      (i[e * 3 + 2] = n.detonation[2]),
+      (a[e * 3] = n.color[0]),
+      (a[e * 3 + 1] = n.color[1]),
+      (a[e * 3 + 2] = n.color[2]),
+      (o[e] = p),
+      f.set(n.data, p),
+      (p += n.data.length))
+  }
+  return (
+    (o[n] = p),
+    (c[n] = u),
+    { count: n, tickBegin: r, detonation: i, color: a, bufferOffsets: o, buffers: f, frameOffsets: c, frameTicks: l }
+  )
+}
+function A(e) {
+  let t = e.update_ticks,
+    n = e.update_sizes
+  if (!t?.length || !n || t.length !== n.length) return []
+  for (let r = 0; r < t.length; r++)
+    if (
+      !Number.isInteger(t[r]) ||
+      t[r] < 0 ||
+      t[r] >= 2147483647 ||
+      !Number.isInteger(n[r]) ||
+      n[r] <= 0 ||
+      n[r] > e.data.length ||
+      (r > 0 && (t[r] < t[r - 1] || n[r] <= n[r - 1]))
+    )
+      return []
+  let r = [],
+    i = 0,
+    a = 0
+  for (; a + 4 <= e.data.length;) {
+    let o = e.data[a] | (e.data[a + 1] << 8),
+      s = e.data[a + 2] | (e.data[a + 3] << 8)
+    if (o !== r.length || s < 3 || ((a += 4 + s), a > e.data.length)) return []
+    for (; i < n.length && n[i] < a;) i++
+    if (i === n.length) return []
+    r.push(t[i] + 1)
+  }
+  return a === e.data.length ? r : []
+}
+function j(e) {
+  let t = e.length
+  return (n) => {
+    if (t === 0) return 0
+    let r = 0,
+      i = t - 1
+    if (n <= e[0]) return 0
+    if (n >= e[i]) return i
+    for (; r < i;) {
+      let t = (r + i + 1) >> 1
+      e[t] <= n ? (r = t) : (i = t - 1)
+    }
+    return r
+  }
+}
+function M(e) {
+  let t = o(e, `steamid`),
+    n = o(e, `name`),
+    r = o(e, `tick`),
+    a = o(e, `X`),
+    c = o(e, `Y`),
+    l = o(e, `Z`),
+    u = o(e, `yaw`),
+    d = o(e, `pitch`),
+    f = o(e, `health`),
+    p = o(e, `is_alive`),
+    m = o(e, `team_num`),
+    h = o(e, `team_rounds_total`),
+    g = o(e, `duck_amount`),
+    _ = o(e, `flash_duration`),
+    v = o(e, `flash_max_alpha`),
+    y = o(e, `zoom_lvl`),
+    b = o(e, `is_scoped`),
+    x = o(e, `accuracy_penalty`),
+    S = o(e, `is_in_reload`),
+    C = o(e, `CCSPlayerPawn.m_fFlags`),
+    w = o(e, `m_bPinPulled`),
+    T = o(e, `m_bStartedArming`),
+    E = C || w || T,
+    D = s(e),
+    O = new Map(),
+    k = [],
+    A = new Set()
+  for (let e = 0; e < D; e++) {
+    let a = t ? R(i(t, e)) : void 0
+    if (!a) continue
+    O.has(a) || (O.set(a, k.length), k.push({ slot: k.length, steamId: a, name: (n ? R(i(n, e)) : void 0) ?? `` }))
+    let o = r ? z(i(r, e)) : void 0
+    o !== void 0 && A.add(o)
+  }
+  let M = Int32Array.from(A).sort(),
+    N = new Map()
+  for (let e = 0; e < M.length; e++) N.set(M[e], e)
+  let P = M.length,
+    F = Math.max(k.length, 1),
+    I = P * F,
+    L = {
+      posX: new Float32Array(I),
+      posY: new Float32Array(I),
+      posZ: new Float32Array(I),
+      yaw: new Float32Array(I),
+      pitch: new Float32Array(I),
+      health: new Uint8Array(I),
+      alive: new Uint8Array(I),
+      team: new Uint8Array(I),
+      score: new Uint8Array(I),
+      duck: new Float32Array(I),
+      flash: new Float32Array(I),
+      flashAlpha: new Float32Array(I),
+      zoom: new Uint8Array(I),
+      ...(x ? { accuracyPenalty: new Float32Array(I).fill(-1) } : {}),
+      ...(S ? { reloading: new Uint8Array(I) } : {}),
+      ...(E ? { playerFlags: new Uint8Array(I) } : {}),
+      frameTick: M,
+    }
+  for (let e = 0; e < D; e++) {
+    let n = t ? R(i(t, e)) : void 0
+    if (!n) continue
+    let o = O.get(n),
+      s = r ? z(i(r, e)) : void 0
+    if (o === void 0 || s === void 0) continue
+    let E = N.get(s)
+    if (E === void 0) continue
+    let D = E * F + o
+    if (
+      (a && (L.posX[D] = z(i(a, e)) ?? 0),
+      c && (L.posY[D] = z(i(c, e)) ?? 0),
+      l && (L.posZ[D] = z(i(l, e)) ?? 0),
+      u && (L.yaw[D] = z(i(u, e)) ?? 0),
+      d && (L.pitch[D] = z(i(d, e)) ?? 0),
+      f && (L.health[D] = V(z(i(f, e)) ?? 0)),
+      p && (L.alive[D] = +!!B(i(p, e))),
+      m && (L.team[D] = Be(z(i(m, e)))),
+      h && (L.score[D] = V(z(i(h, e)) ?? 0)),
+      g && (L.duck[D] = Re(z(i(g, e)) ?? 0)),
+      _ && (L.flash[D] = Math.max(0, z(i(_, e)) ?? 0)),
+      v && (L.flashAlpha[D] = Re((z(i(v, e)) ?? 0) / 255)),
+      y)
+    ) {
+      let t = b ? i(b, e) : void 0
+      L.zoom[D] = t != null && !B(t) ? 0 : V(z(i(y, e)) ?? 0)
+    }
+    if (x && L.accuracyPenalty) {
+      let t = z(i(x, e))
+      t !== void 0 && Number.isFinite(t) && t >= 0 && (L.accuracyPenalty[D] = t)
+    }
+    if ((S && L.reloading && (L.reloading[D] = +!!B(i(S, e))), L.playerFlags)) {
+      let t = C ? ((z(i(C, e)) ?? 0) & 1) == 1 : !1
+      L.playerFlags[D] = !!t | (w && B(i(w, e)) ? 2 : 0) | (T && B(i(T, e)) ? 4 : 0)
+    }
+  }
+  ee(L, P, F)
+  let te = P > 0 ? M[0] : 0,
+    ne = P > 0 ? M[P - 1] : 0,
+    re = j(M)
+  return {
+    players: k,
+    frames: L,
+    startTick: te,
+    endTick: ne,
+    teamAtTick: (e, t) => (e < 0 || e >= F ? 0 : L.team[re(t) * F + e]),
+    frameIndexAtTick: re,
+    numPlayers: F,
+  }
+}
+function ee(e, t, n) {
+  for (let r = 0; r < n; r++) {
+    let i = 0,
+      a = 0
+    for (let o = 0; o < t; o++) {
+      let t = o * n + r,
+        s = e.flash[t]
+      if (s <= 0) {
+        ;((i = 0), (e.flash[t] = 0), (e.flashAlpha[t] = 0))
+        continue
+      }
+      ;(i <= 0 || Math.abs(s - i) > 1e-4) && ((i = s), (a = e.frameTick[o]))
+      let l = (e.frameTick[o] - a) / 64,
+        u = Math.max(0, i - l)
+      ;((e.flash[t] = u), (e.flashAlpha[t] *= Math.sqrt(Math.min(1, u / c))))
+    }
+  }
+}
+function N(e, t, n, r) {
+  let i = new Map()
+  for (let e of t) i.set(e.steamId, e.slot)
+  let a = []
+  for (let t of e) {
+    let e = R(t.get(`event_name`))
+    if (!e) continue
+    let o = m[e]
+    if (!o) continue
+    let s = z(t.get(`tick`)) ?? n,
+      c = { tick: s, time: (s - n) / 64, type: o }
+    if (o === `kill`) {
+      let e = i.get(R(t.get(`user_steamid`)) ?? ``),
+        n = i.get(R(t.get(`attacker_steamid`)) ?? ``),
+        a = i.get(R(t.get(`assister_steamid`)) ?? ``)
+      ;((c.victimSlot = e),
+        (c.attackerSlot = n),
+        (c.assisterSlot = a),
+        (c.victimName = R(t.get(`user_name`))),
+        (c.attackerName = R(t.get(`attacker_name`))),
+        e !== void 0 && (c.victimTeam = r(e, s)),
+        n !== void 0 && (c.attackerTeam = r(n, s)),
+        (c.weapon = R(t.get(`weapon`))),
+        (c.headshot = B(t.get(`headshot`))),
+        (c.noscope = B(t.get(`noscope`))),
+        (c.thrusmoke = B(t.get(`thrusmoke`))),
+        (c.attackerblind = B(t.get(`attackerblind`))),
+        (c.wallbang = (z(t.get(`penetrated`)) ?? 0) > 0))
+    } else if (o === `round_end`) {
+      let e = t.get(`winner`)
+      c.roundWinner = e === `CT` ? 3 : e === `T` ? 2 : Be(z(e))
+      let n = t.get(`reason`)
+      c.roundReason = (typeof n == `string` ? h.get(n) : void 0) ?? z(n)
+    }
+    a.push(c)
+  }
+  return (a.sort((e, t) => e.tick - t.tick), a)
+}
+function P(e, t) {
+  return F(
+    e.filter((e) => e.type === `round_start`).map((e) => e.tick),
+    t,
+    oe * 64,
+  )
+}
+function F(e, t, n) {
+  let r = [...new Set(e.filter(Number.isFinite))].sort((e, t) => e - t),
+    i = []
+  for (let e = 0; e < r.length; e++) {
+    let t = r[e],
+      n = t
+    for (; e + 1 < r.length && r[e + 1] - r[e] <= 8;) (e++, (n = r[e]))
+    i.push({ startTick: t, anchorTick: n })
+  }
+  for (; i.length > 1 && t - i[i.length - 1].startTick <= 8;) i.pop()
+  return i.map((e, r) => ({
+    index: r,
+    startTick: e.startTick,
+    endTick: r + 1 < i.length ? i[r + 1].startTick : Math.max(e.startTick, t),
+    liveStartTick: e.anchorTick + n,
+  }))
+}
+function I(e) {
+  let t = o(e, `tick`),
+    n = o(e, `is_terrorist_timeout`),
+    r = o(e, `is_ct_timeout`),
+    a = o(e, `is_technical_timeout`),
+    s = o(e, `num_terrorist_timeouts`),
+    c = o(e, `num_ct_timeouts`)
+  if (!t || !s || !c) return { maxTacticalTimeouts: 0, intervals: [], counters: [] }
+  let l = [],
+    u = [],
+    d = 0,
+    f,
+    p = -1,
+    m = -1,
+    h = -1
+  for (let e = 0; e < t.length; e++) {
+    let o = z(i(t, e)),
+      g = z(i(s, e)),
+      _ = z(i(c, e))
+    if (o == null || g == null || _ == null || o === p) continue
+    p = o
+    let v = Math.max(0, Math.round(g)),
+      y = Math.max(0, Math.round(_))
+    ;((d = Math.max(d, v, y)),
+      (v !== m || y !== h) && (u.push({ tick: o, tRemaining: v, ctRemaining: y }), (m = v), (h = y)))
+    let b = a ? B(i(a, e)) : !1,
+      x = b ? void 0 : n && B(i(n, e)) ? `t` : r && B(i(r, e)) ? `ct` : void 0,
+      S = b || x ? { startTick: o, endTick: o, ...(x ? { side: x } : {}), technical: b } : void 0
+    ;(f && S && f.side === S.side && f.technical === S.technical) ||
+      (f && ((f.endTick = o), f.endTick > f.startTick && l.push(f)), (f = S))
+  }
+  return (
+    f && l.push(f),
+    l.push(...ae(e, l)),
+    l.sort((e, t) => e.startTick - t.startTick),
+    { maxTacticalTimeouts: d, intervals: l, counters: u }
+  )
+}
+function L(e) {
+  let t = o(e, `tick`)
+  if (!t) return []
+  let n = o(e, `game_time`),
+    r = o(e, `round_start_time`),
+    a = o(e, `is_terrorist_timeout`),
+    s = o(e, `is_ct_timeout`),
+    c = o(e, `is_technical_timeout`),
+    l = o(e, `num_terrorist_timeouts`),
+    u = o(e, `num_ct_timeouts`),
+    d = [],
+    f = NaN
+  for (let e = 0; e < t.length; e++) {
+    let o = z(i(t, e))
+    if (o == null || o === f) continue
+    f = o
+    let p = n ? z(i(n, e)) : void 0,
+      m = r ? z(i(r, e)) : void 0,
+      h = l ? z(i(l, e)) : void 0,
+      g = u ? z(i(u, e)) : void 0
+    d.push({
+      tick: o,
+      ...(p === void 0 ? {} : { gameTime: p }),
+      ...(m === void 0 ? {} : { roundStartTime: m }),
+      tActive: a ? B(i(a, e)) : !1,
+      ctActive: s ? B(i(s, e)) : !1,
+      technicalActive: c ? B(i(c, e)) : !1,
+      ...(h === void 0 ? {} : { tRemaining: h }),
+      ...(g === void 0 ? {} : { ctRemaining: g }),
+    })
+  }
+  return d
+}
+function te(e) {
+  let t = []
+  for (let n of e) {
+    let e = R(n.get(`user_steamid`)),
+      r = z(n.get(`tick`)),
+      i = z(n.get(`origin_x`)),
+      a = z(n.get(`origin_y`)),
+      o = z(n.get(`origin_z`)),
+      s = z(n.get(`angles_x`)),
+      c = z(n.get(`angles_y`))
+    !e ||
+      r === void 0 ||
+      i === void 0 ||
+      a === void 0 ||
+      o === void 0 ||
+      s === void 0 ||
+      c === void 0 ||
+      t.push({ tick: r, attackerSteamId: e, originX: i, originY: a, originZ: o, pitchDeg: s, yawDeg: c })
+  }
+  return t
+}
+function ne(e) {
+  let t = []
+  for (let n of e) {
+    let e = R(n.get(`attacker_steamid`)),
+      r = R(n.get(`user_steamid`)),
+      i = z(n.get(`tick`)),
+      a = z(n.get(`user_X`)),
+      o = z(n.get(`user_Y`)),
+      s = z(n.get(`user_Z`))
+    !e ||
+      !r ||
+      i === void 0 ||
+      a === void 0 ||
+      o === void 0 ||
+      s === void 0 ||
+      t.push({
+        tick: i,
+        attackerSteamId: e,
+        victimSteamId: r,
+        x: a,
+        y: o,
+        z: s,
+        hitgroup: R(n.get(`hitgroup`)) ?? ``,
+        dmgHealth: z(n.get(`dmg_health`)) ?? 0,
+      })
+  }
+  return t
+}
+function re(e) {
+  let t = []
+  for (let n of e) {
+    let e = R(n.get(`event_name`)),
+      r = z(n.get(`tick`))
+    !e ||
+      r === void 0 ||
+      t.push({
+        tick: r,
+        eventName: e,
+        actorSteamId: R(n.get(`user_steamid`)) ?? ``,
+        x: z(n.get(`user_X`)) ?? 0,
+        y: z(n.get(`user_Y`)) ?? 0,
+        z: z(n.get(`user_Z`)) ?? 0,
+        hasKit: B(n.get(`haskit`)),
+        ...(z(n.get(`bomb_site`)) === 0 || z(n.get(`bomb_site`)) === 1
+          ? { site: z(n.get(`bomb_site`)) === 0 ? `A` : `B` }
+          : {}),
+      })
+  }
+  return t
+}
+function ie(e, t, n, r) {
+  return { derivationVersion: 1, roundTiming: L(e), fireBullets: te(t), playerHurts: ne(n), bombEvents: re(le(r, e)) }
+}
+function ae(e, t) {
+  let n = o(e, `tick`),
+    r = o(e, `game_time`),
+    a = o(e, `round_start_time`)
+  if (!n || !r || !a) return []
+  let s = [],
+    c = -1,
+    l = -1,
+    u = -1,
+    d = 0,
+    f = 0,
+    p = () => {
+      ;(c >= 0 &&
+        l - c >= 128 &&
+        (t.some((e) => c < e.endTick && l > e.startTick) || s.push({ startTick: c, endTick: l, technical: !0 })),
+        (c = -1),
+        (l = -1))
+    }
+  for (let e = 0; e < n.length; e++) {
+    let t = z(i(n, e)),
+      o = z(i(r, e)),
+      s = z(i(a, e))
+    if (!(t == null || o == null || s == null || t === u)) {
+      if (u >= 0) {
+        let e = t - u,
+          n = o - d,
+          r = s - f,
+          i = s - o,
+          a = e > 0 && e <= 64 && n > 0.05 && Math.abs(r - n) < 0.03,
+          m = Math.abs(i - 20) < 0.25
+        a && m ? (c < 0 && (c = u), (l = t + e)) : p()
+      }
+      ;((u = t), (d = o), (f = s))
+    }
+  }
+  return (p(), s)
+}
+var oe = 15
+function se(e, t) {
+  let n = o(t, `tick`),
+    r = o(t, `game_time`),
+    a = o(t, `round_start_time`),
+    s = [],
+    c = []
+  if (n)
+    for (let e = 0; e < n.length; e++) {
+      let t = z(i(n, e))
+      if (t == null) continue
+      let o = r ? z(i(r, e)) : void 0
+      o != null && s.push(o - t / 64)
+      let l = a ? z(i(a, e)) : void 0
+      l != null && l > 0 && c.push({ tick: t, rst: l })
+    }
+  if (s.length === 0 || c.length === 0) return
+  s.sort((e, t) => e - t)
+  let l = s[Math.floor(s.length / 2)]
+  c.sort((e, t) => e.tick - t.tick)
+  for (let t of e) {
+    let e = t.endTick > t.startTick ? t.endTick : 1 / 0,
+      n = null
+    for (let r of c)
+      if (!(r.tick < t.startTick)) {
+        if (r.tick >= e) break
+        n = r.rst
+      }
+    n != null && (t.liveStartTick = Math.round((n - l) * 64))
+  }
+}
+function ce(e, t, n, r, i, a) {
+  let o = t.map((e) => e.startTick).sort((e, t) => e - t),
+    s = (e) => {
+      for (let t of o) if (t > e) return t
+      return a
+    },
+    c = []
+  for (let t of e) {
+    if (t.type !== `kill`) continue
+    let e = t.victimSlot
+    if (e === void 0 || e < 0 || e >= i) continue
+    let a = r(t.tick) * i + e
+    c.push({
+      x: n.posX[a],
+      y: n.posY[a],
+      z: n.posZ[a],
+      startTick: t.tick,
+      endTick: s(t.tick),
+      victimSlot: e,
+      team: t.victimTeam ?? n.team[a],
+      name: t.victimName ?? ``,
+    })
+  }
+  return c
+}
+function le(e, t) {
+  let n = o(t, `tick`),
+    r = o(t, `steamid`) ?? []
+  if (!n) return e
+  let a = o(t, `bomb_site`) ?? [],
+    s = [],
+    c = [],
+    l = new Map(),
+    u = o(t, `is_defusing`) ?? [],
+    d = o(t, `game_time`) ?? [],
+    f = o(t, `CCSPlayerPawn.m_flProgressBarStartTime`) ?? [],
+    p = o(t, `CCSPlayerPawn.m_iProgressBarDuration`) ?? [],
+    m = o(t, `has_defuser`) ?? []
+  for (let e = 0; e < n.length; e++) {
+    let t = z(i(n, e))
+    if (t === void 0) continue
+    let o = z(i(a, e))
+    ;(o === 0 || o === 1) && s[s.length - 1]?.tick !== t && s.push({ tick: t, site: o })
+    let h = R(i(r, e)),
+      g = i(u, e)
+    if (!h || g == null) continue
+    let _ = l.get(h)
+    if (!B(g)) {
+      _ && ((_.end = Math.min(_.end, t)), l.delete(h))
+      continue
+    }
+    let v = z(i(p, e)),
+      y = v === 5 || (v !== 10 && B(i(m, e))),
+      b = z(i(d, e)),
+      x = z(i(f, e)),
+      S =
+        b !== void 0 && x !== void 0 && x > 0 && (v === 5 || v === 10) ? Math.round(t - (b - x) * 64) : (_?.start ?? t)
+    if (S > t || t >= S + (y ? 5 : 10) * 64) continue
+    let C = _
+    ;((!C || C.start !== S) &&
+      (C && (C.end = Math.min(C.end, S)),
+      (C = { actor: h, start: S, end: t, firstTick: t, hasKit: y }),
+      c.push(C),
+      l.set(h, C)),
+      (C.end = Math.min(t + 8, S + (y ? 5 : 10) * 64)))
+  }
+  let h = e.map((e) => {
+      if (e.get(`event_name`) !== `bomb_planted`) return e
+      let t = z(e.get(`tick`))
+      if (t === void 0) return e
+      let n = s.find((e) => e.tick >= t && e.tick <= t + 8)
+      if (!n) return e
+      let r = new Map(e)
+      return (r.set(`bomb_site`, n.site), r)
+    }),
+    g = new Set(),
+    _ = []
+  for (let e of c) {
+    let t = h.find(
+        (t) =>
+          t.get(`event_name`) === `bomb_begindefuse` &&
+          R(t.get(`user_steamid`)) === e.actor &&
+          Number(t.get(`tick`)) >= e.start - 8 &&
+          Number(t.get(`tick`)) <= e.firstTick,
+      ),
+      n = t ? Number(t.get(`tick`)) : e.start
+    t && g.add(t)
+    let r = e.end
+    for (let t of h) {
+      let i = Number(t.get(`tick`))
+      if (i <= n || i > r) continue
+      let a = t.get(`event_name`),
+        o = R(t.get(`user_steamid`)) === e.actor
+      ;(a === `bomb_planted` ||
+        a === `bomb_defused` ||
+        a === `bomb_exploded` ||
+        (o && (a === `bomb_abortdefuse` || a === `bomb_begindefuse`))) &&
+        (r = i)
+    }
+    r <= n ||
+      (_.push(
+        new Map([
+          [`event_name`, `bomb_begindefuse`],
+          [`tick`, n],
+          [`user_steamid`, e.actor],
+          [`haskit`, e.hasKit],
+        ]),
+      ),
+      _.push(
+        new Map([
+          [`event_name`, `bomb_abortdefuse`],
+          [`tick`, r],
+          [`user_steamid`, e.actor],
+        ]),
+      ))
+  }
+  return [
+    ..._.filter((e) => e.get(`event_name`) === `bomb_abortdefuse`),
+    ...h.filter((e) => !g.has(e)),
+    ..._.filter((e) => e.get(`event_name`) === `bomb_begindefuse`),
+  ].sort((e, t) => Number(e.get(`tick`)) - Number(t.get(`tick`)))
+}
+function ue(e, t, n, r, i) {
+  let a = []
+  for (let t of e) {
+    let e = R(t.get(`event_name`))
+    e &&
+      a.push({
+        tick: z(t.get(`tick`)) ?? 0,
+        kind: e,
+        slot: n.get(R(t.get(`user_steamid`)) ?? ``) ?? -1,
+        x: z(t.get(`user_X`)) ?? 0,
+        y: z(t.get(`user_Y`)) ?? 0,
+        z: z(t.get(`user_Z`)) ?? 0,
+        hasKit: B(t.get(`haskit`)),
+        site: z(t.get(`bomb_site`)) === 0 ? `A` : z(t.get(`bomb_site`)) === 1 ? `B` : ``,
+      })
+  }
+  for (let e of t) a.push({ tick: e.startTick, kind: `round_start`, slot: -1, x: 0, y: 0, z: 0, hasKit: !1, site: `` })
+  a.sort((e, t) => e.tick - t.tick)
+  let o = [],
+    s = [],
+    c = null,
+    l = null,
+    u = (e) => {
+      ;(c && e > c.startTick && ((c.endTick = e), o.push(c)), (c = null))
+    },
+    d = (e) => {
+      ;(l && ((l.endTick = e), s.push(l)), (l = null))
+    }
+  for (let e of a)
+    switch (e.kind) {
+      case `bomb_pickup`:
+        ;(u(e.tick),
+          (c = {
+            kind: `carried`,
+            startTick: e.tick,
+            endTick: e.tick,
+            x: 0,
+            y: 0,
+            z: 0,
+            carrierSlot: e.slot,
+            site: ``,
+          }))
+        break
+      case `bomb_dropped`:
+        ;(u(e.tick),
+          (c = {
+            kind: `dropped`,
+            startTick: e.tick,
+            endTick: e.tick,
+            x: e.x,
+            y: e.y,
+            z: e.z,
+            carrierSlot: -1,
+            site: ``,
+          }))
+        break
+      case `bomb_planted`:
+        ;(u(e.tick),
+          d(e.tick),
+          (c = {
+            kind: `planted`,
+            startTick: e.tick,
+            endTick: e.tick,
+            x: e.x,
+            y: e.y,
+            z: e.z,
+            carrierSlot: -1,
+            site: e.site || de(i, e.x, e.y),
+          }))
+        break
+      case `bomb_begindefuse`:
+        ;(d(e.tick), (l = { startTick: e.tick, endTick: e.tick, hasKit: e.hasKit, defuserSlot: e.slot }))
+        break
+      case `bomb_abortdefuse`:
+        l?.defuserSlot === e.slot && d(e.tick)
+        break
+      case `bomb_defused`:
+      case `bomb_exploded`:
+      case `round_start`:
+        ;(u(e.tick), d(e.tick))
+        break
+    }
+  ;(u(r), d(r))
+  for (let e of s) {
+    let t = e.startTick + (e.hasKit ? 5 : 10) * 64
+    e.endTick > t && (e.endTick = t)
+  }
+  return { segments: o, defuses: s }
+}
+function de(e, t, n) {
+  let r = ``,
+    i = 1 / 0
+  for (let a of e) {
+    let e = a.x - t,
+      o = a.y - n,
+      s = e * e + o * o
+    s < i && ((i = s), (r = a.letter))
+  }
+  return r
+}
+function fe(e) {
+  let t = new Map(),
+    n = o(e, `steamid`),
+    r = o(e, `crosshair_code`)
+  if (!n || !r) return t
+  for (let e = 0; e < n.length; e++) {
+    let a = R(i(n, e)),
+      o = R(i(r, e))
+    a && o && o.startsWith(`CSGO`) && !t.has(a) && t.set(a, o)
+  }
+  return t
+}
+function pe(e) {
+  let t = new Map(),
+    n = o(e, `steamid`),
+    r = o(e, `team_clan_name`)
+  if (!n || !r) return t
+  for (let e = 0; e < n.length; e++) {
+    let a = R(i(n, e)),
+      o = R(i(r, e))?.trim()
+    !a || !o || t.has(a) || o === `CT` || o === `TERRORIST` || t.set(a, o)
+  }
+  return t
+}
+function me(e) {
+  let t = new Map(),
+    n = o(e, `steamid`),
+    r = o(e, `player_color`)
+  if (!n || !r) return t
+  let a = new Map()
+  for (let e = 0; e < n.length; e++) {
+    let t = R(i(n, e)),
+      o = R(i(r, e))
+    if (!t || !he(o)) continue
+    let s = a.get(t)
+    ;(s || a.set(t, (s = new Map())), s.set(o, (s.get(o) ?? 0) + 1))
+  }
+  for (let [e, n] of a) {
+    let r,
+      i = 0
+    for (let [e, t] of n) t > i && ((r = e), (i = t))
+    r && t.set(e, r)
+  }
+  return t
+}
+function he(e) {
+  return a.includes(e ?? ``)
+}
+var ge = 32,
+  _e = 960,
+  ve = 448,
+  ye = 26,
+  be = 1280,
+  xe = 576
+function Se(e) {
+  let t = e.toLowerCase()
+  return t.includes(`smoke`)
+    ? `smoke`
+    : t.includes(`flash`)
+      ? `flash`
+      : t.includes(`molotov`) || t.includes(`incendiary`) || t.includes(`inferno`)
+        ? `molotov`
+        : t.includes(`decoy`)
+          ? `decoy`
+          : t.includes(`he`)
+            ? `he`
+            : null
+}
+var Ce = {
+  smokegrenade_detonate: `smoke`,
+  hegrenade_detonate: `he`,
+  flashbang_detonate: `flash`,
+  inferno_startburn: `molotov`,
+  decoy_started: `decoy`,
+}
+function we(e, t, n, r) {
+  return { trajectories: Te(e, t, n, r), effects: Ae(t) }
+}
+function Te(e, t, n, r) {
+  let i = new Map()
+  for (let t of e) {
+    let e = Ee(t)
+    if (!e) continue
+    let [n, r] = e,
+      a = i.get(n)
+    ;(a || ((a = []), i.set(n, a)), a.push(r))
+  }
+  let a = De(t),
+    o = []
+  for (let [e, t] of r ?? i) {
+    t.sort((e, t) => e.tick - t.tick)
+    let r = [],
+      i = () => {
+        if (r.length >= 3) {
+          let t = r[0],
+            i = n.get(t.thrower) ?? -1,
+            s = Oe(e, t.kind, r, a)
+          o.push(ke(t.kind, i, r, s))
+        }
+        r = []
+      }
+    for (let e of t) {
+      let t = r[r.length - 1]
+      ;(t && (e.tick - t.tick > ge || e.kind !== t.kind || e.thrower !== t.thrower) && i(), r.push(e))
+    }
+    i()
+  }
+  return o
+}
+function Ee(e) {
+  let t = z(e.get(`grenade_entity_id`)),
+    n = R(e.get(`grenade_type`)),
+    r = z(e.get(`x`)),
+    i = z(e.get(`y`)),
+    a = z(e.get(`z`)),
+    o = z(e.get(`tick`))
+  if (t === void 0 || !n || r === void 0 || i === void 0 || a === void 0 || o === void 0) return
+  let s = Se(n)
+  if (!s) return
+  let c = { tick: o, x: r, y: i, z: a, kind: s, thrower: R(e.get(`steamid`)) ?? `` },
+    l = e.get(`grenade_rotation`)
+  Array.isArray(l) &&
+    l.length === 3 &&
+    l.every((e) => typeof e == `number` && Number.isFinite(e)) &&
+    (c.rotation = [l[0], l[1], l[2]])
+  let u = e.get(`grenade_incendiary`)
+  return (typeof u == `boolean` && (c.incendiary = u), [t, c])
+}
+function De(e) {
+  let t = []
+  for (let n of e) {
+    let e = R(n.get(`event_name`)),
+      r = e ? Ce[e] : void 0,
+      i = z(n.get(`tick`)),
+      a = z(n.get(`x`)),
+      o = z(n.get(`y`)),
+      s = z(n.get(`z`))
+    !r ||
+      i === void 0 ||
+      a === void 0 ||
+      o === void 0 ||
+      s === void 0 ||
+      t.push({ entityId: z(n.get(`entityid`)), kind: r, tick: i, x: a, y: o, z: s })
+  }
+  return t
+}
+function Oe(e, t, n, r) {
+  let i = n[0],
+    a = n[n.length - 1],
+    o = r.filter((e) => e.kind === t && e.tick >= i.tick && e.tick <= a.tick + ge),
+    s = o.find((t) => t.entityId === e)
+  if (s) return s.tick
+  let c,
+    l = 4096
+  for (let e of o) {
+    let t = e.x - a.x,
+      n = e.y - a.y,
+      r = e.z - a.z,
+      i = t * t + n * n + r * r
+    i <= l && ((c = e), (l = i))
+  }
+  return c?.tick
+}
+function ke(e, t, n, r) {
+  let i = new Float32Array(n.length * 3),
+    a = new Int32Array(n.length),
+    o = n.some((e) => e.rotation !== void 0) ? new Float32Array(n.length * 3) : void 0,
+    s = n.find((e) => e.rotation)?.rotation ?? [0, 0, 0],
+    c = 0,
+    l = 0
+  for (let e = 0; e < n.length; e++)
+    ((i[e * 3] = n[e].x),
+      (i[e * 3 + 1] = n[e].y),
+      (i[e * 3 + 2] = n[e].z),
+      (a[e] = n[e].tick),
+      o && ((s = n[e].rotation ?? s), o.set(s, e * 3)),
+      n[e].incendiary !== void 0 && (l++, n[e].incendiary && c++))
+  return {
+    kind: e,
+    throwerSlot: t,
+    posXYZ: i,
+    ticks: a,
+    startTick: a[0],
+    endTick: a[a.length - 1],
+    detonationTick: r,
+    ...(o ? { angles: o } : {}),
+    ...(e === `molotov` && l > 0 ? { incendiary: c * 2 > l } : {}),
+  }
+}
+function Ae(e) {
+  let t = new Map()
+  for (let n of e) {
+    let e = R(n.get(`event_name`)),
+      r = z(n.get(`entityid`)),
+      i = z(n.get(`tick`))
+    r === void 0 || i === void 0 || ((e === `smokegrenade_expired` || e === `inferno_expire`) && t.set(r, i))
+  }
+  let n = []
+  for (let r of e) {
+    let e = R(r.get(`event_name`))
+    if (!e) continue
+    let i = Ce[e]
+    if (!i) continue
+    let a = z(r.get(`x`)),
+      o = z(r.get(`y`)),
+      s = z(r.get(`z`)),
+      c = z(r.get(`tick`))
+    if (a === void 0 || o === void 0 || s === void 0 || c === void 0) continue
+    let l = z(r.get(`entityid`)),
+      u
+    if (i === `smoke`) {
+      let e = l === void 0 ? void 0 : t.get(l)
+      u = Math.min(e ?? c + _e, c + be)
+    } else if (i === `molotov`) {
+      let e = l === void 0 ? void 0 : t.get(l)
+      u = Math.min(e ?? c + ve, c + xe)
+    } else u = c + ye
+    n.push({ kind: i, x: a, y: o, z: s, startTick: c, endTick: u })
+  }
+  return (n.sort((e, t) => e.startTick - t.startTick), n)
+}
+var je = 4096,
+  Me = Math.PI / 180
+function Ne(e) {
+  switch (e) {
+    case `head`:
+    case `neck`:
+      return 64
+    case `chest`:
+    case `generic`:
+      return 52
+    case `left_arm`:
+    case `right_arm`:
+      return 48
+    case `stomach`:
+      return 40
+    case `pelvis`:
+      return 32
+    case `left_leg`:
+    case `right_leg`:
+      return 18
+    default:
+      return 48
+  }
+}
+function Pe(e, t, n, r, i, a) {
+  let o = new Map()
+  for (let e of t) {
+    let t = R(e.get(`attacker_steamid`)),
+      n = z(e.get(`tick`)),
+      r = z(e.get(`user_X`)),
+      i = z(e.get(`user_Y`)),
+      a = z(e.get(`user_Z`))
+    if (!t || n === void 0 || r === void 0 || i === void 0 || a === void 0) continue
+    let s = `${t}@${n}`,
+      c = o.get(s),
+      l = { x: r, y: i, z: a + Ne(R(e.get(`hitgroup`)) ?? ``) }
+    c ? c.push(l) : o.set(s, [l])
+  }
+  let s = []
+  for (let t of e) {
+    let e = R(t.get(`user_steamid`)),
+      c = z(t.get(`tick`)),
+      l = z(t.get(`origin_x`)),
+      u = z(t.get(`origin_y`)),
+      d = z(t.get(`origin_z`)),
+      f = z(t.get(`angles_x`)),
+      p = z(t.get(`angles_y`))
+    if (!e || c === void 0 || l === void 0 || u === void 0 || d === void 0 || f === void 0 || p === void 0) continue
+    let m = i.get(e)
+    if (m === void 0) continue
+    let h = p * Me,
+      g = f * Me,
+      _ = Math.cos(g),
+      v = Math.cos(h) * _,
+      y = Math.sin(h) * _,
+      b = -Math.sin(g),
+      x,
+      S,
+      C,
+      w,
+      T = o.get(`${e}@${c}`),
+      E = T && T.length > 0 ? Fe(T, l, u, d, v, y, b) : null
+    E ? ((x = E.x), (S = E.y), (C = E.z), (w = 1)) : ((x = l + v * je), (S = u + y * je), (C = d + b * je), (w = 0))
+    let D = a(c),
+      O = n.team[D * r + m] ?? 0
+    s.push({ ox: l, oy: u, oz: d, ex: x, ey: S, ez: C, tick: c, team: O, hit: w })
+  }
+  s.sort((e, t) => e.tick - t.tick)
+  let c = s.length,
+    l = new Float32Array(c * 3),
+    u = new Float32Array(c * 3),
+    d = new Int32Array(c),
+    f = new Uint8Array(c),
+    p = new Uint8Array(c)
+  for (let e = 0; e < c; e++) {
+    let t = s[e]
+    ;((l[e * 3] = t.ox),
+      (l[e * 3 + 1] = t.oy),
+      (l[e * 3 + 2] = t.oz),
+      (u[e * 3] = t.ex),
+      (u[e * 3 + 1] = t.ey),
+      (u[e * 3 + 2] = t.ez),
+      (d[e] = t.tick),
+      (f[e] = t.team),
+      (p[e] = t.hit))
+  }
+  return { origin: l, end: u, tick: d, team: f, hitKind: p, count: c }
+}
+function Fe(e, t, n, r, i, a, o) {
+  let s = -1,
+    c = -1 / 0
+  for (let l = 0; l < e.length; l++) {
+    let u = e[l].x - t,
+      d = e[l].y - n,
+      f = e[l].z - r,
+      p = Math.hypot(u, d, f) || 1,
+      m = (u * i + d * a + f * o) / p
+    m > c && ((c = m), (s = l))
+  }
+  return s < 0 ? null : e.splice(s, 1)[0]
+}
+function Ie(e, t) {
+  let n = []
+  for (let r of e) {
+    let e = t.get(R(r.get(`attacker_steamid`)) ?? ``),
+      i = t.get(R(r.get(`user_steamid`)) ?? ``),
+      a = z(r.get(`tick`))
+    if (e === void 0 || i === void 0 || a === void 0) continue
+    let o = V(z(r.get(`dmg_health`)) ?? 0)
+    o <= 0 || n.push({ a: e, v: i, tick: a, dmg: o })
+  }
+  n.sort((e, t) => e.tick - t.tick)
+  let r = n.length,
+    i = new Uint8Array(r),
+    a = new Uint8Array(r),
+    o = new Int32Array(r),
+    s = new Uint8Array(r)
+  for (let e = 0; e < r; e++) ((i[e] = n[e].a), (a[e] = n[e].v), (o[e] = n[e].tick), (s[e] = n[e].dmg))
+  return { attackerSlot: i, victimSlot: a, tick: o, dmg: s, count: r }
+}
+function Le(e, t, n) {
+  let r = o(e, `steamid`),
+    a = o(e, `tick`),
+    c = s(e),
+    l = new Set()
+  if (a)
+    for (let e = 0; e < c; e++) {
+      let t = z(i(a, e))
+      t !== void 0 && l.add(t)
+    }
+  let u = Int32Array.from(l).sort(),
+    d = new Map()
+  for (let e = 0; e < u.length; e++) d.set(u[e], e)
+  let f = u.length,
+    p = Math.max(n, 1),
+    m = f * p,
+    h = {
+      numFrames: f,
+      frameTick: u,
+      health: new Uint8Array(m),
+      alive: new Uint8Array(m),
+      team: new Uint8Array(m),
+      armor: new Uint8Array(m),
+      flags: new Uint8Array(m),
+      money: new Uint16Array(m),
+      equipValue: new Uint16Array(m),
+      clipAmmo: new Uint16Array(m),
+      reserveAmmo: new Uint16Array(m),
+      activeWeapon: new Uint8Array(m),
+      utilCounts: new Uint8Array(m),
+    },
+    g = [``],
+    _ = new Map(),
+    v = (e) => {
+      if (!e) return 0
+      let t = _.get(e)
+      if (t === void 0) {
+        if (g.length >= 256) return 0
+        ;((t = g.length), g.push(e), _.set(e, t))
+      }
+      return t
+    },
+    y = o(e, `health`),
+    b = o(e, `is_alive`),
+    x = o(e, `team_num`),
+    S = o(e, `armor_value`),
+    C = o(e, `has_helmet`),
+    w = o(e, `has_defuser`),
+    T = o(e, `balance`),
+    E = o(e, `current_equip_value`),
+    D = o(e, `active_weapon_ammo`),
+    O = o(e, `total_ammo_left`),
+    k = o(e, `active_weapon_name`),
+    A = o(e, `inventory`)
+  for (let e = 0; e < c; e++) {
+    let n = r ? R(i(r, e)) : void 0
+    if (!n) continue
+    let o = t.get(n),
+      s = a ? z(i(a, e)) : void 0
+    if (o === void 0 || s === void 0) continue
+    let c = d.get(s)
+    if (c === void 0) continue
+    let l = c * p + o
+    ;(y && (h.health[l] = V(z(i(y, e)) ?? 0)),
+      b && (h.alive[l] = +!!B(i(b, e))),
+      x && (h.team[l] = Be(z(i(x, e)))),
+      S && (h.armor[l] = V(z(i(S, e)) ?? 0)),
+      (h.flags[l] = (C && B(i(C, e)) ? 1 : 0) | (w && B(i(w, e)) ? 2 : 0)),
+      T && (h.money[l] = ze(z(i(T, e)) ?? 0)),
+      E && (h.equipValue[l] = ze(z(i(E, e)) ?? 0)),
+      D && (h.clipAmmo[l] = ze(z(i(D, e)) ?? 0)),
+      O && (h.reserveAmmo[l] = ze(z(i(O, e)) ?? 0)),
+      k && (h.activeWeapon[l] = v(R(i(k, e)))),
+      (h.utilCounts[l] = Ve(A ? i(A, e) : void 0)))
+  }
+  return { panelFrames: h, weaponNames: g }
+}
+function R(e) {
+  if (typeof e == `string`) return e
+  if (typeof e == `number` || typeof e == `bigint`) return String(e)
+}
+function z(e) {
+  if (typeof e == `number`) return e
+  if (typeof e == `bigint`) return Number(e)
+  if (typeof e == `string` && e !== ``) {
+    let t = Number(e)
+    return Number.isNaN(t) ? void 0 : t
+  }
+}
+function B(e) {
+  return e === !0 || e === 1 || e === `true`
+}
+function V(e) {
+  return e < 0 ? 0 : e > 255 ? 255 : Math.round(e)
+}
+function Re(e) {
+  return e < 0 ? 0 : e > 1 ? 1 : e
+}
+function ze(e) {
+  return e < 0 ? 0 : e > 65535 ? 65535 : Math.round(e)
+}
+function Be(e) {
+  return e === 2 || e === 3 ? e : 0
+}
+function Ve(e) {
+  if (!Array.isArray(e)) return 0
+  let t = 0,
+    n = 0,
+    r = 0,
+    i = 0
+  for (let a of e) {
+    if (typeof a != `string`) continue
+    let e = a.toLowerCase()
+    e.includes(`smoke`)
+      ? t++
+      : e.includes(`flash`)
+        ? n++
+        : e.includes(`high explosive`) || e === `he grenade`
+          ? r++
+          : (e.includes(`molotov`) || e.includes(`incendiary`)) && i++
+  }
+  let a = (e) => Math.min(3, e)
+  return a(t) | (a(n) << 2) | (a(r) << 4) | (a(i) << 6)
+}
+var H = class {
+  __destroy_into_raw() {
+    let e = this.__wbg_ptr
+    return ((this.__wbg_ptr = 0), Ke.unregister(this), e)
+  }
+  free() {
+    let e = this.__destroy_into_raw()
+    Q.__wbg_demoinput_free(e, 0)
+  }
+  length() {
+    return Q.demoinput_length(this.__wbg_ptr) >>> 0
+  }
+  constructor(e) {
+    let t = Q.demoinput_new(e)
+    if (t[2]) throw X(t[1])
+    return ((this.__wbg_ptr = t[0]), Ke.register(this, this.__wbg_ptr, this), this)
+  }
+  parseEvents(e, t, n) {
+    var r = q(e) ? 0 : Y(e, Q.__wbindgen_malloc),
+      i = Z,
+      a = q(t) ? 0 : Y(t, Q.__wbindgen_malloc),
+      o = Z,
+      s = q(n) ? 0 : Y(n, Q.__wbindgen_malloc),
+      c = Z
+    let l = Q.demoinput_parseEvents(this.__wbg_ptr, r, i, a, o, s, c)
+    if (l[2]) throw X(l[1])
+    return X(l[0])
+  }
+  parseHeader() {
+    let e = Q.demoinput_parseHeader(this.__wbg_ptr)
+    if (e[2]) throw X(e[1])
+    return X(e[0])
+  }
+  parseRoundStream(e, t, n, r, i, a, o, s, c) {
+    var l = q(e) ? 0 : Y(e, Q.__wbindgen_malloc),
+      u = Z,
+      d = q(t) ? 0 : J(t, Q.__wbindgen_malloc),
+      f = Z,
+      p = q(n) ? 0 : Y(n, Q.__wbindgen_malloc),
+      m = Z,
+      h = q(r) ? 0 : Y(r, Q.__wbindgen_malloc),
+      g = Z,
+      _ = q(i) ? 0 : Y(i, Q.__wbindgen_malloc),
+      v = Z,
+      y = q(a) ? 0 : J(a, Q.__wbindgen_malloc),
+      b = Z
+    let x = J(o, Q.__wbindgen_malloc),
+      S = Z,
+      C = Q.demoinput_parseRoundStream(this.__wbg_ptr, l, u, d, f, p, m, h, g, _, v, y, b, x, S, s, c)
+    if (C[1]) throw X(C[0])
+  }
+  write(e, t) {
+    let n = et(e, Q.__wbindgen_malloc),
+      r = Z,
+      i = Q.demoinput_write(this.__wbg_ptr, n, r, t)
+    if (i[1]) throw X(i[0])
+  }
+}
+Symbol.dispose && (H.prototype[Symbol.dispose] = H.prototype.free)
+function He(e, t, n, r) {
+  let i = et(e, Q.__wbindgen_malloc),
+    a = Z
+  var o = q(t) ? 0 : Y(t, Q.__wbindgen_malloc),
+    s = Z,
+    c = q(n) ? 0 : Y(n, Q.__wbindgen_malloc),
+    l = Z,
+    u = q(r) ? 0 : Y(r, Q.__wbindgen_malloc),
+    d = Z
+  let f = Q.parseEvents(i, a, o, s, c, l, u, d)
+  if (f[2]) throw X(f[1])
+  return X(f[0])
+}
+function Ue(e) {
+  let t = et(e, Q.__wbindgen_malloc),
+    n = Z,
+    r = Q.parseHeader(t, n)
+  if (r[2]) throw X(r[1])
+  return X(r[0])
+}
+function We(e, t, n, r, i, a, o, s, c) {
+  let l = et(e, Q.__wbindgen_malloc),
+    u = Z
+  var d = q(t) ? 0 : Y(t, Q.__wbindgen_malloc),
+    f = Z,
+    p = q(n) ? 0 : J(n, Q.__wbindgen_malloc),
+    m = Z,
+    h = q(r) ? 0 : Y(r, Q.__wbindgen_malloc),
+    g = Z,
+    _ = q(i) ? 0 : Y(i, Q.__wbindgen_malloc),
+    v = Z,
+    y = q(a) ? 0 : Y(a, Q.__wbindgen_malloc),
+    b = Z,
+    x = q(o) ? 0 : J(o, Q.__wbindgen_malloc),
+    S = Z
+  let C = J(s, Q.__wbindgen_malloc),
+    w = Z,
+    T = Q.parseRoundStream(l, u, d, f, p, m, h, g, _, v, y, b, x, S, C, w, c)
+  if (T[1]) throw X(T[0])
+}
+function Ge() {
+  return {
+    __proto__: null,
+    "./csplayer_parser_bg.js": {
+      __proto__: null,
+      __wbg_Error_92b29b0548f8b746: function (e, t) {
+        return Error(Xe(e, t))
+      },
+      __wbg_String_8564e559799eccda: function (e, t) {
+        let n = tt(String(t), Q.__wbindgen_malloc, Q.__wbindgen_realloc),
+          r = Z
+        ;(W().setInt32(e + 4, r, !0), W().setInt32(e + 0, n, !0))
+      },
+      __wbg___wbindgen_debug_string_c25d447a39f5578f: function (e, t) {
+        let n = tt(Je(t), Q.__wbindgen_malloc, Q.__wbindgen_realloc),
+          r = Z
+        ;(W().setInt32(e + 4, r, !0), W().setInt32(e + 0, n, !0))
+      },
+      __wbg___wbindgen_is_string_ea5e6cc2e4141dfe: function (e) {
+        return typeof e == `string`
+      },
+      __wbg___wbindgen_string_get_b0ca35b86a603356: function (e, t) {
+        let n = t,
+          r = typeof n == `string` ? n : void 0
+        var i = q(r) ? 0 : tt(r, Q.__wbindgen_malloc, Q.__wbindgen_realloc),
+          a = Z
+        ;(W().setInt32(e + 4, a, !0), W().setInt32(e + 0, i, !0))
+      },
+      __wbg___wbindgen_throw_344f42d3211c4765: function (e, t) {
+        throw Error(Xe(e, t))
+      },
+      __wbg_call_a6e5c5dce5018821: function () {
+        return $e(function (e, t, n) {
+          return e.call(t, n)
+        }, arguments)
+      },
+      __wbg_from_13e323c65fc8f464: function (e) {
+        return Array.from(e)
+      },
+      __wbg_getRandomValues_3f44b700395062e5: function () {
+        return $e(function (e, t) {
+          globalThis.crypto.getRandomValues(Ye(e, t))
+        }, arguments)
+      },
+      __wbg_new_32b398fb48b6d94a: function () {
+        return []
+      },
+      __wbg_new_7796ffc7ed656783: function () {
+        return new Map()
+      },
+      __wbg_new_cd45aabdf6073e84: function (e) {
+        return new Uint8Array(e)
+      },
+      __wbg_new_da52cf8fe3429cb2: function () {
+        return {}
+      },
+      __wbg_set_575dd786d51585f8: function (e, t, n) {
+        return e.set(t, n)
+      },
+      __wbg_set_6be42768c690e380: function (e, t, n) {
+        e[t] = n
+      },
+      __wbg_set_8a16b38e4805b298: function (e, t, n) {
+        e[t >>> 0] = n
+      },
+      __wbindgen_cast_0000000000000001: function (e) {
+        return e
+      },
+      __wbindgen_cast_0000000000000002: function (e, t) {
+        return Ye(e, t)
+      },
+      __wbindgen_cast_0000000000000003: function (e, t) {
+        return Xe(e, t)
+      },
+      __wbindgen_init_externref_table: function () {
+        let e = Q.__wbindgen_externrefs,
+          t = e.grow(4)
+        ;(e.set(0, void 0), e.set(t + 0, void 0), e.set(t + 1, null), e.set(t + 2, !0), e.set(t + 3, !1))
+      },
+    },
+  }
+}
+var Ke =
+  typeof FinalizationRegistry > `u`
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry((e) => Q.__wbg_demoinput_free(e, 1))
+function qe(e) {
+  let t = Q.__externref_table_alloc()
+  return (Q.__wbindgen_externrefs.set(t, e), t)
+}
+function Je(e) {
+  let t = typeof e
+  if (t == `number` || t == `boolean` || e == null) return `${e}`
+  if (t == `string`) return `"${e}"`
+  if (t == `symbol`) {
+    let t = e.description
+    return t == null ? `Symbol` : `Symbol(${t})`
+  }
+  if (t == `function`) {
+    let t = e.name
+    return typeof t == `string` && t.length > 0 ? `Function(${t})` : `Function`
+  }
+  if (Array.isArray(e)) {
+    let t = e.length,
+      n = `[`
+    t > 0 && (n += Je(e[0]))
+    for (let r = 1; r < t; r++) n += `, ` + Je(e[r])
+    return ((n += `]`), n)
+  }
+  let n = /\[object ([^\]]+)\]/.exec(toString.call(e)),
+    r
+  if (n && n.length > 1) r = n[1]
+  else return toString.call(e)
+  if (r == `Object`)
+    try {
+      return `Object(` + JSON.stringify(e) + `)`
+    } catch {
+      return `Object`
+    }
+  return e instanceof Error
+    ? `${e.name}: ${e.message}
+${e.stack}`
+    : r
+}
+function Ye(e, t) {
+  return ((e >>>= 0), K().subarray(e / 1, e / 1 + t))
+}
+var U = null
+function W() {
+  return (
+    (U === null || U.buffer.detached === !0 || (U.buffer.detached === void 0 && U.buffer !== Q.memory.buffer)) &&
+      (U = new DataView(Q.memory.buffer)),
+    U
+  )
+}
+function Xe(e, t) {
+  return at(e >>> 0, t)
+}
+var G = null
+function Ze() {
+  return ((G === null || G.byteLength === 0) && (G = new Uint32Array(Q.memory.buffer)), G)
+}
+var Qe = null
+function K() {
+  return ((Qe === null || Qe.byteLength === 0) && (Qe = new Uint8Array(Q.memory.buffer)), Qe)
+}
+function $e(e, t) {
+  try {
+    return e.apply(this, t)
+  } catch (e) {
+    let t = qe(e)
+    Q.__wbindgen_exn_store(t)
+  }
+}
+function q(e) {
+  return e == null
+}
+function J(e, t) {
+  let n = t(e.length * 4, 4) >>> 0
+  return (Ze().set(e, n / 4), (Z = e.length), n)
+}
+function et(e, t) {
+  let n = t(e.length * 1, 1) >>> 0
+  return (K().set(e, n / 1), (Z = e.length), n)
+}
+function Y(e, t) {
+  let n = t(e.length * 4, 4) >>> 0
+  for (let t = 0; t < e.length; t++) {
+    let r = qe(e[t])
+    W().setUint32(n + 4 * t, r, !0)
+  }
+  return ((Z = e.length), n)
+}
+function tt(e, t, n) {
+  if (n === void 0) {
+    let n = ot.encode(e),
+      r = t(n.length, 1) >>> 0
+    return (
+      K()
+        .subarray(r, r + n.length)
+        .set(n),
+      (Z = n.length),
+      r
+    )
+  }
+  let r = e.length,
+    i = t(r, 1) >>> 0,
+    a = K(),
+    o = 0
+  for (; o < r; o++) {
+    let t = e.charCodeAt(o)
+    if (t > 127) break
+    a[i + o] = t
+  }
+  if (o !== r) {
+    ;(o !== 0 && (e = e.slice(o)), (i = n(i, r, (r = o + e.length * 3), 1) >>> 0))
+    let t = K().subarray(i + o, i + r),
+      a = ot.encodeInto(e, t)
+    ;((o += a.written), (i = n(i, r, o, 1) >>> 0))
+  }
+  return ((Z = o), i)
+}
+function X(e) {
+  let t = Q.__wbindgen_externrefs.get(e)
+  return (Q.__externref_table_dealloc(e), t)
+}
+var nt = new TextDecoder(`utf-8`, { ignoreBOM: !0, fatal: !0 })
+nt.decode()
+var rt = 2146435072,
+  it = 0
+function at(e, t) {
+  return (
+    (it += t),
+    it >= rt && ((nt = new TextDecoder(`utf-8`, { ignoreBOM: !0, fatal: !0 })), nt.decode(), (it = t)),
+    nt.decode(K().subarray(e, e + t))
+  )
+}
+var ot = new TextEncoder()
+;`encodeInto` in ot ||
+  (ot.encodeInto = function (e, t) {
+    let n = ot.encode(e)
+    return (t.set(n), { read: e.length, written: n.length })
+  })
+var Z = 0,
+  Q
+function st(e, t) {
+  return ((Q = e.exports), (U = null), (G = null), (Qe = null), Q.__wbindgen_start(), Q)
+}
+async function ct(e, t) {
+  if (typeof Response == `function` && e instanceof Response) {
+    if (typeof WebAssembly.instantiateStreaming == `function`)
+      try {
+        return await WebAssembly.instantiateStreaming(e, t)
+      } catch (t) {
+        if (e.ok && n(e.type) && e.headers.get(`Content-Type`) !== `application/wasm`)
+          console.warn(
+            "`WebAssembly.instantiateStreaming` failed because your server does not serve Wasm with `application/wasm` MIME type. Falling back to `WebAssembly.instantiate` which is slower. Original error:\n",
+            t,
+          )
+        else throw t
+      }
+    let r = await e.arrayBuffer()
+    return await WebAssembly.instantiate(r, t)
+  } else {
+    let n = await WebAssembly.instantiate(e, t)
+    return n instanceof WebAssembly.Instance ? { instance: n, module: e } : n
+  }
+  function n(e) {
+    switch (e) {
+      case `basic`:
+      case `cors`:
+      case `default`:
+        return !0
+    }
+    return !1
+  }
+}
+async function lt(e) {
+  if (Q !== void 0) return Q
+  ;(e !== void 0 &&
+    (Object.getPrototypeOf(e) === Object.prototype
+      ? ({ module_or_path: e } = e)
+      : console.warn(`using deprecated parameters for the initialization function; pass a single object instead`)),
+    e === void 0 && (e = new URL(`/assets/csplayer_parser_bg-qigVgicw.wasm`, `` + import.meta.url)))
+  let t = Ge()
+  ;(typeof e == `string` ||
+    (typeof Request == `function` && e instanceof Request) ||
+    (typeof URL == `function` && e instanceof URL)) &&
+    (e = fetch(e))
+  let { instance: n, module: r } = await ct(await e, t)
+  return st(n, r)
+}
+var ut = null
+function dt(e) {
+  return ((ut ||= lt({ module_or_path: e })), ut)
+}
+async function ft(e, t = {}, n = {}) {
+  if (!ut) throw Error(`Parser is not initialized. Call initParser() first.`)
+  return (await ut, gt(e, t, n).data)
+}
+function pt(e, t, n = -1) {
+  e.onProgress?.(t, n)
+}
+function mt(e, t, n) {
+  let r = performance.now(),
+    i = n()
+  return (e.push([t, performance.now() - r]), i)
+}
+function ht(e, t) {
+  let n = e.reduce((e, [, t]) => e + t, 0) || 1,
+    r = e.map(([e, t]) => ({ phase: e, ms: Math.round(t), "%": Math.round((t / n) * 100) }))
+  ;(console.info(`[parse] ${(t / 1e6).toFixed(1)} MB demo \u2014 ${Math.round(n)} ms total`), console.table(r))
+}
+function gt(e, n, r) {
+  let i = v(n.sampleRate ?? 32),
+    a = Math.max(1, Math.round(64 / i)),
+    o = []
+  pt(r, `Reading header…`, 0.1)
+  let s = mt(o, `header`, () => wt(e))
+  pt(r, `Reading round layout…`, 0.12)
+  let c = vt(
+    s,
+    mt(o, `manifest`, () => _t(e)),
+  )
+  r.onManifest?.(c)
+  let d = new Map(),
+    f = new Map(),
+    p = new Map(),
+    m = e instanceof H,
+    h = [],
+    g = [],
+    x = [],
+    S = [],
+    w = [],
+    E,
+    D,
+    O,
+    A,
+    j = Math.max(1, c.rounds.length)
+  pt(r, `Loading round 1…`, 0.15)
+  let M = (e) => {
+      ;(St(d, e.columns, c.startTick, c.endTick, m, p),
+        St(f, e.panel_columns, c.startTick, c.endTick, m, p),
+        Ct(h, e.events, c.startTick, c.endTick),
+        Ct(g, e.grenades, c.startTick, c.endTick),
+        (x = e.smoke_voxels.filter((e) => e.tick_begin >= c.startTick && e.tick_begin <= c.endTick)),
+        (S = e.infernos.filter((e) => e.end_tick >= c.startTick && e.start_tick <= c.endTick)),
+        (w = (e.weapon_drops ?? []).filter((e) => e.end_tick >= c.startTick && e.start_tick <= c.endTick)),
+        (E = e.map_entities?.filter((e) => e.end_tick > c.startTick && e.start_tick <= c.endTick)),
+        (D = e.death_ragdolls?.filter((e) => e.tick >= c.startTick && e.tick <= c.endTick)))
+      let a = Math.min(e.loaded_rounds, j)
+      if (a < j && !r.onReady && !r.onRound) {
+        pt(r, `Loading round ${a + 1} of ${j}\u2026`, 0.15 + (0.8 * a) / j)
+        return
+      }
+      let o = Ot(h)
+      ;((O = y(
+        d,
+        o.timeline,
+        s,
+        i,
+        g,
+        o.grenade,
+        o.fireBullets,
+        o.playerHurt,
+        f,
+        o.bomb,
+        n.resolveBombSites?.(s) ?? t(s),
+        k(x),
+        b(S),
+        void 0,
+        C(w),
+        o.weaponFire,
+        E && T(E, c.endTick + 1),
+        D,
+      )),
+        yt(O, c),
+        (A = ie(f, o.fireBullets, o.playerHurt, o.bomb)),
+        a < j &&
+          (a === 1 ? r.onReady?.(O, c, a) : r.onRound?.(O, a),
+          pt(r, `Loading round ${a + 1} of ${j}\u2026`, 0.15 + (0.8 * a) / j)))
+    },
+    ee = [`X`, `Y`, `Z`, `steamid`],
+    N = m ? c.endTick + 1 : void 0,
+    P = [l, _(a, N), Dt, ee, u, _(8, N), Int32Array.from(c.rounds.map((e) => e.endTick)), M]
+  if (
+    (mt(o, `round stream`, () => {
+      e instanceof H ? e.parseRoundStream(...P, !!(r.onReady || r.onRound)) : We(e, ...P)
+    }),
+    !O || !A)
+  )
+    throw Error(`Round parser produced no playable data.`)
+  return (ht(o, e instanceof H ? e.length() : e.length), { data: O, derivationInputs: A })
+}
+function _t(e) {
+  return e instanceof H
+    ? e.parseEvents([`round_start`, `round_end`], [], [])
+    : He(e, [`round_start`, `round_end`], [], [])
+}
+function vt(e, t) {
+  let n = t
+      .filter((e) => R(e.get(`event_name`)) === `round_start`)
+      .map((e) => Number(e.get(`tick`)))
+      .filter(Number.isFinite)
+      .sort((e, t) => e - t)
+      .filter((e, t, n) => t === 0 || e !== n[t - 1]),
+    r = t
+      .filter((e) => R(e.get(`event_name`)) === `round_end`)
+      .map((e) => Number(e.get(`tick`)))
+      .filter(Number.isFinite)
+      .sort((e, t) => e - t),
+    i = r[r.length - 1] ?? n[n.length - 1] ?? 0,
+    a = F(n, i, 960),
+    o = a[0]?.startTick ?? 0,
+    s = a[a.length - 1]?.endTick ?? i
+  return { mapName: e, tickRate: 64, startTick: o, endTick: s, durationSeconds: Math.max(0, s - o) / 64, rounds: a }
+}
+function yt(e, t) {
+  let n = e.rounds
+  ;((e.meta.startTick = t.startTick),
+    (e.meta.endTick = t.endTick),
+    (e.meta.durationSeconds = t.durationSeconds),
+    (e.rounds = t.rounds.map((e, t) => ({ ...e, liveStartTick: n[t]?.liveStartTick ?? e.liveStartTick }))))
+}
+var bt = new Set([`active_weapon_name`, `inventory`, `crosshair_code`, `team_clan_name`, `player_color`]),
+  xt = new Set([`tick`, ...l, ...u.filter((e) => !bt.has(e))])
+function St(e, t, n, a, o, s) {
+  let c = t.get(`tick`)
+  if (!c) return
+  let l = []
+  for (let e = 0; e < c.length; e++) {
+    let t = Number(i(c, e))
+    Number.isFinite(t) && t >= n && t <= a && l.push(e)
+  }
+  let u = e.get(`tick`)?.length ?? 0
+  for (let [n, r] of e) if (!t.has(n)) for (let e = 0; e < l.length; e++) r.push(void 0)
+  for (let [n, a] of t) {
+    let t = e.get(n)
+    if (!t) {
+      e.set(n, (t = o && xt.has(n) ? new r() : []))
+      for (let e = 0; e < u; e++) t.push(void 0)
+    }
+    for (let e of l) {
+      let n = i(a, e)
+      if (o && typeof n == `string`) {
+        let e = s.get(n)
+        e === void 0 ? s.set(n, n) : (n = e)
+      }
+      t.push(n)
+    }
+  }
+}
+function Ct(e, t, n, r) {
+  for (let i of t) {
+    let t = Number(i.get(`tick`))
+    Number.isFinite(t) && t >= n && t <= r && e.push(i)
+  }
+}
+function wt(e) {
+  try {
+    let t = (e instanceof H ? e.parseHeader() : Ue(e)).get(`map_name`)
+    return typeof t == `string` && t.length > 0 ? t : `unknown`
+  } catch {
+    return `unknown`
+  }
+}
+var Tt = `fire_bullets`,
+  Et = `player_hurt`,
+  Dt = [...new Set([...d, ...f, Tt, Et, x, ...p])]
+function Ot(e) {
+  let t = new Set(d),
+    n = new Set(f),
+    r = new Set(p),
+    i = { timeline: [], grenade: [], fireBullets: [], playerHurt: [], bomb: [], weaponFire: [] }
+  for (let a of e) {
+    let e = R(a.get(`event_name`)) ?? ``
+    ;(t.has(e) && i.timeline.push(a),
+      n.has(e) && i.grenade.push(a),
+      r.has(e) && i.bomb.push(a),
+      e === Tt && i.fireBullets.push(a),
+      e === Et && i.playerHurt.push(a),
+      e === `weapon_fire` && i.weaponFire.push(a))
+  }
+  return i
+}
+var kt = `/assets/csplayer_parser_bg-qigVgicw.wasm`
+const At = self
+function $(e, t = []) {
+  At.postMessage(e, t)
+}
+At.onmessage = async (e) => {
+  let t = e.data
+  if (t.type === `parse`)
+    try {
+      ;($({ type: `progress`, phase: `Loading parser…`, value: 0.04 }), await dt(kt))
+      let e = await ft(new Uint8Array(t.bytes), t.options, {
+        onProgress: (e, t) => $({ type: `progress`, phase: e, value: t }),
+        onManifest: (e) => $({ type: `manifest`, manifest: e }),
+        onReady: (e, t, n) => $({ type: `ready`, data: e, manifest: t, loadedRounds: n }, jt(e)),
+        onRound: (e, t) => $({ type: `round`, data: e, loadedRounds: t }, jt(e)),
+      })
+      $({ type: `done`, data: e }, jt(e))
+    } catch (e) {
+      $({ type: `error`, message: e instanceof Error ? e.message : String(e) })
+    }
+}
+function jt(e) {
+  let t = e.frames,
+    n = e.panelFrames,
+    r = e.damage,
+    i = e.smokeVoxels
+  return [
+    t.posX.buffer,
+    t.posY.buffer,
+    t.posZ.buffer,
+    t.yaw.buffer,
+    t.pitch.buffer,
+    t.health.buffer,
+    t.alive.buffer,
+    t.team.buffer,
+    t.score.buffer,
+    t.duck.buffer,
+    t.flash.buffer,
+    t.flashAlpha.buffer,
+    t.zoom.buffer,
+    ...(t.accuracyPenalty ? [t.accuracyPenalty.buffer] : []),
+    ...(t.reloading ? [t.reloading.buffer] : []),
+    t.frameTick.buffer,
+    n.frameTick.buffer,
+    n.health.buffer,
+    n.alive.buffer,
+    n.team.buffer,
+    n.armor.buffer,
+    n.flags.buffer,
+    n.money.buffer,
+    n.equipValue.buffer,
+    n.clipAmmo.buffer,
+    n.reserveAmmo.buffer,
+    n.activeWeapon.buffer,
+    n.utilCounts.buffer,
+    r.attackerSlot.buffer,
+    r.victimSlot.buffer,
+    r.tick.buffer,
+    r.dmg.buffer,
+    i.tickBegin.buffer,
+    i.detonation.buffer,
+    i.color.buffer,
+    i.bufferOffsets.buffer,
+    i.buffers.buffer,
+    ...(i.frameOffsets ? [i.frameOffsets.buffer] : []),
+    ...(i.frameTicks ? [i.frameTicks.buffer] : []),
+    ...(e.grenades.infernos ?? []).flatMap((e) =>
+      e.frames.flatMap((e) => [
+        e.positions.buffer,
+        e.burning.buffer,
+        ...(e.origin ? [e.origin.buffer] : []),
+        ...(e.parentPositions ? [e.parentPositions.buffer] : []),
+        ...(e.normals ? [e.normals.buffer] : []),
+      ]),
+    ),
+    ...(e.droppedWeapons ?? []).flatMap((e) => [e.ticks.buffer, e.positions.buffer, e.angles.buffer]),
+    ...(e.mapEntities ?? []).flatMap((e) => [e.ticks.buffer, e.angles.buffer, e.hidden.buffer]),
+    ...e.grenades.trajectories.flatMap((e) => (e.angles ? [e.angles.buffer] : [])),
+    ...(e.weaponFires ? [e.weaponFires.ticks.buffer, e.weaponFires.slots.buffer] : []),
+  ]
+}

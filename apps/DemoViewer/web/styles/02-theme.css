@@ -1,0 +1,49 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * 组件样式区：theme — 明暗主题按钮
+ * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * ─────────────────────────────────────────────────────────────────────────── */
+.theme-switch {
+  background: var(--landing-fill);
+  border-radius: 10px;
+  flex: none;
+  gap: 2px;
+  padding: 3px;
+  display: inline-flex;
+}
+.theme-switch-option {
+  width: 2rem;
+  height: 1.75rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.3s var(--landing-ease);
+  background: 0 0;
+  border: 0;
+  border-radius: 7px;
+  place-items: center;
+  padding: 0;
+  display: grid;
+}
+.theme-switch-option:hover:not(.active) {
+  color: var(--text);
+}
+.theme-switch-option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.theme-switch-option.active {
+  color: var(--text);
+  background: var(--landing-thumb);
+  box-shadow: var(--landing-thumb-shadow);
+}
+.theme-switch-option svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  width: 1rem;
+  height: 1rem;
+}

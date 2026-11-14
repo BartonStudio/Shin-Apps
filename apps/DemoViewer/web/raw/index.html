@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>CSDEMO — 3D CS2 Demo Viewer</title>
+    <meta
+      name="description"
+      content="CSDEMO.TV is a client-side 3D Counter-Strike 2 demo viewer. Drop a .dem file and watch the round play back in 3D — no server, runs entirely in your browser."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Resolve the theme before first paint (mirrors src/ui/theme.ts) to avoid a light flash.
+      try {
+        var pref = localStorage.getItem('csdemo:theme');
+        var dark = pref === 'dark' || (pref !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (e) {}
+    </script>
+    <link
+      rel="preload"
+      href="/fonts/BarlowSemiCondensed-600.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script type="module" crossorigin src="/assets/index-E0opA-yG.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CKB5zRpH.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
