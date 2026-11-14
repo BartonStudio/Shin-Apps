@@ -14,7 +14,7 @@ CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 
-# 原 Shin 仓库参考副本（构建不依赖；webview 代码已 vendor 到 src/webview 与 third_party/webview）
+# 原 Shin 仓库参考副本（构建不依赖；WebView2 宿主壳代码已落到 platform/host/）
 third_party/Shin/
 
 # 前端：依赖与 Vite 构建产物（由 pnpm / vite 生成）
@@ -24,3 +24,9 @@ dist/
 
 # 本地工作区数据（AI 会话记忆、临时日志与截图），不入库
 .workbuddy/
+
+# 本地工作区临时文件（AI Happy Design 缓存 / playwright / CDP 调试脚本），不入库
+.ahd-*.json
+.playwright-cli/
+cdp-diagnose.mjs
+tmp-cdp-check.mjs
