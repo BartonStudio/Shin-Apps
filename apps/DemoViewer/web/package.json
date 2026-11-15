@@ -1,17 +1,21 @@
 {
   "name": "csdemotv-20261103",
   "version": "1.0.0",
-  "description": "",
+  "description": "csdemo.tv 前端拆解归档 + 原生 C++ 对接层",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "node serve.mjs",
+    "test": "node tools/verify-restoration.mjs && node tools/check-hex-consistency.mjs && node tools/trace-colors.mjs && node tools/reassemble-css.mjs && node tools/trace-fields.mjs && node tools/compare-deobf-semantics.mjs && node tools/slice-coverage.mjs && node tools/validate-fixture-data.mjs fixtures/segment-000.bin",
+    "test:demo": "node tools/validate-contract-against-demo.mjs && node tools/dump-shared-layout.mjs && node tools/gen-js-image.mjs",
+    "test:cross": "node tools/test-shared-buffer.mjs && node tools/test-shared-buffer-from-cpp.mjs && node tools/verify-roundtrip.mjs && node tools/playback-test.mjs",
+    "serve:playback": "node tools/serve-playback.mjs"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "SEE LICENSE IN README.md",
   "dependencies": {
     "prettier": "^3.9.10"
   }

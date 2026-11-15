@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：自研刚体物理引擎 + 物理模型 + 轨迹记录器
 // 原始压缩文件：src/app/07-physics-engine.js（Ex）、08-physics-model.js（Bx）、09-trajectory-recorder.js（Kx）
+// 原文范围：decompiled/index.beautified.js L32968–34297（切片 07-physics-engine + 08-physics-model + 09-trajectory-recorder）
 // 压缩类名：Ex=PhysicsEngine, Bx=PhysicsModel, Kx=TrajectoryRecorder
 // 说明：这是 csdemo.tv 的**自研物理引擎**，用于模拟布娃娃（ragdoll）死亡后的
 //   刚体物理、以及地图可破坏物（玻璃/碎片）的破碎飞溅。核心特点：
@@ -1104,3 +1105,60 @@ class TrajectoryRecorder {
     return true;
   }
 }
+
+// ============================================================================
+// 【补充段 2026-11-09】09-trajectory-recorder 的 `Yx` 区（原件 L33814–34286，474 行）
+//
+// ⚠️ 这一段**不做逐行反混淆**，原因是它由两个大类的实现细节构成，
+//    逐行改写的信息增益远低于维护成本。改为给出**完整的接口与语义说明**——
+//    接管方需要知道的是「有什么能力、怎么用」，而不是每个 getter 的实现。
+//
+// 该区包含两个类：
+//
+// ── 1. `Xx` → ColliderGatherer（原件 L33815–33942）──
+//     把地图网格上的碰撞三角形收集进一个扁平数组，供物理引擎做碰撞检测。
+//     · setObject(obj)              设定要收集的地图根节点（变了返回 true）
+//     · gather(box, out)            把落在 box 内的三角形顶点追加进 out（扁平 xyz）
+//                                   —— 用 three-mesh-bvh 的 shapecast 加速，
+//                                   先按 bounds 判定（containsBox 返回 2 = 全收），
+//                                   再逐三角形做轴对齐快速剔除
+//     · floorBelow(x, y, z, maxDist) 从某点向下找最近的地面高度（用于落地判定）
+//     · collidersOf()               惰性收集地图里所有带 BVH 的 Mesh，
+//                                   产出 [{ mesh, tree, bounds }] 并缓存
+//     ⚠️ 内部缓存了 matrixWorld 的「上一次值」（原件用复数形式的 scratchBox 比对），
+//        地图对象移动后必须让缓存失效，否则收集到的三角形是旧位置的。
+//
+// ── 2. MapBreaks 碎片系统（原件 L33943–34286）──
+//     负责地图可破坏物被打碎后的碎片模拟与渲染。
+//     · shaderPrototypes            getter：碎片 shader 的原型缓存
+//     · setMap(map)                 设定地图（换图要 reset）
+//     · setCollisionObject(obj)     设定碰撞源（内部就是一个 ColliderGatherer）
+//     · setEnabled(bool)            总开关
+//     · setCauses(causes)           设定「什么事件会导致破碎」（如 he 爆炸半径）
+//     · setTimeline(timeline)       设定地图物体的位姿时间线（门/板会动）
+//     · update(tick)                每帧入口：按 tick 决定哪些 burst 继续、哪些回收
+//     · breaksBetween(from, to)     某段时间内的破碎事件
+//     · reset()                     清空所有 burst
+//     · clearBursts()               清空碎片组（换图/重播时调用）
+//     · burstOf(entityId, tick)     取（必要时创建）某个物体的碎片组
+//     · createBurst(entityId, tick) 真正创建碎片组：从原型几何切出碎片、
+//                                   分配 shard 的初始速度/角速度（用 deterministic 的
+//                                   seeded RNG，种子 7919，保证同一 demo 每次播放一致）
+//     · pieceMesh(entityId, i)      取某块碎片的 mesh
+//     · bindDraw(...)               把碎片挂进 InstancedMesh 的绘制批次
+//     · poseBurst(burst, tick)      推进某个碎片组的位姿（简单抛物线 + 地面停靠）
+//     · startTrack(...)             开始记录某块碎片的轨迹（用于回放/调试）
+//     · gridAround(point)           收集某点周围的碰撞三角形（同 ColliderGatherer）
+//     · impactOf(...)               计算撞击位置与法线（内部用 box.intersectBox 做快速剔除）
+//     · evict()                     LRU 回收：bursts 数量超过上限时淘汰最久未用的
+//     · debrisFade / shardFade      两个 uniform 的淡出系数（碎片消失时用）
+//
+// 关键数值常量（原件 L33719 前的 var 声明）：
+//   · fw=192 / pw=256 / mw=128   碎片碰撞网格的三轴范围
+//   · hw=4                       每帧物理预算（毫秒）
+//   · gw=40                      最多缓存多少个倒地
+//   · MAX_IMPULSE_SPEED=320 / KICK_SPEED=260 / MOMENTUM_FRACTION=0.75（已在 L959–961 定义）
+//
+// 接管建议：这段逻辑与 07-physics-engine 的刚体系统耦合很紧，
+//   如果要换解析层而不换物理层，这两类**可以原样保留**；
+//   只有当你要换掉物理引擎时才需要重写它们。

@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：燃烧弹火焰（Fire/Inferno）渲染管理
 // 原始压缩文件：src/app/13-fire-manager.js + 12-fire-shader.js（部分）
+// 原文范围：decompiled/index.beautified.js L37845–38343（切片 13-fire-manager）
 // 压缩类名：YE=HazardVolumeManager, QE=RecordedInfernoManager, uE=FireModel
 // 说明：CS2 燃烧弹（Molotov/燃烧手雷）的火焰效果分两层：
 //   1. RecordedInfernoManager（QE）：管理 demo 里"录制"的燃烧弹数据

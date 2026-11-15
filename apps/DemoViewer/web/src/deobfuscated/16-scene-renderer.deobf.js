@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：场景渲染器（SceneRenderer）
-// 原始压缩文件：src/app/16-scene-renderer.js（decompiled 39175–39506 行）
+// 原始压缩文件：src/app/16-scene-renderer.js（decompiled 39175–39543 行）
+// 原文范围：decompiled/index.beautified.js L39175–39543（切片 16-scene-renderer）
 // 压缩类名：qD
 // 说明：three.js 的 WebGLRenderer 封装，负责太阳阴影、大气雾、天空、色调映射、
 //       深度预渲染（depth prepass）、着色器预编译。字段/方法名已保留语义，仅补注释。
@@ -13,14 +14,14 @@ import { Color, DirectionalLight, AmbientLight, HemisphereLight, Scene, Fog, Box
   RGBAFormat as _RGBA } from 'three';
 
 // 默认大气雾范围（米）
-const FOG_NEAR = 400;   // 雾起始距离
-const FOG_FAR = 26000;  // 雾完全距离
+const FOG_NEAR = 1200;  // 雾起始距离（原件 UD = 1200）
+const FOG_FAR = 9000;   // 雾完全距离（原件 WD = 9e3）
 
 // 静态阴影贴图边缘外扩量（米）
-const SHADOW_MARGIN = 500;
+const SHADOW_MARGIN = 300;  // 原件 GD = 300
 
 // 阴影质量 → 阴影贴图分辨率
-const SHADOW_MAP_SIZES = { low: 1024, medium: 2048, high: 4096 };
+const SHADOW_MAP_SIZES = { low: 1024, medium: 2048, high: 4096, ultra: 8192 };  // 原件 KD，含 ultra
 
 class SceneRenderer {
   constructor(container, options = {}) {
@@ -42,10 +43,10 @@ class SceneRenderer {
 
     // 场景 + 天空色背景（浅灰蓝）
     this.scene = new Scene();
-    this.scene.background = new Color(0xb3c2c6);
+    this.scene.background = new Color(0xb3c8e6);
 
     // 大气雾
-    this.atmosphereFog = new Fog(0xc7b5a7, FOG_NEAR, FOG_FAR);
+    this.atmosphereFog = new Fog(0xc7b99d, FOG_NEAR, FOG_FAR);
     this.scene.fog = this.atmosphereFog;
 
     // 天空穹顶（渐变 shader 球体）+ 太阳光斑 + 半球光
@@ -53,7 +54,7 @@ class SceneRenderer {
     this.scene.add(this.sky);
     this.visibleSun = createSunSprite();
     this.scene.add(this.visibleSun);
-    this.scene.add(new HemisphereLight(0xaec3d6, 0x514f40, 1));
+    this.scene.add(new HemisphereLight(0xaec3d7, 0x514a40, 1));
 
     // 环境光（补光）
     const ambient = new AmbientLight(0xffffff, 0.3);
@@ -61,7 +62,7 @@ class SceneRenderer {
     this.scene.add(ambient);
 
     // 网格地面（Classic 模式的地板）
-    this.grid = new GridHelper(16000, 125, 0x2a2f14, 0x1a1a1a);
+    this.grid = new GridHelper(16000, 125, 0x2a3344, 0x1a2230);
     this.grid.rotation.x = Math.PI / 2;
     this.scene.add(this.grid);
 
@@ -132,7 +133,7 @@ class SceneRenderer {
 
   /** 为静态地图安装一个"包住整张地图"的定向太阳阴影 */
   installStaticMapShadow(mapObject) {
-    const light = new DirectionalLight(0xffe0d8, this.sunIntensity);
+    const light = new DirectionalLight(0xffe5b8, this.sunIntensity);
     light.name = `CSPlayer_StaticMapSun`;
     light.castShadow = this.sunShadowsEnabled;
     light.shadow.autoUpdate = false;                        // 静态地图阴影只算一次
@@ -261,10 +262,10 @@ class SceneRenderer {
   classicLighting() {
     this.updateSunDirection();
     const epsilon = 0.2;
-    const skyColor = new Color(0xaec3d6).addScalar(epsilon).multiplyScalar(1 / Math.PI);
-    const groundColor = new Color(0x514f40).addScalar(epsilon).multiplyScalar(1 / Math.PI);
+    const skyColor = new Color(0xaec3d7).addScalar(epsilon).multiplyScalar(1 / Math.PI);
+    const groundColor = new Color(0x514a40).addScalar(epsilon).multiplyScalar(1 / Math.PI);
     const sunColor = this.staticShadowLight
-      ? new Color(0xffe0d8).multiplyScalar(this.sunIntensity / Math.PI)
+      ? new Color(0xffe5b8).multiplyScalar(this.sunIntensity / Math.PI)
       : new Color(0, 0, 0);
     return { sunDirection: this.sunDirection.clone(), sunColor, skyColor, groundColor, fog: this.scene.fog };
   }
@@ -393,8 +394,8 @@ function createSkyDome() {
     fog: false,
     defines: {},
     uniforms: {
-      topColor: { value: new Color(0x23655a) },
-      bottomColor: { value: new Color(0xb3c2c6) },
+      topColor: { value: new Color(0x2366d2) },
+      bottomColor: { value: new Color(0xb3c8e6) },
       exponent: { value: 0.55 },
       skyMap: { value: null },
       skyVMax: { value: 1 },

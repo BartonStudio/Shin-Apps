@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：火焰几何体追踪 + 火焰 shader（FireGeometry / FireShader）
 // 原始压缩文件：src/app/12-fire-shader.js（切片 13/34，71–725 行）
+// 原文范围：decompiled/index.beautified.js L37126–37844（切片 12-fire-shader）
 // 压缩类名：uE=FireModel（已在 13-fire-manager 反混淆），wE=ProbeCache, NE=火体几何构建
 // 说明：燃烧弹火焰的几何构建算法。核心思路：
 //   1. 火焰被离散成"燃烧补丁（burning patch）"——每个补丁是地面/墙上的一个圆

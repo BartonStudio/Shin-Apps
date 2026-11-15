@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 37845–38343 行（切片 14/34）
+// 位置：decompiled/index.beautified.js 第 37845–38343 行（切片 20/40）
 // 角色：火焰管理 YE：updateFire/removeScorch/HazardVolumes/InfernoScorch
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────

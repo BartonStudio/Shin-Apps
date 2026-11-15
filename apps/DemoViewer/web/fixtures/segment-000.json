@@ -1,0 +1,386 @@
+{
+  "format": "CSDF v1",
+  "generatedFrom": "real demo (test.dem)",
+  "header": {
+    "startTick": 0,
+    "endTick": 1920,
+    "numFrames": 1921,
+    "numPlayers": 10,
+    "panelNumFrames": 241,
+    "flags": 63,
+    "crc32": "0x57da91ad",
+    "totalBytes": 1020800
+  },
+  "layout": [
+    {
+      "name": "frameTick",
+      "type": "i32",
+      "offset": 64,
+      "length": 7684,
+      "padded": 7744
+    },
+    {
+      "name": "posX",
+      "type": "f32",
+      "offset": 7808,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "posY",
+      "type": "f32",
+      "offset": 84672,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "posZ",
+      "type": "f32",
+      "offset": 161536,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "yaw",
+      "type": "f32",
+      "offset": 238400,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "pitch",
+      "type": "f32",
+      "offset": 315264,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "health",
+      "type": "u8",
+      "offset": 392128,
+      "length": 19210,
+      "padded": 19264
+    },
+    {
+      "name": "alive",
+      "type": "u8",
+      "offset": 411392,
+      "length": 19210,
+      "padded": 19264
+    },
+    {
+      "name": "team",
+      "type": "u8",
+      "offset": 430656,
+      "length": 19210,
+      "padded": 19264
+    },
+    {
+      "name": "score",
+      "type": "u8",
+      "offset": 449920,
+      "length": 19210,
+      "padded": 19264
+    },
+    {
+      "name": "duck",
+      "type": "f32",
+      "offset": 469184,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "flash",
+      "type": "f32",
+      "offset": 546048,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "flashAlpha",
+      "type": "f32",
+      "offset": 622912,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "zoom",
+      "type": "u8",
+      "offset": 699776,
+      "length": 19210,
+      "padded": 19264
+    },
+    {
+      "name": "accuracyPenalty",
+      "type": "f32",
+      "offset": 719040,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "reloading",
+      "type": "u8",
+      "offset": 795904,
+      "length": 19210,
+      "padded": 19264
+    },
+    {
+      "name": "playerFlags",
+      "type": "u8",
+      "offset": 815168,
+      "length": 19210,
+      "padded": 19264
+    },
+    {
+      "name": "speed",
+      "type": "f32",
+      "offset": 834432,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "smoothSpeed",
+      "type": "f32",
+      "offset": 911296,
+      "length": 76840,
+      "padded": 76864
+    },
+    {
+      "name": "panelFrameTick",
+      "type": "i32",
+      "offset": 988160,
+      "length": 964,
+      "padded": 1024
+    },
+    {
+      "name": "panelHealth",
+      "type": "u8",
+      "offset": 989184,
+      "length": 2410,
+      "padded": 2432
+    },
+    {
+      "name": "panelAlive",
+      "type": "u8",
+      "offset": 991616,
+      "length": 2410,
+      "padded": 2432
+    },
+    {
+      "name": "panelTeam",
+      "type": "u8",
+      "offset": 994048,
+      "length": 2410,
+      "padded": 2432
+    },
+    {
+      "name": "panelArmor",
+      "type": "u8",
+      "offset": 996480,
+      "length": 2410,
+      "padded": 2432
+    },
+    {
+      "name": "panelFlags",
+      "type": "u8",
+      "offset": 998912,
+      "length": 2410,
+      "padded": 2432
+    },
+    {
+      "name": "panelMoney",
+      "type": "u16",
+      "offset": 1001344,
+      "length": 4820,
+      "padded": 4864
+    },
+    {
+      "name": "panelClipAmmo",
+      "type": "u16",
+      "offset": 1006208,
+      "length": 4820,
+      "padded": 4864
+    },
+    {
+      "name": "panelReserveAmmo",
+      "type": "u16",
+      "offset": 1011072,
+      "length": 4820,
+      "padded": 4864
+    },
+    {
+      "name": "panelActiveWeapon",
+      "type": "u8",
+      "offset": 1015936,
+      "length": 2410,
+      "padded": 2432
+    },
+    {
+      "name": "panelUtilCounts",
+      "type": "u8",
+      "offset": 1018368,
+      "length": 2410,
+      "padded": 2432
+    }
+  ],
+  "sampleFrame": {
+    "frameTick": 0,
+    "posX": [
+      182.24990844726562,
+      0,
+      160.12274169921875,
+      0,
+      -1181,
+      258.1593933105469,
+      -980,
+      -696.8446044921875,
+      334.3687438964844,
+      -1015
+    ],
+    "posY": [
+      2439.01171875,
+      0,
+      2369.67626953125,
+      0,
+      -754,
+      2480.5537109375,
+      -754,
+      -806.6237182617188,
+      2433.733642578125,
+      -808
+    ],
+    "posZ": [
+      -120.96875,
+      0,
+      -119.918701171875,
+      0,
+      120.1812515258789,
+      -121.07666015625,
+      120.1812515258789,
+      116.70820617675781,
+      -120.362548828125,
+      116.0826187133789
+    ],
+    "yaw": [
+      -4.00006103515625,
+      0,
+      23.999969482421875,
+      0,
+      42.00004577636719,
+      -67.5,
+      -147.50003051757812,
+      178.00015258789062,
+      -129.99984741210938,
+      -177.0000457763672
+    ],
+    "pitch": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "health": [
+      100,
+      0,
+      100,
+      0,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+    ],
+    "alive": [
+      1,
+      0,
+      1,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "team": [
+      3,
+      0,
+      3,
+      0,
+      2,
+      3,
+      2,
+      2,
+      3,
+      2
+    ],
+    "score": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "duck": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "flash": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "flashAlpha": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "zoom": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "note": "sampleFrame = 窗口第 0 帧的逐玩家原始值，便于 C++ 侧对齐校验"
+}

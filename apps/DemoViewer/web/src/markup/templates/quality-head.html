@@ -1,0 +1,20 @@
+<!-- 来源：decompiled/index.beautified.js 第 52988 行（innerHTML 模板，577 字符）
+     所在作用域：JR
+     说明：原文逐字抠出，仅去掉外层反引号；${...} 表达式保持原样，未求值。 -->
+
+      <div class="quality-head">
+        <span class="quality-label hud-label">Playback detail</span>
+        <span class="quality-hint">${iz(t)}</span>
+      </div>
+      <div class="quality-options" role="group" aria-label="Playback detail">
+        ${nz
+          .map(
+            (e) => `
+          <button type="button" class="quality-opt${e.rate === t ? ` active` : ``}" data-rate="${e.rate}" aria-pressed="${e.rate === t}">
+            <span>${e.label}</span><small>${e.rate} Hz</small>
+          </button>
+        `,
+          )
+          .join(``)}
+      </div>
+    

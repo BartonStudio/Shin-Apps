@@ -1,9 +1,73 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 28861–29162 行（切片 2/34）
-// 角色：回合/时间纯函数：炸弹下包拆包状态、计时文本、回合阶段（freeze/live/over/planted）
+// 位置：decompiled/index.beautified.js 第 28797–29162 行（切片 8/40）
+// 角色：回合/HUD 状态纯函数：常量 o_("fire_bullets") / c_(115 回合秒) / l_(40 炸弹秒)，u_ / **d_（比分+HUD 状态构建器，唯一读 frames.score 与 players.clanName 的地方）** / f_（战术暂停）/ p_（拆包）/ m_（回合阶段）/ h_（下包）/ g_（时间格式化）
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────
+var o_ = `fire_bullets`,
+  s_ = `player_hurt`
+;[...new Set([...Rg, ...zg, o_, s_, Vg, ...Bg])]
+var c_ = 115,
+  l_ = 40
+function u_(e, t, n, r) {
+  let i = Math.max(e, t),
+    a = r
+      .map((t) => ({ start: Math.max(e, t.startTick), end: Math.min(i, t.endTick) }))
+      .filter((e) => e.end > e.start)
+      .sort((e, t) => e.start - t.start),
+    o = 0,
+    s = e
+  for (let e of a) {
+    let t = Math.max(e.start, s)
+    ;(e.end > t && (o += e.end - t), (s = Math.max(s, e.end)))
+  }
+  return Math.max(0, (i - e - o) / Math.max(1, n))
+}
+function d_(e, t, n) {
+  let { frames: r, meta: i, players: a, rounds: o, events: s } = e,
+    c = i.numPlayers,
+    l = n ?? r.frameTick[t] ?? 0,
+    u = t * c,
+    d = 0,
+    f = 0,
+    p = -1,
+    m = -1
+  for (let e = 0; e < c; e++) {
+    let t = r.team[u + e]
+    t === 2 && p < 0 ? ((p = e), (d = r.score[u + e])) : t === 3 && m < 0 && ((m = e), (f = r.score[u + e]))
+  }
+  let h = (p >= 0 && a[p]?.clanName) || `T`,
+    g = (m >= 0 && a[m]?.clanName) || `CT`,
+    _ = f_(e, l),
+    v = -1
+  for (let e = 0; e < o.length && o[e].startTick <= l; e++) v = e
+  let y = v + 1,
+    { phase: b, timeText: x, planted: S } = m_(e, l, v, s),
+    { site: C, defusing: w, defuseHasKit: T, defuseProgress: E } = p_(e, l)
+  return {
+    tScore: d,
+    ctScore: f,
+    tTimeoutsUsed: _.tUsed,
+    ctTimeoutsUsed: _.ctUsed,
+    timeoutLimit: e.timeouts.maxTacticalTimeouts,
+    timeoutSide: _.side,
+    technicalTimeout: _.technical,
+    timeoutTimeText: _.timeText,
+    tLabel: h,
+    ctLabel: g,
+    round: y,
+    phase: b,
+    timeText: x,
+    planted: S,
+    site: C,
+    defusing: w,
+    defuseHasKit: T,
+    defuseProgress: E,
+  }
+}
+function f_(e, t) {
+  let { maxTacticalTimeouts: n, counters: r, intervals: i } = e.timeouts,
+    a = n,
     o = n
   for (let e of r) {
     if (e.tick > t) break

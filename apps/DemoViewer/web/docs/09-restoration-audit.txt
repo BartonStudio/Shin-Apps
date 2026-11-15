@@ -1,0 +1,269 @@
+══════════════════════════════════════════════════════════════════════════════
+A. 原始产物 → decompiled/ 等价性（formatter 是否只动格式）
+══════════════════════════════════════════════════════════════════════════════
+
+  主 bundle
+  [PASS] 字符串/正则字面量集合一致  — 231 个
+  [PASS] 模板字面量静态片段集合一致  — 7039 段
+  [PASS] 标识符集合一致  — 178729 个 / 7686 种
+  [PASS] 数值字面量集合一致  — 18861 个
+  [PASS] 花括号计数一致  — 8200/8199 vs 8200/8199
+  [PASS] 方括号计数一致  — 6594/6594 vs 6594/6594
+  [INFO] 圆括号数量不同（formatter 补括号，左右配平，属预期）  — 28547 → 41609（配平 28546 → 41608）
+
+  parser.worker
+  [PASS] 字符串/正则字面量集合一致  — 4 个
+  [PASS] 模板字面量静态片段集合一致  — 497 段
+  [PASS] 标识符集合一致  — 8595 个 / 560 种
+  [PASS] 数值字面量集合一致  — 722 个
+  [PASS] 花括号计数一致  — 367/367 vs 367/367
+  [PASS] 方括号计数一致  — 402/402 vs 402/402
+  [INFO] 圆括号数量不同（formatter 补括号，左右配平，属预期）  — 1708 → 2065（配平 1708 → 2065）
+
+  mapGeometry.worker
+  [PASS] 字符串/正则字面量集合一致  — 31 个
+  [PASS] 模板字面量静态片段集合一致  — 654 段
+  [PASS] 标识符集合一致  — 41027 个 / 1962 种
+  [PASS] 数值字面量集合一致  — 4149 个
+  [PASS] 花括号计数一致  — 2003/2003 vs 2003/2003
+  [PASS] 方括号计数一致  — 1854/1854 vs 1854/1854
+  [INFO] 圆括号数量不同（formatter 补括号，左右配平，属预期）  — 6176 → 9934（配平 6176 → 9934）
+
+  主 CSS
+  [PASS] CSS 声明集合一致  — 4483 条声明
+  [PASS] CSS 规则数一致  — 1272 vs 1272
+
+══════════════════════════════════════════════════════════════════════════════
+B. src/app + src/vendor 切片：逐字一致性与覆盖完整性
+══════════════════════════════════════════════════════════════════════════════
+
+  bundle 内容行数 = 53504；slices.json 记录 40 个切片
+  [PASS] 40 个切片全部逐字一致
+  [PASS] 切片首尾相接，无缺口无重叠
+  [PASS] 覆盖 L1–53504 等于 bundle 全长 53504
+  [PASS] vendor/app 边界自洽  — vendor L1–27990，app 起于 L27991
+
+══════════════════════════════════════════════════════════════════════════════
+C. styles/ 拆分的声明完整性
+══════════════════════════════════════════════════════════════════════════════
+
+  18 个样式文件；展开 CSS 4483 条声明 / 拆分后 4483 条
+  [PASS] 声明多重集与 decompiled CSS 完全一致
+  [PASS] styles/ 可逐字节拼回 decompiled/index.beautified.css（node tools/reassemble-css.mjs）  — 原文 157966 字符；拼回 157966 字符
+  [WARN] @media 在组件文件里被逐条重新包裹（可读性取舍）  — 原始 39 → 拆分后 374
+
+══════════════════════════════════════════════════════════════════════════════
+D. src/deobfuscated/（语义改写产物）清点
+══════════════════════════════════════════════════════════════════════════════
+
+  注意：这些文件是【有损改写】，不是逐字还原，因此无法用指纹法证明等价。
+  本节只做客观清点：引用行号是否准确、覆盖了哪些切片、是否遗漏。
+  等价性只能靠人工逐文件复核。
+
+  改写文件 39 个 + 笔记 1 个
+
+  ┌─ 文件 ──────────────────────────────────── 规范行引用 ────────── 应有范围 ────── 判定 ┐
+  │ 00a-grenade-trajectory.deobf.js          27991-28268            27991-28268          准确
+  │ 00b-share-code.deobf.js                  28269-28348            28269-28348          准确
+  │ 00c-frame-sampler.deobf.js               28349-28486            28349-28486          准确
+  │ 00d-bomb-defuse.deobf.js                 28487-28584            28487-28584          准确
+  │ 00e-kill-helpers.deobf.js                28585-28679            28585-28679          准确
+  │ 00f-dom-utils.deobf.js                   28680-28796            28680-28796          准确
+  │ 01-timeline-utils.deobf.js               28797-29162            28797-29162          准确
+  │ 02-map-assets.deobf.js                   29163-29746            29163-29746          准确
+  │ 03-map-classification.deobf.js           29747-29970            29747-29970          准确
+  │ 04-light-probe-grid.deobf.js             29971-31491            29971-31491          准确
+  │ 04-lighting-shader.deobf.js              29971-31491            29971-31491          准确
+  │ 05-scene-lighting.deobf.js               31492-32300            31492-32300          准确
+  │ 06-world-props.deobf.js                  32301-32967            32301-32967          准确
+  │ 07-physics-engine.deobf.js               32968-34297            32968-34297          准确
+  │ 10-character-model.deobf.js              34298-35809            34298-35809          准确
+  │ 11-character-renderer.deobf.js           35810-37125            35810-37125          准确
+  │ 12-fire-shader.deobf.js                  37126-37844            37126-37844          准确
+  │ 13-fire-manager.deobf.js                 37845-38343            37845-38343          准确
+  │ 14-blast-effects.deobf.js                38344-39079            38344-39079          准确
+  │ 15-depth-material.deobf.js               39080-39174            39080-39174          准确
+  │ 16-scene-renderer.deobf.js               39175-39543            39175-39543          准确
+  │ 17-smoke-voxels.deobf.js                 39544-39727            39544-39727          准确
+  │ 18-smoke-volume.deobf.js                 39728-40907            39728-40907          准确
+  │ 19-wireframe-geometry.deobf.js           40908-41380            40908-41380          准确
+  │ 20-line-material.deobf.js                41381-41590            41381-41590          准确
+  │ 21-tracers.deobf.js                      41591-42174            41591-42174          准确
+  │ 22-transport-controls.deobf.js           42175-43246            42175-43246          准确
+  │ 23-death-fade.deobf.js                   43247-43602            43247-43602          准确
+  │ 24-performance-panel.deobf.js            43603-44733            43603-44733          准确
+  │ 25-team-logos.deobf.js                   44734-45086            44734-45086          准确
+  │ 26-scorebar-hud.deobf.js                 45087-45384            45087-45384          准确
+  │ 27-player-panels.deobf.js                45385-45563            45385-45563          准确
+  │ 28-radar.deobf.js                        45564-48976            45564-48976          准确
+  │ 29-catalogue-client.deobf.js             48977-49253            48977-49253          准确
+  │ 30-artifact-codec.deobf.js               49254-49469            49254-49469          准确
+  │ 31-hosted-demo.deobf.js                  49470-50816            49470-50816          准确
+  │ 32-app-shell.deobf.js                    50817-52714            50817-52714          准确
+  │ 33-landing-backdrop.deobf.js             52715-53504            52715-53504          准确
+  │ parser.worker.deobf.js                   worker                 src/workers/parser.worker.js 准确（otherSources）
+  └──────────────────────────────────────────────────────────────────────────────────────┘
+  [PASS] 所有改写文件的规范行引用与实际范围一致  — 39 个准确（含 1 个非切片来源）
+
+  切片覆盖：39 个 app 切片中，39 个有改写产物
+
+══════════════════════════════════════════════════════════════════════════════
+E. src/markup/：HTML 模板提取完整性
+══════════════════════════════════════════════════════════════════════════════
+
+  带上下文版：3 个文件（src/markup）
+  [PASS] app-shell.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] hud.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] player-panel.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] 带上下文版的 3 个文件均可回溯到 bundle 原文
+
+  逐字模板：12 个文件（src/markup/templates）
+  [PASS] controls-card.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] death-fade-backdrop.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] event-feed-row.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] hud-info.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] kill-replay-row-heading.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] page-shell.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] player-panel-outer.html：2/2 条标志行在 bundle 中原样存在
+  [PASS] pov-picker-badge.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] quality-head.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] recents-empty.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] recents-head.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] settings-titlebar.html：3/3 条标志行在 bundle 中原样存在
+  [PASS] 逐字模板的 12 个文件均可回溯到 bundle 原文
+
+══════════════════════════════════════════════════════════════════════════════
+F. docs/05「压缩名 → 语义名」对照表校验
+══════════════════════════════════════════════════════════════════════════════
+
+  方法：对表中每个声明名，在 bundle 里定位其类/函数定义，再验证表中列出的
+        关键方法名是否真的出现在该定义体内。
+
+  表中可解析条目：49 条
+  [PASS] 表中所有名字均能在 bundle 中定位  — 49 个（类/函数 44 个，方法/成员 5 个）
+  [PASS] 表中声称的名字在代码中均真实存在
+  [WARN] 这些条目在对应切片内存在、但不在该类体内（文档为概括描述）  — 1 条
+
+  ── 措辞粒度差异（不算错，但读文档时要知道）──
+        · zv: directLight,indirectLight,probeSample,envBrdfApprox
+
+══════════════════════════════════════════════════════════════════════════════
+G. src/deobfuscated/ 翻译保真度（对照各自源切片）
+══════════════════════════════════════════════════════════════════════════════
+
+  基线说明：改写版可以合法引用【其它切片】或【raw 数据文件】里的常量/成员名，
+  所以对照基线取「整个 bundle + raw/data + raw/maps 的数据文件」，而不是只看本切片。
+  改写的最终判据是：不能引入全库任何地方都不存在的数值或成员名。
+
+  基线：数值 2067 种、成员 4950 种（来自 bundle + 8 个附加文件）
+
+  ┌─ 文件 ───────────────────────────── 源行数 ─ 新数值 ─ 新成员 ─ 控制流差异 ┐
+  │   00a-grenade-trajectory            278        0        0         20
+  │   00b-share-code                     80        0        0          1
+  │   00c-frame-sampler                 138        0        0          9
+  │   00d-bomb-defuse                    98        0        0          6
+  │   00e-kill-helpers                   95        0        0          0
+  │   00f-dom-utils                     117        0        0          1
+  │   01-timeline-utils                 366        0        0         25
+  │   02-map-assets                     584        0        0          7
+  │   03-map-classification             224        0        0         11
+  │ ~ 04-light-probe-grid              1521        0        0         70
+  │   04-lighting-shader               1521        0        0         37
+  │   05-scene-lighting                 809        0        0         18
+  │   06-world-props                    667        0        0         31
+  │   07-physics-engine                1330        0        0         49
+  │   10-character-model               1512        0        0         20
+  │   11-character-renderer            1316        0        0         57
+  │ · 12-fire-shader                    719        0        2         32
+  │   13-fire-manager                   499        0        0          5
+  │   14-blast-effects                  736        0        0         25
+  │   15-depth-material                  95        0        0          6
+  │   16-scene-renderer                 369        0        0         14
+  │   17-smoke-voxels                   184        0        0          7
+  │   18-smoke-volume                  1180        0        0         41
+  │   19-wireframe-geometry             473        0        0         12
+  │   20-line-material                  210        0        0         10
+  │   21-tracers                        584        0        0         24
+  │   22-transport-controls            1072        0        0         45
+  │   23-death-fade                     356        0        0         17
+  │   24-performance-panel             1131        0        0         34
+  │   25-team-logos                     353        0        0         31
+  │   26-scorebar-hud                   298        0        0         20
+  │   27-player-panels                  179        0        0          3
+  │ · 28-radar                         3413        0        1         26
+  │   29-catalogue-client               277        0        0          3
+  │   30-artifact-codec                 216        0        0          0
+  │   31-hosted-demo                   1347        0        0         41
+  │ ~ 32-app-shell                     1898        0        0         77
+  │   33-landing-backdrop               790        0        0         20
+  │ ~ parser.worker                       0        0        0        294
+  └──────────────────────────────────────────────────────────────────────────────┘
+
+  判定标准（数值与成员名分开）：
+    ✗ 新数值  → 数据错误，必须修（颜色/常量被算错会直接导致渲染结果不同）
+    · 新成员名 → 重命名或提取具名常量，属反混淆的正常手段，但要知道它不是你 grep 得到的原名
+    ~ 控制流差异大但无新符号 → 三元式展开等，通常可接受
+  [PASS] 39 个改写文件均未引入全库不存在的【数值】  — 全部干净
+  [WARN] 这些文件引入了全库不存在的【成员名】（重命名/提取常量，属预期行为）  — 2 个文件
+
+  ── 明细 ──
+
+  12-fire-shader.deobf.js
+    · 全库无此成员(2): deltaX, squaredLength
+
+  28-radar.deobf.js
+    · 全库无此成员(1): makeFab
+
+══════════════════════════════════════════════════════════════════════════════
+I. 改写文件语法有效性
+══════════════════════════════════════════════════════════════════════════════
+  [PASS] 39 个改写文件均可被 JS 正确解析  — 全部有效
+
+══════════════════════════════════════════════════════════════════════════════
+J. 改动落点：只在 src/deobfuscated/，原副本保持逐字
+══════════════════════════════════════════════════════════════════════════════
+  [PASS] src/app/00c-frame-sampler.js 原副本完好（改动前代码仍在）
+  [PASS] src/workers/parser.worker.js 原副本完好（改动前代码仍在）
+  [PASS] src/app/10-character-model.js 原副本完好（改动前代码仍在）
+  [PASS] src/deobfuscated/00c-frame-sampler.deobf.js 已含改动
+  [PASS] src/deobfuscated/10-character-model.deobf.js 已含改动
+  [PASS] src/deobfuscated/parser.worker.deobf.js 已含改动
+  [PASS] src/deobfuscated/00c-frame-sampler.deobf.js 旧实现已清除
+  [PASS] src/deobfuscated/parser.worker.deobf.js 旧实现已清除
+  [PASS] src/deobfuscated/speed-columns.js 存在且导出完整（改动后的唯一参考实现）
+  [PASS] src/deobfuscated/shared-buffer.js 导出完整（布局/写入/读取/自检/接入）
+  [PASS] src/deobfuscated/33-landing-backdrop.deobf.js 已导出 createPlayer
+  [PASS] src/deobfuscated/28-radar.deobf.js 已导出 DemoApp
+  [PASS] src/patched/ 已移除（改动只有一套，在 src/deobfuscated/）
+  [PASS] 改动落点正确：原副本逐字、改写产物已更新、参考实现唯一  — 就绪
+
+══════════════════════════════════════════════════════════════════════════════
+H. docs/ 中的行号声明校验
+══════════════════════════════════════════════════════════════════════════════
+
+  方法：抽取形如「bundle NNNN」的引用，检查 (1) 行号是否越界；
+        (2) 文档该行提到的标志串（按词片段、忽略引号风格）是否落在该行号 ±50 行内。
+        标 ✎ 的条目已由人工逐一核实，人工结论优先于自动判定。
+
+  共 11 处 bundle 行号引用；人工核实 7 处，发现错误 1 处（均已修正）
+
+  ┌─ 位置 ───────────────────────────── 引用 ─────────── 自动判定 ──────── 结论 / 说明 ┐
+  │ 01-architecture.md:8               12110-12110      自动：命中            ✎ 人工：准确  — 代码实为 revision: `184`（反引号），文档写成双引号
+  │ 01-architecture.md:10              29581-29582      自动：未命中           ✎ 人工：准确  — 该两行是地图资产 host 常量 csdemo-cs2-assets-v1 / https://maps.csdemo.tv/cs2/
+  │ 01-architecture.md:12              50956-50956      自动：命中            命中  — 标志串「csplayer」
+  │ 01-architecture.md:25              27991-27991      无法自动判定           ✎ 人工：准确（已修正）  — 原写 28861 是旧边界，已改为 27991
+  │ 02-changes-vs-20261022.md:88       51754-51754      自动：命中            命中  — 标志串「parserVersion」
+  │ 02-changes-vs-20261022.md:89       47723-47723      自动：命中            命中  — 标志串「precompileEffects()」
+  │ 02-changes-vs-20261022.md:90       52981-52983      自动：未命中           未命中  — 标志串「Fast/Balanced/Precise」
+  │ 02-changes-vs-20261022.md:91       52715-52715      自动：命中            命中  — 标志串「landing-backdrop-canvas」
+  │ 03-playback-pipeline.md:11         51289-51289      自动：命中            ✎ 人工：已修正  — 原写 51233（实为 <main>），已改为 51289（input）/51621（drag 注册）
+  │ 03-playback-pipeline.md:46         52981-52983      无法自动判定           ✎ 人工：准确  — 同为 52981-52983 的三档预设（16/32/64 Hz）
+  │ 03-playback-pipeline.md:67         28939-28942      自动：未命中           未命中  — 标志串「overview.txt」
+  └──────────────────────────────────────────────────────────────────────────────────────┘
+  [PASS] 所有 bundle 行号引用均在 1..53504 范围内
+  [PASS] 人工核实过的行号引用当前全部准确（历史错误已修）  — 人工核实 7 处，发现并修正 1 处
+  [WARN] 自动判定未命中的条目（多为引号风格差异或文档概括性表述，需人工确认）  — 3 处
+
+══════════════════════════════════════════════════════════════════════════════
+汇总：FAIL 0 项，WARN 4 项
+══════════════════════════════════════════════════════════════════════════════

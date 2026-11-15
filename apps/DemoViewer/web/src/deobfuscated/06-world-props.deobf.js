@@ -2,6 +2,7 @@
 // 06-world-props.deobf.js — 世界道具：死亡标记 + 掉落武器 + 武器图标 + 三角形网格
 //
 // 来源：src/app/06-world-props.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L32301–32967（切片 06-world-props）
 // 原始压缩名：Eb = CSS2DObject，Mb = CSS2DRenderer，Lb = DeathMarkers，
 //             ox = DroppedWeapons，wx = TriangleGrid，Wb/Kb/Gb = 武器图标映射表
 //

@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：地图资源加载（maps.csdemo.tv 客户端 + 地图几何解码）
-// 原始压缩文件：src/app/02-map-assets.js（decompiled/index.beautified.js 28912–29746 行）
+// 原始压缩文件：src/app/02-map-assets.js（decompiled/index.beautified.js 29163–29746 行）
+// 原文范围：decompiled/index.beautified.js L29163–29746（切片 02-map-assets）
 // 说明：
 //   - 地图清单从 https://maps.csdemo.tv 拉取（index.json → release manifest）
 //   - 地图几何（positions/colors）交给 mapGeometry.worker 解码成 three.js 几何
@@ -223,27 +224,27 @@ function isObject(v) {
 const DEFAULT_MAP_LIGHTING = {
   roofHeight: 0.34,
   detailSpan: 110,
-  floorColor: 0xa39e44, // 10721924
-  wallColor: 0xb0a7a5, // 11575687
-  roofColor: 0x756d69, // 7695197
-  detailColor: 0x5d5f50, // 6120020
-  slopeColor: 0x907fb0, // 9471344
-  edgeColor: 0x493a3a, // 4799790
-  hazeColor: 0xc7b5a7, // 13089181
-  skyHorizonColor: 0xb3c2c6, // 11782374
-  skyZenithColor: 0x23655a, // 2320082
+  floorColor: 0xa39a84, // 10721924
+  wallColor: 0xb0a187, // 11575687
+  roofColor: 0x756b5d, // 7695197
+  detailColor: 0x5d6254, // 6120020
+  slopeColor: 0x908570, // 9471344
+  edgeColor: 0x493d2e, // 4799790
+  hazeColor: 0xc7b99d, // 13089181
+  skyHorizonColor: 0xb3c8e6, // 11782374
+  skyZenithColor: 0x2366d2, // 2320082
   sunAzimuth: 141,
   sunElevation: 65,
 };
 
 const MAP_LIGHTING_OVERRIDES = {
-  de_anubis: { floorColor: 0xbda643, wallColor: 0xc9af73, roofColor: 0xd4c0a5, detailColor: 0x6f8b98, slopeColor: 0xb49a37, edgeColor: 0x6d5a47, hazeColor: 0xe7e2d5, skyHorizonColor: 0xdce8e8, skyZenithColor: 0x83b8bb, sunAzimuth: 257, sunElevation: 60 },
-  de_ancient: { roofHeight: 0.24, floorColor: 0x565d32, wallColor: 0x899087, roofColor: 0x69727c, detailColor: 0x303033, slopeColor: 0x4f5a50, edgeColor: 0x272e4b, hazeColor: 0xcbd5d3, skyHorizonColor: 0xd5e0de, skyZenithColor: 0x919aaa, sunAzimuth: 224, sunElevation: 42 },
-  de_cache: { roofHeight: 0.21, detailSpan: 220, floorColor: 0x74715a, wallColor: 0xa4a55f, roofColor: 0x505458, detailColor: 0x745e61, slopeColor: 0x7d7d7a, edgeColor: 0x3e407f, hazeColor: 0xc5c5ca, sunAzimuth: 297, sunElevation: 41 },
+  de_anubis: { floorColor: 0xbda783 /* 12429187 */, wallColor: 0xc9b393 /* 13218707 */, roofColor: 0xd4c2a5 /* 13943461 */, detailColor: 0x6f8f98 /* 7311256 */, slopeColor: 0xb49a77 /* 11836023 */, edgeColor: 0x6d5b47 /* 7166791 */, hazeColor: 0xe7d9bf /* 15194559 */, skyHorizonColor: 0xdce7eb /* 14477291 */, skyZenithColor: 0x83bddb /* 8633819 */, sunAzimuth: 257, sunElevation: 60 },
+  de_ancient: { roofHeight: 0.24, floorColor: 0x566252 /* 5661266 */, wallColor: 0x899087 /* 9015431 */, roofColor: 0x69746c /* 6911084 */, detailColor: 0x304233 /* 3162675 */, slopeColor: 0x4f5d50 /* 5201232 */, edgeColor: 0x27332b /* 2569003 */, hazeColor: 0xcbd6d3 /* 13358803 */, skyHorizonColor: 0xd5dfde /* 14016478 */, skyZenithColor: 0x91a6aa /* 9545386 */, sunAzimuth: 224, sunElevation: 42 },
+  de_cache: { roofHeight: 0.21, detailSpan: 220, floorColor: 0x747474 /* 7631988 */, wallColor: 0xa4a69f /* 10790559 */, roofColor: 0x505050 /* 5263440 */, detailColor: 0x746961 /* 7629153 */, slopeColor: 0x7d817a /* 8225146 */, edgeColor: 0x3e433f /* 4080447 */, hazeColor: 0xc5ccca /* 12963018 */, sunAzimuth: 297, sunElevation: 41 },
   de_dust2: { roofHeight: 0.42 },
-  de_inferno: { roofHeight: 0.3, detailSpan: 110, floorColor: 0x9b9a70, wallColor: 0xc9bdb7, roofColor: 0xc9a1af, detailColor: 0x788a73, slopeColor: 0xb8a481, edgeColor: 0x665659, hazeColor: 0xd9e0e0, skyHorizonColor: 0xe7f0f0, skyZenithColor: 0x9db6b8, sunAzimuth: 38, sunElevation: 63 },
+  de_inferno: { roofHeight: 0.3, detailSpan: 110, floorColor: 0x9b9990 /* 10197392 */, wallColor: 0xc9b99f /* 13220255 */, roofColor: 0xc9976f /* 13211503 */, detailColor: 0x78836b /* 7897963 */, slopeColor: 0xb8a181 /* 12099969 */, edgeColor: 0x665749 /* 6707017 */, hazeColor: 0xd9dfe2 /* 14278626 */, skyHorizonColor: 0xe7ebed /* 15199213 */, skyZenithColor: 0x9db8d8 /* 10336472 */, sunAzimuth: 38, sunElevation: 63 },
   de_mirage: { roofHeight: 0.34 },
-  de_nuke: { roofHeight: 0.44, detailSpan: 100, floorColor: 0x626b70, wallColor: 0xaeb3c0, roofColor: 0x8e94a0, detailColor: 0x537567, slopeColor: 0x9ea3a1, edgeColor: 0x3e4b54, hazeColor: 0xc4d0d3, skyHorizonColor: 0xd2dcdd, skyZenithColor: 0x86a1a9, sunAzimuth: 210, sunElevation: 58 },
+  de_nuke: { roofHeight: 0.44, detailSpan: 100, floorColor: 0x626c70 /* 6450288 */, wallColor: 0xaebbc0 /* 11451328 */, roofColor: 0x8e9ba0 /* 9345952 */, detailColor: 0x537487 /* 5469319 */, slopeColor: 0x9eaaad /* 10398381 */, edgeColor: 0x3e4d54 /* 4083028 */, hazeColor: 0xc4d3d3 /* 12899283 */, skyHorizonColor: 0xd2dddd /* 13819357 */, skyZenithColor: 0x86a9bd /* 8825277 */, sunAzimuth: 210, sunElevation: 58 },
 };
 
 /** 取某张地图的光照分类（默认 + 覆盖） */
@@ -499,3 +500,160 @@ function abortableMapPreparation(promise, signal, onAbort) {
 
 // 注：本文件剩余部分（meshopt_decoder 内联、CTEX 纹理解码、地图资源 URL 解析）
 // 属于第三方通用库或纯资源路径工具，未逐行反混淆，详见原始切片。
+
+// ============================================================================
+// 【补充段 2026-11-09】02-map-assets 切片中此前未覆盖的 7 个声明
+// 依据：docs/11 §9 的逐声明未覆盖清单（J_ / Y_ / ov / sv / dv / hv / yv 覆盖率均为 0%）
+// ============================================================================
+
+// ── L29407 `J_` → createWireframeMaterial：调试线框材质 ──
+// 用 MeshStandardMaterial 起手（不透明度靠顶点色），再挂 onBeforeCompile 把
+// three.js 的 `#include <xxx>` 展开并给 varying 加 centroid 修饰（避免线框抖动）。
+function createWireframeMaterial() {
+  const mat = new MeshStandardMaterial({ color: 16777215, emissive: 1581078, emissiveIntensity: 0.08, vertexColors: true, side: 2 });
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = expandThreeInclude(shader.vertexShader);
+    shader.fragmentShader = expandThreeInclude(shader.fragmentShader);
+  };
+  return mat;
+}
+
+// ── L29416 `Y_` → expandThreeInclude：展开 GLSL 的 #include + 给 varying 加 centroid ──
+// 两步：
+//   1. 把整行 `#include <name>` 递归替换成 SHADER_CHUNKS[name] 的内容（找不到就原样保留）
+//   2. 把行首的 `varying` 改成 `centroid varying` —— 光栅化时取像素中心而非任意采样点，
+//      消除细线框的闪烁。这是 three.js 里常见的 wireframe 抗锯齿技巧。
+// 依赖：SHADER_CHUNKS（原件里的 `K`，由 three.js 的 ShaderChunk 提供）
+function expandThreeInclude(source) {
+  return source
+    .replace(/^[ \t]*#include <(\w+)>/gm, (whole, name) => {
+      const chunk = SHADER_CHUNKS[name];
+      return chunk === undefined ? whole : expandThreeInclude(chunk);
+    })
+    .replace(/^([ \t]*)varying\b/gm, '$1centroid varying');
+}
+
+// ── L29587 `ov` → viteEnvStub：Vite 的 import.meta.env 兜底对象 ──
+// 这是构建期被静态替换掉的，走到运行时的分支只可能是「没被替换」的兜底路径。
+function viteEnvStub() {
+  return { BASE_URL: '/', DEV: false, MODE: 'production', PROD: true, SSR: false };
+}
+
+// ── L29590 `sv` → cs2AssetsBaseUrl：CS2 素材 CDN 的基址 ──
+// 优先用 VITE_CS2_ASSETS_URL（保证以 / 结尾）；生产环境读不到就退到硬编码的 CDN 常量。
+function cs2AssetsBaseUrl() {
+  const url = viteEnvStub().VITE_CS2_ASSETS_URL;
+  if (url) return url.endsWith('/') ? url : `${url}/`;
+  return viteEnvStub().DEV ? null : DEFAULT_CS2_ASSETS_URL;
+}
+
+// ── L29618 `dv` → resolvePackagePath：从素材清单里取某个包的实际路径 ──
+// kind 三种：'weapons' / 'sounds' / 'maps:<地图名>'（要剥掉前 5 个字符 `maps:`）
+function resolvePackagePath(baseUrl, manifest, kind) {
+  if (!manifest) return null;
+  const entry = kind === 'weapons' ? manifest.weapons : kind === 'sounds' ? manifest.sounds : manifest.maps?.[kind.slice(4)];
+  if (!entry?.path) return null;
+  return `${baseUrl}${entry.path.endsWith('/') ? entry.path : `${entry.path}/`}`;
+}
+
+// ── L29653 `hv` → CTEX_MAGIC：Source2 纹理容器的魔数 ──
+// 0x58455443 = 'CTEX' 的小端读法（1480938563）
+var CTEX_MAGIC = 1480938563;
+
+// ── L29664 `yv` → decodeCtex：解 Source2 的 .vtex/.ctex 纹理容器 ──
+// 头部布局（全部小端）：
+//   0   u32 magic     必须是 CTEX_MAGIC
+//   4   u32 version   只支持 1
+//   8   u32 format    源格式（Bc1Srgb / Bc7Srgb / …，见 FORMAT 枚举）
+//   12  u32 width     基准宽度
+//   16  u32 height    基准高度
+//   20  u32 layers    数组层数
+//   24  u32 mipCount  后面跟着 mipCount 个 u32 长度
+//   28  ...           每个 mip 的长度表，之后紧接各 mip 的原始数据
+// 每级 mip 的宽高按 width >> n / height >> n 递减，最小为 1。
+function decodeCtex(buffer) {
+  const view = new DataView(buffer);
+  if (buffer.byteLength < 28 || view.getUint32(0, true) !== CTEX_MAGIC) throw Error('not a CTEX file');
+  const version = view.getUint32(4, true);
+  if (version !== 1) throw Error(`unsupported CTEX version ${version}`);
+
+  const format = view.getUint32(8, true);
+  const width = view.getUint32(12, true);
+  const height = view.getUint32(16, true);
+  const layers = view.getUint32(20, true);
+  const mipCount = view.getUint32(24, true);
+
+  let offset = 28 + mipCount * 4;
+  const mips = [];
+  for (let n = 0; n < mipCount; n++) {
+    const size = view.getUint32(28 + n * 4, true);
+    if (offset + size > buffer.byteLength) throw Error('truncated CTEX file');
+    mips.push({
+      data: new Uint8Array(buffer, offset, size),
+      width: Math.max(1, width >> n),
+      height: Math.max(1, height >> n),
+    });
+    offset += size;
+  }
+  return { format, width, height, layers, mips };
+}
+
+// ── L29448–29580 `Q_` —— ⚠️ 这是 **meshoptimizer 官方 JS 解码器**，不是作者代码 ──
+//
+// 原件把 zeux/meshoptimizer 的 `meshopt_decoder.js`（MIT）整段内联了进来，
+// 包含两段用自定义字符表编码的 wasm 字节（`e`/`t`）、一个 5 行 wasm 校验块 `n`、
+// 一个 60 字节的码表 `r`，以及 `s()` 解码函数。
+//
+// 因此**本改写稿不对它逐行反混淆**——那是第三方库，逐行注释没有信息量，要看行为直接读上游源码。
+// 这里只记录它对内的**公开接口**（这是接入方真正需要知道的部分）：
+//
+//   MeshoptDecoder.supported            当前环境是否支持 WebAssembly
+//   .ready                              wasm 实例化完成的 Promise
+//   .useWorkers(n)                      开 n 个 worker 并行解码（用 Blob + createObjectURL 生成）
+//   .decodeVertexBuffer(dst, count, size, src, filterMode)
+//   .decodeIndexBuffer(dst, count, size, src)
+//   .decodeIndexSequence(dst, count, size, src)
+//   .decodeGltfBuffer(dst, count, size, src, mode, filterMode)
+//   .decodeGltfBufferAsync(count, size, src, mode, filterMode) → Promise<Uint8Array>
+//
+// 两个枚举（原件里的 `l` / `u`）：
+//   滤波：NONE `''` / OCTAHEDRAL `meshopt_decodeFilterOct` / QUATERNION `meshopt_decodeFilterQuat`
+//         / EXPONENTIAL `meshopt_decodeFilterExp` / COLOR `meshopt_decodeFilterColor`
+//   类别：ATTRIBUTES `meshopt_decodeVertexBuffer` / TRIANGLES `meshopt_decodeIndexBuffer`
+//         / INDICES `meshopt_decodeIndexSequence`
+//
+// 关键常量：解码前按 `(r + 3) & -4` 对齐分配、解码后 `sbrk(l - s(0))` 归还；
+// 失败时抛 `Malformed buffer data: <code>`。
+// ⚠️ 注意 `sbrk(l - s(0))` 这个写法依赖 emscripten 的 sbrk 语义（传负数视为 0），不要"优化"它。
+
+// ── L29581–29586 作者常量（与 Q_ 紧邻，是素材 CDN 逻辑的一部分）──
+var CS2_ASSETS_VERSION = 'csdemo-cs2-assets-v1';   // ev：素材包版本标记（写进缓存键）
+var DEFAULT_CS2_ASSETS_URL = 'https://maps.csdemo.tv/cs2/'; // tv：生产环境默认 CDN
+var MANIFEST_TTL_MS = 3e4;                          // nv：素材清单缓存有效期 30 秒
+var cachedManifest = null;                          // rv：最近一次成功拉到的清单
+var inflightManifest = null;                        // iv：进行中的清单请求（去重）
+var lastManifestFetchAt = -1 / 0;                   // av：上次拉取时间戳
+
+// ── L29329 `W_` 的命名要点：地图 Object3D 的名字 ──
+// 原件把地图根节点命名为 `CSPlayer_ClassifiedMap`，下游（如 CS2MapRenderer）按名字查找它。
+// 这是字符串契约，改名会导致找不到地图。
+var MAP_ROOT_NAME = 'CSPlayer_ClassifiedMap';
+
+// ── L29654 `gv` → CTEX_FORMATS：CTEX 容器里的格式编号 ──
+// 与 decodeCtex 返回的 format 字段对应。
+var CTEX_FORMATS = { Bc1Srgb: 1, Bc7Srgb: 2, Bc7Linear: 3, Bc5: 4, Bc4: 5, Bc6hUf16: 6, Bc1Linear: 7 };
+
+// ── L29655 `_v` → REQUIRED_COMPRESSED_TEXTURE_EXTENSIONS ──
+// CS2 的 VTEX 素材是 BC 压缩纹理，缺任何一个扩展都会有一类贴图解不出来。
+var REQUIRED_COMPRESSED_TEXTURE_EXTENSIONS = [
+  'EXT_texture_compression_bptc',
+  'EXT_texture_compression_rgtc',
+  'WEBGL_compressed_texture_s3tc',
+  'WEBGL_compressed_texture_s3tc_srgb',
+];
+
+// ── L29661 `vv` → missingTextureExtensions：返回当前设备缺失的压缩纹理扩展 ──
+// 返回值非空 → 调用方通常会降级到不加载 VTEX 贴图并给用户提示。
+function missingTextureExtensions(renderer) {
+  return REQUIRED_COMPRESSED_TEXTURE_EXTENSIONS.filter((name) => !renderer.extensions.has(name));
+}

@@ -1,6 +1,7 @@
 /* ───────────────────────────────────────────────────────────────────────────
  * 组件样式区：hud — 玩家 HUD：比分条、拆包提示、nametag
- * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * 来源：decompiled/index.beautified.css（按选择器前缀机械拆分，未改任何声明）
+ * ★ 可逆：node tools/reassemble-css.mjs 会依 styles/_manifest.json 逐字节拼回原文
  * ─────────────────────────────────────────────────────────────────────────── */
 .hud-label {
   text-transform: uppercase;

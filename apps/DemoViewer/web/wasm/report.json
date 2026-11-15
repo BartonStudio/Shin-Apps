@@ -1,6 +1,120 @@
 {
   "file": "csplayer_parser_bg-qigVgicw.wasm",
   "bytes": 3210168,
+  "_note": "依赖有两级可信度：registryDepVersions（来自真实源码路径，权威）与 protobufStack（来自完整 trait impl 路径，权威）；symbolNamespaces 只是候选，含 data 段粘连噪声，不可当清单用。",
+  "_corrections": "2026-11-09 修正两处旧报告错误：(1) 旧报告称 name 段「已剥离」，实际 228922 字节、1655 个函数名全在；(2) 旧依赖清单只有 16 个 registry crate，漏掉 hashbrown/dlmalloc（正斜杠路径）与整个 protobuf 栈 csgoproto+prost。",
+  "sections": [
+    {
+      "id": 1,
+      "size": 725,
+      "custom": null
+    },
+    {
+      "id": 2,
+      "size": 1171,
+      "custom": null
+    },
+    {
+      "id": 3,
+      "size": 1638,
+      "custom": null
+    },
+    {
+      "id": 4,
+      "size": 11,
+      "custom": null
+    },
+    {
+      "id": 5,
+      "size": 3,
+      "custom": null
+    },
+    {
+      "id": 6,
+      "size": 31,
+      "custom": null
+    },
+    {
+      "id": 7,
+      "size": 519,
+      "custom": null
+    },
+    {
+      "id": 9,
+      "size": 1011,
+      "custom": null
+    },
+    {
+      "id": 10,
+      "size": 1814355,
+      "custom": null
+    },
+    {
+      "id": 11,
+      "size": 1161464,
+      "custom": null
+    },
+    {
+      "id": 0,
+      "size": 228922,
+      "custom": "name"
+    },
+    {
+      "id": 0,
+      "size": 124,
+      "custom": "producers"
+    },
+    {
+      "id": 0,
+      "size": 148,
+      "custom": "target_features"
+    }
+  ],
+  "sectionIds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    0,
+    0,
+    0
+  ],
+  "nameSection": {
+    "present": true,
+    "bytes": 228922,
+    "moduleName": "csplayer_parser.wasm",
+    "subsections": [
+      {
+        "id": 0,
+        "size": 21
+      },
+      {
+        "id": 1,
+        "size": 228825
+      },
+      {
+        "id": 5,
+        "size": 24
+      },
+      {
+        "id": 7,
+        "size": 18
+      },
+      {
+        "id": 9,
+        "size": 17
+      }
+    ],
+    "functionNameCount": 1655,
+    "wasmBindgenShimCount": 38,
+    "authorSymbolCount": 1617
+  },
   "ownSources": [
     "first_pass\\parser.rs",
     "first_pass\\prop_controller.rs",
@@ -13,7 +127,8 @@
     "second_pass\\parser.rs",
     "second_pass\\variants.rs"
   ],
-  "registryDeps": [
+  "ownSourceCount": 10,
+  "registryDepVersions": [
     "ahash-0.8.12",
     "aho-corasick-1.1.4",
     "bitter-0.7.1",
@@ -31,11 +146,340 @@
     "snap-1.1.1",
     "wasm-bindgen-0.2.126"
   ],
+  "registryDepCount": 16,
+  "allVersionedCratePaths": [
+    "ahash-0.8.12",
+    "aho-corasick-1.1.4",
+    "bitter-0.7.1",
+    "bytes-1.12.1",
+    "crossbeam-epoch-0.9.20",
+    "dlmalloc-0.2.14",
+    "hashbrown-0.17.1",
+    "lazy_static-1.5.0",
+    "memchr-2.8.3",
+    "phf_shared-0.11.3",
+    "rayon-1.12.0",
+    "rayon-core-1.13.0",
+    "regex-1.13.0",
+    "regex-automata-0.4.15",
+    "regex-syntax-0.8.11",
+    "serde-wasm-bindgen-0.6.5",
+    "snap-1.1.1",
+    "wasm-bindgen-0.2.126"
+  ],
+  "allVersionedCrateCount": 18,
+  "protobufStack": {
+    "hasCsgoproto": true,
+    "hasProst": true,
+    "traitImplCount": 6,
+    "traitImplSamples": [
+      "CDemoFullPacket",
+      "CDemoPacket",
+      "CsgoUserCmdPb",
+      "CsvcMsgCreateStringTable",
+      "CsvcMsgGameEventList",
+      "CsvcMsgUpdateStringTable"
+    ]
+  },
+  "symbolNamespaces": {
+    "wasm_bindgen": 75,
+    "js_sys": 39,
+    "serde_wasm_bindgen": 24,
+    "awasm_bindgen": 2,
+    "cwasm_bindgen": 1,
+    "igetrandom": 1,
+    "core": 904,
+    "gwasm_bindgen": 1,
+    "parser": 513,
+    "regex_automata": 579,
+    "csplayer_parser": 31,
+    "csgoproto": 41,
+    "prost": 18,
+    "regex_syntax": 292,
+    "regex": 5,
+    "paho_corasick": 2,
+    "aho_corasick": 212,
+    "serde_core": 15,
+    "rcore": 3,
+    "rayon_core": 52,
+    "alloc": 518,
+    "dlmalloc": 12,
+    "ucore": 1,
+    "b4csplayer_parser": 1,
+    "parse_full_packetndaho_corasick": 1,
+    "og_name_mapypcore": 1,
+    "icore": 5,
+    "std": 74,
+    "hashbrown": 71,
+    "ocore": 1,
+    "mcore": 4,
+    "dprost": 1,
+    "bytes": 31,
+    "memchr": 19,
+    "rprost": 2,
+    "rayon": 74,
+    "snap": 4,
+    "bcore": 8,
+    "bitter": 4,
+    "fcore": 2,
+    "crossbeam_epoch": 30,
+    "jcore": 4,
+    "rustc": 5,
+    "ecore": 2,
+    "phf_shared": 1,
+    "gcore": 4,
+    "kcore": 3,
+    "phf": 1,
+    "lcore": 1,
+    "dcore": 3,
+    "acore": 6,
+    "getrandom": 1,
+    "falloc": 1,
+    "calloc": 1,
+    "once_cell": 6,
+    "crossbeam_utils": 1,
+    "ccore": 2,
+    "tcore": 1,
+    "wcore": 1,
+    "hcore": 2,
+    "lazy_static": 1,
+    "jcsplayer_parser": 1,
+    "ncore": 2,
+    "vcore": 1,
+    "zwasm_bindgen": 2,
+    "vwasm_bindgen": 2,
+    "xwasm_bindgen": 1,
+    "swasm_bindgen": 1,
+    "rwasm_bindgen": 1,
+    "pwasm_bindgen": 1
+  },
+  "symbolNamespaceCaveat": "data 段字符串无 NUL 分隔，长度前缀字节会粘连（0x61=\"a\" 贴 core → \"acore\"）。出现次数少的项多为噪声，不可直接当依赖清单。",
+  "ownModuleMap": [
+    "csplayer_parser::DemoInput",
+    "csplayer_parser::err",
+    "csplayer_parser::og_name_map",
+    "csplayer_parser::parseTimeline",
+    "csplayer_parser::parse_effects",
+    "csplayer_parser::parse_events",
+    "csplayer_parser::parse_header",
+    "csplayer_parser::parse_round_stream",
+    "csplayer_parser::round_chunk_value",
+    "csplayer_parser::timeline_value",
+    "csplayer_parser::to_strings",
+    "parser::first_pass",
+    "parser::maps",
+    "parser::parse_demo",
+    "parser::second_pass"
+  ],
+  "symbolCountByCrate": {
+    "parser": 279,
+    "csplayer_parser": 12
+  },
   "rustcCommits": [
     "58cf8f9c35b355199727627d07ae34a4e2846d67"
   ],
   "wasmBindgenHash": [
     "5663806b8b774ddf",
     "acbe69b831453cec"
+  ],
+  "exports": [
+    {
+      "name": "demoinput_length",
+      "kind": 0,
+      "index": 1387
+    },
+    {
+      "name": "demoinput_new",
+      "kind": 0,
+      "index": 1477
+    },
+    {
+      "name": "demoinput_parseEvents",
+      "kind": 0,
+      "index": 1452
+    },
+    {
+      "name": "demoinput_parseHeader",
+      "kind": 0,
+      "index": 1476
+    },
+    {
+      "name": "demoinput_parseRoundStream",
+      "kind": 0,
+      "index": 1410
+    },
+    {
+      "name": "demoinput_write",
+      "kind": 0,
+      "index": 1473
+    },
+    {
+      "name": "parseEvents",
+      "kind": 0,
+      "index": 1447
+    },
+    {
+      "name": "parseGrenadeEffects",
+      "kind": 0,
+      "index": 1472
+    },
+    {
+      "name": "parseGrenades",
+      "kind": 0,
+      "index": 1460
+    },
+    {
+      "name": "parseHeader",
+      "kind": 0,
+      "index": 1470
+    },
+    {
+      "name": "parseRoundStream",
+      "kind": 0,
+      "index": 1409
+    },
+    {
+      "name": "parseSmokeVoxels",
+      "kind": 0,
+      "index": 1471
+    },
+    {
+      "name": "parseTicks",
+      "kind": 0,
+      "index": 1435
+    },
+    {
+      "name": "parseTimeline",
+      "kind": 0,
+      "index": 1417
+    }
+  ],
+  "exportCount": 25,
+  "exportsAll": [
+    {
+      "name": "memory",
+      "kind": 2,
+      "index": 0
+    },
+    {
+      "name": "__wbg_demoinput_free",
+      "kind": 0,
+      "index": 826
+    },
+    {
+      "name": "demoinput_length",
+      "kind": 0,
+      "index": 1387
+    },
+    {
+      "name": "demoinput_new",
+      "kind": 0,
+      "index": 1477
+    },
+    {
+      "name": "demoinput_parseEvents",
+      "kind": 0,
+      "index": 1452
+    },
+    {
+      "name": "demoinput_parseHeader",
+      "kind": 0,
+      "index": 1476
+    },
+    {
+      "name": "demoinput_parseRoundStream",
+      "kind": 0,
+      "index": 1410
+    },
+    {
+      "name": "demoinput_write",
+      "kind": 0,
+      "index": 1473
+    },
+    {
+      "name": "parseEvents",
+      "kind": 0,
+      "index": 1447
+    },
+    {
+      "name": "parseGrenadeEffects",
+      "kind": 0,
+      "index": 1472
+    },
+    {
+      "name": "parseGrenades",
+      "kind": 0,
+      "index": 1460
+    },
+    {
+      "name": "parseHeader",
+      "kind": 0,
+      "index": 1470
+    },
+    {
+      "name": "parseRoundStream",
+      "kind": 0,
+      "index": 1409
+    },
+    {
+      "name": "parseSmokeVoxels",
+      "kind": 0,
+      "index": 1471
+    },
+    {
+      "name": "parseTicks",
+      "kind": 0,
+      "index": 1435
+    },
+    {
+      "name": "parseTimeline",
+      "kind": 0,
+      "index": 1417
+    },
+    {
+      "name": "__abort_handler",
+      "kind": 3,
+      "index": 1
+    },
+    {
+      "name": "__instance_terminated",
+      "kind": 3,
+      "index": 2
+    },
+    {
+      "name": "__wbindgen_malloc",
+      "kind": 0,
+      "index": 1398
+    },
+    {
+      "name": "__wbindgen_realloc",
+      "kind": 0,
+      "index": 1459
+    },
+    {
+      "name": "__wbindgen_exn_store",
+      "kind": 0,
+      "index": 1565
+    },
+    {
+      "name": "__externref_table_alloc",
+      "kind": 0,
+      "index": 833
+    },
+    {
+      "name": "__wbindgen_externrefs",
+      "kind": 1,
+      "index": 1
+    },
+    {
+      "name": "__externref_table_dealloc",
+      "kind": 0,
+      "index": 1345
+    },
+    {
+      "name": "__wbindgen_start",
+      "kind": 0,
+      "index": 16
+    }
   ]
 }

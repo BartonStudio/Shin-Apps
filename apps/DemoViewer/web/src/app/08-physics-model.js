@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 33614–33718 行（切片 9/34）
+// 位置：decompiled/index.beautified.js 第 33614–33718 行（切片 15/40）
 // 角色：物理模型/姿势 Bx：bodiesOf/poseOf/modelSpace/placeChild
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────

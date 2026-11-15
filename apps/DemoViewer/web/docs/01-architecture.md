@@ -22,7 +22,7 @@
 | `assets/mapGeometry.worker-BGvfBalF.js` | 257 144 B | 地图 GLB 解码 worker |
 | `assets/csplayer_parser_bg-qigVgicw.wasm` | 3 210 168 B | Rust 解析内核 |
 
-## 模块地图（应用层，bundle 28861 行之后）
+## 模块地图（应用层，bundle 27991 行之后）
 
 | 切片 | 文件 | 角色 |
 | --- | --- | --- |
@@ -71,11 +71,42 @@
  └─ 外部：maps.csdemo.tv（地图）、data.csdemo.tv（职业比赛目录/已解析产物）
 ```
 
-## 关键设计判断（从代码读出的实现选择）
+## 关键设计判断（从代码读出的实现选择，2026-11-09 已逐条核实并修正）
 
-1. **解析器用 Rust wasm 而非 JS**：CS2 demo 是 Source2 二进制格式，需要高性能位读取（依赖 `bitter` crate 做 bit reader）、
-   完美哈希字符串表（`phf`）、Snappy 解压（`snap`）。两阶段（first_pass/second_pass）架构说明作者把"结构扫描"和"数据提取"分开了。
-2. **采样率三档 = 解析量三档**：16/32/64 Hz 直接决定 SoA 数组大小与缓存键，是性能/画质的唯一权衡旋钮。
-3. **地图不实时读 VPK**：而是从自己的 CDN 下载预转换的 meshopt GLB，避免在浏览器里解析 Source2 地图格式。
-4. **自研渲染/物理**：光照（GGX VNDF 重要性采样）、物理（刚体 + 接触摩擦）、烟雾（体素 + 边缘感知着色）全部手写 shader，
-   说明作者不只是"调库"，而是有图形学功底。
+1. **解析器用 Rust wasm 而非 JS**：CS2 demo 是 Source2 二进制格式，完整的依赖链是
+   **`bitter`（bit reader）→ `prost` + `csgoproto`（protobuf 解帧）→ `snap`（Snappy 解压）
+   → `SecondPassParser::decode_entity_update`（实体增量解码）**，另有 `phf_shared` 加速字符串表。
+   两阶段（`first_pass`/`second_pass`）架构说明作者把"结构扫描"和"数据提取"分开了。
+
+   > ⚠️ 旧版只提了 `bitter` / `phf` / `snap`，**漏掉了 protobuf 这一层**——而 demo 本身就是
+   > protobuf 流，它才是解析链的核心。详见 `docs/04` 第 3.2 节。
+
+2. **采样率三档 ≠ 解析量三档**（⚠️ 旧版这里是错的）：CS2 的实体状态是 **delta 编码**的
+   （`svc_PacketEntities` 只发变化量），要得到 tick N 的状态必须处理 0..N 的所有实体更新，
+   **所以 16/32/64 Hz 的解析耗时几乎相同**。采样率只决定：
+
+   | 采样率 | 解析耗时 | 输出体积 / 内存 | 缓存键 |
+   | --- | --- | --- | --- |
+   | 16 Hz | 基准 | 1×（约 1/4） | 不同 |
+   | 32 Hz（默认） | **基本相同** | 2× | 不同 |
+   | 64 Hz | **基本相同** | 4× | 不同 |
+
+   也就是说它是**内存/画质的权衡旋钮，不是解析性能的旋钮**。
+
+3. **地图不实时读 VPK**：而是从自己的 CDN 下载预转换的 meshopt GLB
+   （`maps-manifest.json` 里写着 `compression: EXT_meshopt_compression`、
+   `source2viewer_version: 20.0.6980+a06886f7…`），避免在浏览器里解析 Source2 地图格式。
+
+4. **自研渲染/物理**（⚠️ 旧版把"GGX VNDF"归给应用层，实际不是）：
+   应用层的自研光照是 `04-lighting-shader.js` 里的这一套——
+   **光照探针体积采样**（`probeSample`：YCbCr luma/chroma + 三线性插值）、
+   **八面体法线编码**（`octEncode`/`octDecode`）、
+   **GGX 直接光 + Valve 可见性项 + 多重散射补偿**（`directLight`，代码自带英文注释
+   *"A directional light (GGX, Valve's visibility term and the multiscatter boost)"*）、
+   **环境 BRDF 近似**（`envBrdfApprox`）、
+   **自定义 tonemapping**（`CustomToneMapping`）与 `cs2SrgbEncode/Decode` + `cs2LutChannel`。
+
+   > `VNDF` 在应用层出现 **0 次** —— 那是 three.js 自己 PMREM 里的实现（vendor 区），
+   > 不属于这个作者的自研部分。物理（刚体+接触摩擦）、烟雾（体素+边缘感知着色）确实是自研。
+   > 结论（"作者不只是调库"）成立，但依据要换。
+

@@ -8,7 +8,7 @@
 用户拖入 .dem
    │
    ▼
-AppShell 拖放处理（bundle 51233+，<input accept=".dem"> 或 dragover/drop）
+AppShell 拖放处理（bundle 51289 是 `<input type="file" accept=".dem">`；51621 起注册 dragenter/dragover）
    │
    ▼
 file.arrayBuffer() 读进内存
@@ -21,7 +21,7 @@ file.arrayBuffer() 读进内存
    └─ 未命中 → ArrayBuffer 转移给 parser.worker（postMessage transfer）
         │
         ▼
-     WebAssembly.instantiateStreaming('csplayer_parser_bg_qigVgicw.wasm')
+     WebAssembly.instantiateStreaming('csplayer_parser_bg-qigVgicw.wasm')
         │
         ▼
      DemoInput 流式解析：
@@ -44,7 +44,10 @@ three.js r184 渲染（InstancedMesh 玩家 / 烟雾体素 / 弹道 / 地图 GLB
 ### 1. 采样率与缓存键
 
 - 三档：16 Hz（Fast）、32 Hz（Balanced，默认）、64 Hz（Precise）— bundle 52981-52983
-- 采样率直接决定 SoA 数组长度与缓存键，是性能/画质唯一权衡旋钮
+- **采样率只决定输出体积 / 内存占用 / 缓存键，不决定解析耗时**：
+  实体状态是 delta 编码（`svc_PacketEntities` 只发变化量），要得到 tick N 的状态必须处理
+  0..N 的所有实体更新，所以三档的解析耗时几乎相同。这是**内存/画质的权衡旋钮，不是性能旋钮**。
+- 缓存键把采样率算进去，所以同一份 demo 的 16/32/64 Hz 三档解析结果各存一份。
 
 ### 2. SoA 帧数据结构
 
@@ -61,7 +64,7 @@ three.js r184 渲染（InstancedMesh 玩家 / 烟雾体素 / 弹道 / 地图 GLB
 
 - 地图几何不是实时读 VPK，而是从 `maps.csdemo.tv/cs2/` 下载 meshopt 压缩 GLB
 - `mapGeometry.worker-BGvfBalF.js` 里解码
-- `overview.txt` 解析成雷达坐标映射（bundle 28909+）
+- `overview.txt` 解析成雷达坐标映射（bundle 28939-28942 取文件、28978 解析、28990 建 URL）
 
 ### 5. 托管场次（职业比赛）
 

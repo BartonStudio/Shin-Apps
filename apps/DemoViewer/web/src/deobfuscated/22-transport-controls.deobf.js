@@ -1,6 +1,7 @@
 // ============================================================================
 // 22-transport-controls.deobf.js —— 播放控制条与 HUD 覆盖层
 // 来源：src/app/22-transport-controls.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L42175–43246（切片 22-transport-controls）
 // 原始标识符已语义化重命名 + 补充中文注释。
 //
 // 包含六块：

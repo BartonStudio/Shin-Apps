@@ -1,0 +1,31 @@
+# 依赖与工具产物
+node_modules/
+
+# 临时/系统文件
+*.log
+.DS_Store
+Thumbs.db
+
+# 编辑器
+.vscode/
+.idea/
+
+# 运行时临时产物（worker 的可运行包装、解析中间结果）
+tmp/
+
+# 测试用 demo（87MB，用户提供的输入，不入库）
+*.dem
+
+# C++ 编译产物
+*.exe
+*.obj
+*.pdb
+
+# CMake 构建产物
+out/
+build/
+cpp/out/
+CMakeUserPresets.json
+
+# 可再生的降级版金标准（由 dump-shared-layout --from-fixture 生成）
+docs/shared-layout.fixture.golden.*

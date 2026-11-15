@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 29747–29970 行（切片 4/34）
+// 位置：decompiled/index.beautified.js 第 29747–29970 行（切片 10/40）
 // 角色：地图分类/破坏删除（Av：classifyDeletions/breaks/matched）+ 视锥剔除（Fv：setView/cull/sphereVisible）
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────

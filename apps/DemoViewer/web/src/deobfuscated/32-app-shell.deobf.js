@@ -2,6 +2,7 @@
 // 32-app-shell.deobf.js — 托管 demo 下载 + AppShell 骨架 + 地图统计 + 目录菜单
 //
 // 来源：src/app/32-app-shell.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L50817–52714（切片 32-app-shell）
 // 原始压缩名：YI = HostedDemoLoadError，XI = loadHostedDemo，ML = createAppShell，
 //             QL = createHostedDemoMenu，RL = fetchMapStatistics，等
 //

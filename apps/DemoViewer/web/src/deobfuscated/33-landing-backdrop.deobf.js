@@ -2,6 +2,7 @@
 // 33-landing-backdrop.deobf.js — 落地页 3D 背景动画 + 质量选择器 + recents 渲染
 //
 // 来源：src/app/33-landing-backdrop.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L52715–53504（切片 33-landing-backdrop）
 // 原始压缩名：JR = LandingBackdrop，YR = createBackdropPlayers，XR = createRenderTarget，
 //             ZR = createBlurMaterial，rz = createQualitySelector，cz = createRecents，等
 //
@@ -45,8 +46,8 @@ const PLAYER_CYLINDER_HEIGHT = 24;
 const PLAYER_CONICAL_TOP = 56;
 
 // 玩家小人颜色：CT 偏蓝、T 偏黄（乘 1.8 提亮）
-const CT_COLOR = new Color(0xffb14e).multiplyScalar(1.8); // 16756782
-const T_COLOR = new Color(0x5aab4f).multiplyScalar(1.8); // 5941759
+const CT_COLOR = new Color(0xffb02e).multiplyScalar(1.8); // 16756782
+const T_COLOR = new Color(0x5aa9ff).multiplyScalar(1.8); // 5941759
 
 // 背景 clip 的缓存（单例）
 let backdropClipPromise = null;
@@ -1012,3 +1013,7 @@ function adjustTimelineToEffects(data) {
     data.meta.durationSeconds = (data.meta.endTick - data.meta.startTick) / tickRate;
   }
 }
+
+// 共享内存接入层需要这个符号（见 src/deobfuscated/shared-buffer.js）
+// 创建播放器实例（原 kz）
+export { createPlayer };

@@ -1,0 +1,277 @@
+{
+  "_note": "由 tools/gen-fixture-from-demo.mjs 从真实 demo 解析生成，不是合成数据",
+  "source": {
+    "demo": "test.dem",
+    "demoBytes": 91210404,
+    "sampleRate": 64,
+    "parsedAt": "2026-11-10T05:50:10.731Z"
+  },
+  "mapName": "de_dust2",
+  "tickRate": 64,
+  "startTick": 0,
+  "endTick": 114325,
+  "durationSeconds": 1786.328125,
+  "rounds": [
+    {
+      "index": 0,
+      "startTick": 0,
+      "endTick": 3982,
+      "liveStartTick": 1181
+    },
+    {
+      "index": 1,
+      "startTick": 3982,
+      "endTick": 8440,
+      "liveStartTick": 4750
+    },
+    {
+      "index": 2,
+      "startTick": 8440,
+      "endTick": 12743,
+      "liveStartTick": 9208
+    },
+    {
+      "index": 3,
+      "startTick": 12743,
+      "endTick": 17017,
+      "liveStartTick": 13511
+    },
+    {
+      "index": 4,
+      "startTick": 17017,
+      "endTick": 22311,
+      "liveStartTick": 17785
+    },
+    {
+      "index": 5,
+      "startTick": 22311,
+      "endTick": 33789,
+      "liveStartTick": 26983
+    },
+    {
+      "index": 6,
+      "startTick": 33789,
+      "endTick": 37890,
+      "liveStartTick": 34557
+    },
+    {
+      "index": 7,
+      "startTick": 37890,
+      "endTick": 42281,
+      "liveStartTick": 38658
+    },
+    {
+      "index": 8,
+      "startTick": 42281,
+      "endTick": 47480,
+      "liveStartTick": 43049
+    },
+    {
+      "index": 9,
+      "startTick": 47480,
+      "endTick": 54174,
+      "liveStartTick": 48248
+    },
+    {
+      "index": 10,
+      "startTick": 54174,
+      "endTick": 59203,
+      "liveStartTick": 54942
+    },
+    {
+      "index": 11,
+      "startTick": 59203,
+      "endTick": 66038,
+      "liveStartTick": 59971
+    },
+    {
+      "index": 12,
+      "startTick": 66038,
+      "endTick": 71978,
+      "liveStartTick": 67222
+    },
+    {
+      "index": 13,
+      "startTick": 71978,
+      "endTick": 75356,
+      "liveStartTick": 72746
+    },
+    {
+      "index": 14,
+      "startTick": 75356,
+      "endTick": 79418,
+      "liveStartTick": 76124
+    },
+    {
+      "index": 15,
+      "startTick": 79418,
+      "endTick": 85653,
+      "liveStartTick": 80186
+    },
+    {
+      "index": 16,
+      "startTick": 85653,
+      "endTick": 93240,
+      "liveStartTick": 86421
+    },
+    {
+      "index": 17,
+      "startTick": 93240,
+      "endTick": 98803,
+      "liveStartTick": 94008
+    },
+    {
+      "index": 18,
+      "startTick": 98803,
+      "endTick": 102533,
+      "liveStartTick": 99571
+    },
+    {
+      "index": 19,
+      "startTick": 102533,
+      "endTick": 107320,
+      "liveStartTick": 103301
+    },
+    {
+      "index": 20,
+      "startTick": 107320,
+      "endTick": 109995,
+      "liveStartTick": 108088
+    },
+    {
+      "index": 21,
+      "startTick": 109995,
+      "endTick": 114325,
+      "liveStartTick": 110763
+    }
+  ],
+  "roundsInWindow": [
+    {
+      "index": 0,
+      "startTick": 0,
+      "endTick": 3982,
+      "liveStartTick": 960
+    }
+  ],
+  "players": [
+    {
+      "slot": 0,
+      "steamId": "76561197962984717",
+      "name": " Cx330.o",
+      "clanName": "TEAM A",
+      "color": "blue",
+      "crosshairCode": null
+    },
+    {
+      "slot": 1,
+      "steamId": "76561199186921688",
+      "name": " 山月. 亐㔓",
+      "clanName": null,
+      "color": "purple",
+      "crosshairCode": null
+    },
+    {
+      "slot": 2,
+      "steamId": "76561199553636272",
+      "name": " 𝑨𝒔𝒉𝒉",
+      "clanName": "TEAM A",
+      "color": "orange",
+      "crosshairCode": null
+    },
+    {
+      "slot": 3,
+      "steamId": "76561198828795426",
+      "name": " 国玉国玉人间美玉",
+      "clanName": null,
+      "color": "purple",
+      "crosshairCode": null
+    },
+    {
+      "slot": 4,
+      "steamId": "76561198785013104",
+      "name": " 沙二王子 米垃圾公主",
+      "clanName": "TEAM B",
+      "color": "blue",
+      "crosshairCode": null
+    },
+    {
+      "slot": 5,
+      "steamId": "76561198407018364",
+      "name": " 三星吉格斯",
+      "clanName": "TEAM A",
+      "color": "green",
+      "crosshairCode": null
+    },
+    {
+      "slot": 6,
+      "steamId": "76561198867530630",
+      "name": " 麻辣小鱼头",
+      "clanName": "TEAM B",
+      "color": "green",
+      "crosshairCode": null
+    },
+    {
+      "slot": 7,
+      "steamId": "76561198978946076",
+      "name": " 1L矿泉水",
+      "clanName": "TEAM B",
+      "color": "yellow",
+      "crosshairCode": null
+    },
+    {
+      "slot": 8,
+      "steamId": "76561199036740298",
+      "name": " 临江仙啊仙",
+      "clanName": "TEAM A",
+      "color": "yellow",
+      "crosshairCode": null
+    },
+    {
+      "slot": 9,
+      "steamId": "76561199826728354",
+      "name": " 暴躁老奶丶",
+      "clanName": "TEAM B",
+      "color": "orange",
+      "crosshairCode": null
+    }
+  ],
+  "weaponNames": [
+    "",
+    "USP-S",
+    "C4 Explosive",
+    "Glock-18",
+    "Butterfly Knife",
+    "Nomad Knife",
+    "knife_t",
+    "Paracord Knife",
+    "knife",
+    "Huntsman Knife",
+    "Dual Berettas",
+    "MP9",
+    "Desert Eagle",
+    "M4A4",
+    "Tec-9",
+    "Smoke Grenade",
+    "SSG 08",
+    "MAC-10",
+    "Flashbang",
+    "Incendiary Grenade",
+    "High Explosive Grenade",
+    "AWP",
+    "Molotov",
+    "AK-47",
+    "Five-SeveN",
+    "M4A1-S",
+    "P250",
+    "Galil AR",
+    "PP-Bizon"
+  ],
+  "window": {
+    "startTick": 0,
+    "endTick": 1920,
+    "numFrames": 1921,
+    "panelNumFrames": 241,
+    "startSeconds": 0,
+    "durationSeconds": 30
+  }
+}

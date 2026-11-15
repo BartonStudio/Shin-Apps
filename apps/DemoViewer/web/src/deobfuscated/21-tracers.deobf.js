@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：弹道曳光/枪线 + 屏幕辉光后处理 + 枪口闪光
 // 原始压缩文件：src/app/21-tracers.js
+// 原文范围：decompiled/index.beautified.js L41591–42174（切片 21-tracers）
 // 压缩类名：gk=LineSegments2子类, Ok=TracerRenderer, Ik=Bloom/Afterimage, 及辅助函数
 // 说明：CS2 demo 回放中的"子弹轨迹"渲染。三块核心能力：
 //   1. TracerRenderer（Ok）：把 demo 里的子弹起点/终点画成发光线段，

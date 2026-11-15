@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 32968–33613 行（切片 8/34）
-// 角色：自研物理引擎 Ex：solveJoint/step/boneTransforms/staticFriction/solveContactVelocities
+// 位置：decompiled/index.beautified.js 第 32968–33613 行（切片 14/40）
+// 角色：自研物理引擎 Ex：solveJoint/step/boneTransforms/staticFriction/solveContactVelocities（XPBD 风格刚体求解器）
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────
 var Ex = class {

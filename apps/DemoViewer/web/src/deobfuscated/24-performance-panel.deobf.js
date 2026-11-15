@@ -1,6 +1,7 @@
 // ============================================================================
 // 24-performance-panel.deobf.js —— 性能面板 + 主题管理 + 设置面板
 // 来源：src/app/24-performance-panel.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L43603–44733（切片 24-performance-panel）
 // 原始标识符已语义化重命名 + 补充中文注释。
 //
 // 包含三块：
@@ -546,7 +547,7 @@ class SettingsPanel {
         text: name,
         active: this.viewer.hudPreset === name.toLowerCase(),
         onClick: () => {
-          if (name === `Custom') this.setViewer({ hudPreset: `custom` })
+          if (name === `Custom`) this.setViewer({ hudPreset: `custom` })
           else this.setViewer({ hud: { ...(name === `Full` ? FULL_HUD : MINIMAL_HUD) }, hudPreset: name === `Full` ? `full` : `minimal` })
           this.refreshBody(`HUD preset`)
         },
@@ -957,9 +958,87 @@ function computeScopeBlur(weapon, zoom, speed, accuracyPenalty, duck, screenHeig
   let name = weapon.replace(/^weapon_/i, ``).replace(/[\s-]/g, ``).toLowerCase()
   let isScout = name === `ssg08` || name === `scout`
   if (name !== `awp` && !isScout) return 0
-  let zoomFactor = Math.max(0, Math.min(1, (zoom / (isScout ? 230 : 100) - 0.34) / 0.61))
+  let zoomFactor = Math.max(0, Math.min(1, (zoom / (isScout ? 230 : 100) - 0.34) / 0.6099999999999999))
   let accuracyBase = 0.002 - Math.max(0, Math.min(1, accuracyPenalty)) * 0.0005
   let movement = (speed >= 0 ? Math.max(0, speed - accuracyBase) : 0) + zoomFactor * zoomFactor * (isScout ? 0.03 : 0.09)
   let focalLength = screenHeight / (2 * Math.tan(((duck === 2 ? 20 : 40) * Math.PI) / 360))
   return Math.min(3, movement * focalLength * 0.06)
+}
+
+// ============================================================================
+// 【补充段 2026-11-09】24-performance-panel 切片中此前未覆盖的 3 个声明
+// 依据：docs/11 §9 的逐声明未覆盖清单（Sj / Kj / aM 覆盖率均为 0%）
+// ============================================================================
+
+// ── L43825 `Sj` → formatCompactNumber：大数字紧凑显示（1.2k / 3.45M）──
+// 阈值 1e3 与 1e6 是硬编码的；1.2k 保留 1 位小数、3.45M 保留 2 位。
+function formatCompactNumber(n) {
+  if (n < 1e3) return `${n}`;
+  if (n < 1e6) return `${(n / 1e3).toFixed(1)}k`;
+  return `${(n / 1e6).toFixed(2)}M`;
+}
+
+// ── L43828 `Cj` → dragHandleSvg：性能面板的拖拽把手图标（2×3 圆点）──
+function dragHandleSvg() {
+  return `<svg viewBox="0 0 20 12" focusable="false" aria-hidden="true"><circle cx="2" cy="2" r="1.75"/><circle cx="10" cy="2" r="1.75"/><circle cx="18" cy="2" r="1.75"/><circle cx="2" cy="10" r="1.75"/><circle cx="10" cy="10" r="1.75"/><circle cx="18" cy="10" r="1.75"/></svg>`;
+}
+
+// ── L43923 `Kj` → normalizeViewerSettings：把任意来源的设置对象规整成合法值 ──
+// 每一步都在做「越界/缺失 → 回落到默认值」，这是设置持久化能安全读旧版本数据的关键。
+// 依赖本文件已有的辅助：Hj(读取原始对象) / Uj(bool 规整) / Gj(枚举规整) / Wj(数值钳制)
+//                      Bj(FULL_HUD_PRESET) / Vj(MINIMAL_HUD_PRESET)
+function normalizeViewerSettings(raw) {
+  const src = readRawSettings(raw);            // Hj
+  const hudSrc = readRawSettings(src.hud);     // Hj
+
+  // HUD 五个子面板的可见性
+  const hud = {
+    playerCards: coerceBool(hudSrc.playerCards, true),   // Uj
+    eventFeed: coerceBool(hudSrc.eventFeed, true),
+    nametags: coerceBool(hudSrc.nametags, true),
+    radar: coerceBool(hudSrc.radar, true),
+    scoreboard: coerceBool(hudSrc.scoreboard, true),
+  };
+  const matchesPreset = (preset) => Object.keys(preset).every((k) => hud[k] === preset[k]);
+
+  return {
+    hud,
+    // 预设名：显式 custom 就尊重；否则反推是否等于 full / minimal 预设
+    hudPreset: src.hudPreset === 'custom' ? 'custom' : matchesPreset(FULL_HUD_PRESET) ? 'full' : matchesPreset(MINIMAL_HUD_PRESET) ? 'minimal' : 'custom',
+    flashEffect: coerceEnum(src.flashEffect, ['full', 'reduced', 'indicator'], 'full'),        // Gj
+    trajectories: coerceEnum(src.trajectories, ['all', 'followed', 'selected', 'off'], 'all'),
+    skipFreezeTime: coerceBool(src.skipFreezeTime, false),
+    skipTimeouts: coerceBool(src.skipTimeouts, false),
+    killLeadIn: coerceEnum(src.killLeadIn, [3, 5, 8], 5),
+    utilityLeadIn: coerceEnum(src.utilityLeadIn, [2, 3, 5, 8], 2),
+    mouseSensitivity: coerceNumber(src.mouseSensitivity, 0.25, 3, 1),   // Wj
+    invertLook: coerceBool(src.invertLook, false),
+    flySpeed: coerceNumber(src.flySpeed, 150, 24e3, 500),
+    renderScale: coerceEnum(src.renderScale, [0.5, 0.75, 1], 1),
+    volume: coerceNumber(src.volume, 0, 100, 50),
+    muted: coerceBool(src.muted, false),
+  };
+}
+
+// ── L44721 `aM` → scopeBlurAmount：开镜（AWP / SSG08）模糊强度 ──
+// 参数：weaponName, zoomProgress(0..1), timeSinceScopeStart, flinchFactor, zoomLevel, viewportHeight
+// 返回值 0..3，下游乘到 blur uniform。
+//
+// 关键常数：
+//   AWP 需要 100 单位进度、SSG08(侦察) 230 单位；起始阈值都是 0.34，跨度 0.6099999999999999（原件就是这么多位）
+//   基础清晰值 0.002，受抖动最多削减 5e-4
+//   放大系数：AWP 0.09 / SSG08 0.03（SSG 的模糊更弱）
+//   FOV：1 倍镜 40°、2 倍镜 20°（i === 2 时取 20）
+function scopeBlurAmount(weaponName, zoomProgress, timeSinceScopeStart, flinchFactor, zoomLevel, viewportHeight) {
+  // 归一化武器名：去 weapon_ 前缀、去空格与连字符、转小写
+  const id = weaponName.replace(/^weapon_/i, '').replace(/[\s-]/g, '').toLowerCase();
+  const isScout = id === 'ssg08' || id === 'scout';
+  if (id !== 'awp' && !isScout) return 0;   // 只有这两把狙有开镜模糊
+
+  const t = Math.max(0, Math.min(1, (zoomProgress / (isScout ? 230 : 100) - 0.34) / 0.6099999999999999));
+  const clearBase = 0.002 - Math.max(0, Math.min(1, flinchFactor)) * 5e-4;
+  const blurred = (timeSinceScopeStart >= 0 ? Math.max(0, timeSinceScopeStart - clearBase) : 0) + t * t * (isScout ? 0.03 : 0.09);
+  // 视场高度换算：把角度差转成屏幕高度上的偏移量
+  const projHeight = viewportHeight / (2 * Math.tan(((zoomLevel === 2 ? 20 : 40) * Math.PI) / 360));
+  return Math.min(3, blurred * projHeight * 0.06);
 }

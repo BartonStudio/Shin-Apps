@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 31492–32300 行（切片 6/34）
+// 位置：decompiled/index.beautified.js 第 31492–32300 行（切片 12/40）
 // 角色：场景光照管理 Ly：usesCs2Map/setCs2/setClassic/createMaterial/ambientCube
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────

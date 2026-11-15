@@ -2,6 +2,7 @@
 // 20-line-material.deobf.js — 线段材质 + 线段 raycast（LineMaterial）
 //
 // 来源：src/app/20-line-material.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L41381–41590（切片 20-line-material）
 // 原始压缩名：ZO = LineMaterial，pk = getWorldUnitLineWidth，mk/hk = 线段 raycast
 //
 // 本文件包含：

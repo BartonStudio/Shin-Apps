@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：光照探针网格（LightProbeGrid）—— CS2 光照核心
 // 原始压缩文件：src/app/04-lighting-shader.js（decompiled 29971–31491 行）
+// 原文范围：decompiled/index.beautified.js L29971–31491（切片 04-lighting-shader，本文件为其子集）
 // 压缩类名：zv
 // 说明：CS2 地图的"光照探针体积"（light probe volume）采样器。
 //   数据是 luma/chroma 分离的 YCbCr 风格色彩空间，带 HDR 亮度查表，

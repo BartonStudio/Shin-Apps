@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 42175–43246 行（切片 23/34）
+// 位置：decompiled/index.beautified.js 第 42175–43246 行（切片 29/40）
 // 角色：播放控制条 xA：controls/timeline/round-timeline/scrubber
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────

@@ -2,6 +2,7 @@
 // 03-map-classification.deobf.js — 地图实体分类/破坏删除 + 视锥剔除 + 批量网格
 //
 // 来源：src/app/03-map-classification.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L29747–29970（切片 03-map-classification）
 // 原始压缩名：Av = ObjectTimeline（物体时间线），jv = kindMatches，Fv = BatchedMapMesh，
 //             Iv = MapCuller（视锥剔除器），Lv = LUMA_WEIGHTS，Rv = createLightSample
 //

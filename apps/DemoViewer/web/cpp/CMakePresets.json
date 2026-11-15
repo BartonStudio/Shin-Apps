@@ -1,0 +1,41 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": { "major": 3, "minor": 21, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "vs2022-x64",
+      "displayName": "Visual Studio 2022 · x64",
+      "description": "用 VS2022 打开时选这个。若你的 VS 是 2019，改用 vs2019-x64。",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/out/build/vs2022-x64"
+    },
+    {
+      "name": "vs2019-x64",
+      "displayName": "Visual Studio 2019 · x64",
+      "generator": "Visual Studio 16 2019",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/out/build/vs2019-x64"
+    }
+  ],
+  "buildPresets": [
+    { "name": "vs2022-debug", "configurePreset": "vs2022-x64", "configuration": "Debug" },
+    { "name": "vs2022-release", "configurePreset": "vs2022-x64", "configuration": "Release" },
+    { "name": "vs2019-debug", "configurePreset": "vs2019-x64", "configuration": "Debug" },
+    { "name": "vs2019-release", "configurePreset": "vs2019-x64", "configuration": "Release" }
+  ],
+  "testPresets": [
+    {
+      "name": "vs2022-release",
+      "configurePreset": "vs2022-x64",
+      "configuration": "Release",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "vs2019-release",
+      "configurePreset": "vs2019-x64",
+      "configuration": "Release",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}

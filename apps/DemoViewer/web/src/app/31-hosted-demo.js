@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 49470–50816 行（切片 32/34）
-// 角色：托管 demo 下载（sha256/gunzip）+ parser worker 桥接 + IndexedDB + 队伍识别（YI）
+// 位置：decompiled/index.beautified.js 第 49470–50816 行（切片 38/40）
+// 角色：托管 demo 下载（sha256/gunzip）+ **CSDA 二进制解码器（21 section）** + parser worker 桥接 + IndexedDB + 队伍识别（YI）
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────
 var CF = class {

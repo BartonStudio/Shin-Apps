@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 33719–34297 行（切片 10/34）
-// 角色：轨迹/碰撞记录器 Kx：advanceTo/sample/collidersOf/shaderPrototypes
+// 位置：decompiled/index.beautified.js 第 33719–34297 行（切片 16/40）
+// 角色：ragdoll 轨迹录制器 Kx：advanceTo（前向模拟）/ record（录帧）/ sample（O(1) lerp+slerp 采样）/ collidersOf
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────
 var Kx = class {

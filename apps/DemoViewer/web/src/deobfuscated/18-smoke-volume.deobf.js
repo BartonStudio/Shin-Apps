@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：烟雾体素模拟 + 体积渲染（SmokeSimulation / SmokeVolumeRenderer）
 // 原始压缩文件：src/app/18-smoke-volume.js
+// 原文范围：decompiled/index.beautified.js L39728–40907（切片 18-smoke-volume）
 // 压缩类名：lO=SmokeSimulation（体素密度扩散）, MO=SmokeVolumeRenderer（ray marching）
 // 说明：CS2 烟雾弹的完整渲染管线，技术密度最高的模块：
 //   1. SmokeSimulation（lO）：在 32³ 体素网格上做**实时流体扩散模拟**——

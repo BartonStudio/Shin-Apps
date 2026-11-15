@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 37126–37844 行（切片 13/34）
+// 位置：decompiled/index.beautified.js 第 37126–37844 行（切片 19/40）
 // 角色：燃烧瓶/火墙 shader uE：activeAt/footprintShape/noise/tracePatches
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────

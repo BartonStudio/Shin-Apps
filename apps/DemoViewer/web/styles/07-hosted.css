@@ -1,6 +1,7 @@
 /* ───────────────────────────────────────────────────────────────────────────
  * 组件样式区：hosted — 职业比赛三段式选择器
- * 来源：https://csdemo.tv/assets/index-CKB5zRpH.css（按选择器前缀机械拆分，无改写）
+ * 来源：decompiled/index.beautified.css（按选择器前缀机械拆分，未改任何声明）
+ * ★ 可逆：node tools/reassemble-css.mjs 会依 styles/_manifest.json 逐字节拼回原文
  * ─────────────────────────────────────────────────────────────────────────── */
 .hosted-panel {
   background: var(--landing-surface);

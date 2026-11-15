@@ -1,0 +1,430 @@
+{
+  "_note": "共享内存布局金标准。C++ 侧的 computeSharedLayout 必须算出完全相同的 offset/length。",
+  "_how": "node tools/dump-shared-layout.mjs",
+  "source": "C:\\workFolder\\web\\test.dem（完整 demo）",
+  "constants": {
+    "CSDF_MAGIC": "0x46445343",
+    "CSDF_VERSION": 1,
+    "CSDF_HEADER_BYTES": 64,
+    "CSDF_ALIGN": 64,
+    "META_REGION_BYTES": 1048576,
+    "META_A_OFFSET": 64,
+    "META_B_OFFSET": 1048640,
+    "DATA_OFFSET": 2097216,
+    "BLOB_ALIGN": 8
+  },
+  "inputs": {
+    "numFrames": 114326,
+    "numPlayers": 10,
+    "panelNumFrames": 14291,
+    "flags": 63,
+    "counts": {
+      "tracers": 2989,
+      "damage": 606,
+      "weaponFires": 3612,
+      "smokeCount": 88,
+      "smokeCountPlus1": 89,
+      "smokeBufferBytes": 222101,
+      "smokeFrameTicks": 17311,
+      "blobBytes": 6251816
+    }
+  },
+  "outputs": {
+    "totalBytes": 69435136,
+    "metadataJsonBytes": 473290,
+    "blocks": [
+      {
+        "name": "frameTick",
+        "type": "i32",
+        "offset": 2097216,
+        "length": 457304,
+        "padded": 457344,
+        "count": 114326
+      },
+      {
+        "name": "posX",
+        "type": "f32",
+        "offset": 2554560,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "posY",
+        "type": "f32",
+        "offset": 7127616,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "posZ",
+        "type": "f32",
+        "offset": 11700672,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "yaw",
+        "type": "f32",
+        "offset": 16273728,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "pitch",
+        "type": "f32",
+        "offset": 20846784,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "health",
+        "type": "u8",
+        "offset": 25419840,
+        "length": 1143260,
+        "padded": 1143296,
+        "count": 1143260
+      },
+      {
+        "name": "alive",
+        "type": "u8",
+        "offset": 26563136,
+        "length": 1143260,
+        "padded": 1143296,
+        "count": 1143260
+      },
+      {
+        "name": "team",
+        "type": "u8",
+        "offset": 27706432,
+        "length": 1143260,
+        "padded": 1143296,
+        "count": 1143260
+      },
+      {
+        "name": "score",
+        "type": "u8",
+        "offset": 28849728,
+        "length": 1143260,
+        "padded": 1143296,
+        "count": 1143260
+      },
+      {
+        "name": "duck",
+        "type": "f32",
+        "offset": 29993024,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "flash",
+        "type": "f32",
+        "offset": 34566080,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "flashAlpha",
+        "type": "f32",
+        "offset": 39139136,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "zoom",
+        "type": "u8",
+        "offset": 43712192,
+        "length": 1143260,
+        "padded": 1143296,
+        "count": 1143260
+      },
+      {
+        "name": "accuracyPenalty",
+        "type": "f32",
+        "offset": 44855488,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "reloading",
+        "type": "u8",
+        "offset": 49428544,
+        "length": 1143260,
+        "padded": 1143296,
+        "count": 1143260
+      },
+      {
+        "name": "playerFlags",
+        "type": "u8",
+        "offset": 50571840,
+        "length": 1143260,
+        "padded": 1143296,
+        "count": 1143260
+      },
+      {
+        "name": "speed",
+        "type": "f32",
+        "offset": 51715136,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "smoothSpeed",
+        "type": "f32",
+        "offset": 56288192,
+        "length": 4573040,
+        "padded": 4573056,
+        "count": 1143260
+      },
+      {
+        "name": "panelFrameTick",
+        "type": "i32",
+        "offset": 60861248,
+        "length": 57164,
+        "padded": 57216,
+        "count": 14291
+      },
+      {
+        "name": "panelHealth",
+        "type": "u8",
+        "offset": 60918464,
+        "length": 142910,
+        "padded": 142912,
+        "count": 142910
+      },
+      {
+        "name": "panelAlive",
+        "type": "u8",
+        "offset": 61061376,
+        "length": 142910,
+        "padded": 142912,
+        "count": 142910
+      },
+      {
+        "name": "panelTeam",
+        "type": "u8",
+        "offset": 61204288,
+        "length": 142910,
+        "padded": 142912,
+        "count": 142910
+      },
+      {
+        "name": "panelArmor",
+        "type": "u8",
+        "offset": 61347200,
+        "length": 142910,
+        "padded": 142912,
+        "count": 142910
+      },
+      {
+        "name": "panelFlags",
+        "type": "u8",
+        "offset": 61490112,
+        "length": 142910,
+        "padded": 142912,
+        "count": 142910
+      },
+      {
+        "name": "panelMoney",
+        "type": "u16",
+        "offset": 61633024,
+        "length": 285820,
+        "padded": 285824,
+        "count": 142910
+      },
+      {
+        "name": "panelClipAmmo",
+        "type": "u16",
+        "offset": 61918848,
+        "length": 285820,
+        "padded": 285824,
+        "count": 142910
+      },
+      {
+        "name": "panelReserveAmmo",
+        "type": "u16",
+        "offset": 62204672,
+        "length": 285820,
+        "padded": 285824,
+        "count": 142910
+      },
+      {
+        "name": "panelActiveWeapon",
+        "type": "u8",
+        "offset": 62490496,
+        "length": 142910,
+        "padded": 142912,
+        "count": 142910
+      },
+      {
+        "name": "panelUtilCounts",
+        "type": "u8",
+        "offset": 62633408,
+        "length": 142910,
+        "padded": 142912,
+        "count": 142910
+      },
+      {
+        "name": "tracers.origin",
+        "type": "f32",
+        "offset": 62776320,
+        "length": 35868,
+        "padded": 35904,
+        "count": 8967
+      },
+      {
+        "name": "tracers.end",
+        "type": "f32",
+        "offset": 62812224,
+        "length": 35868,
+        "padded": 35904,
+        "count": 8967
+      },
+      {
+        "name": "tracers.tick",
+        "type": "i32",
+        "offset": 62848128,
+        "length": 11956,
+        "padded": 11968,
+        "count": 2989
+      },
+      {
+        "name": "tracers.team",
+        "type": "u8",
+        "offset": 62860096,
+        "length": 2989,
+        "padded": 3008,
+        "count": 2989
+      },
+      {
+        "name": "tracers.hitKind",
+        "type": "u8",
+        "offset": 62863104,
+        "length": 2989,
+        "padded": 3008,
+        "count": 2989
+      },
+      {
+        "name": "damage.attackerSlot",
+        "type": "u8",
+        "offset": 62866112,
+        "length": 606,
+        "padded": 640,
+        "count": 606
+      },
+      {
+        "name": "damage.victimSlot",
+        "type": "u8",
+        "offset": 62866752,
+        "length": 606,
+        "padded": 640,
+        "count": 606
+      },
+      {
+        "name": "damage.tick",
+        "type": "i32",
+        "offset": 62867392,
+        "length": 2424,
+        "padded": 2432,
+        "count": 606
+      },
+      {
+        "name": "damage.dmg",
+        "type": "u8",
+        "offset": 62869824,
+        "length": 606,
+        "padded": 640,
+        "count": 606
+      },
+      {
+        "name": "weaponFires.ticks",
+        "type": "i32",
+        "offset": 62870464,
+        "length": 14448,
+        "padded": 14464,
+        "count": 3612
+      },
+      {
+        "name": "weaponFires.slots",
+        "type": "u8",
+        "offset": 62884928,
+        "length": 3612,
+        "padded": 3648,
+        "count": 3612
+      },
+      {
+        "name": "smokeVoxels.tickBegin",
+        "type": "i32",
+        "offset": 62888576,
+        "length": 352,
+        "padded": 384,
+        "count": 88
+      },
+      {
+        "name": "smokeVoxels.detonation",
+        "type": "f32",
+        "offset": 62888960,
+        "length": 1056,
+        "padded": 1088,
+        "count": 264
+      },
+      {
+        "name": "smokeVoxels.color",
+        "type": "f32",
+        "offset": 62890048,
+        "length": 1056,
+        "padded": 1088,
+        "count": 264
+      },
+      {
+        "name": "smokeVoxels.bufferOffsets",
+        "type": "i32",
+        "offset": 62891136,
+        "length": 356,
+        "padded": 384,
+        "count": 89
+      },
+      {
+        "name": "smokeVoxels.frameOffsets",
+        "type": "i32",
+        "offset": 62891520,
+        "length": 356,
+        "padded": 384,
+        "count": 89
+      },
+      {
+        "name": "smokeVoxels.buffers",
+        "type": "u8",
+        "offset": 62891904,
+        "length": 222101,
+        "padded": 222144,
+        "count": 222101
+      },
+      {
+        "name": "smokeVoxels.frameTicks",
+        "type": "i32",
+        "offset": 63114048,
+        "length": 69244,
+        "padded": 69248,
+        "count": 17311
+      },
+      {
+        "name": "blob",
+        "type": "u8",
+        "offset": 63183296,
+        "length": 6251816,
+        "padded": 6251816,
+        "count": 6251816
+      }
+    ]
+  }
+}

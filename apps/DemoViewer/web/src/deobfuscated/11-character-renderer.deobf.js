@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：角色渲染器（CharacterRenderer）
 // 原始压缩文件：src/app/11-character-renderer.js
+// 原文范围：decompiled/index.beautified.js L35810–37125（切片 11-character-renderer）
 // 压缩类名：zw=CharacterRenderer, UT=ViewModelRenderer, fT=MuzzleFlash
 // 说明：把"角色模型 + 动画合成"的结果渲染到场景。分两个视角：
 //   1. CharacterRenderer（zw）：第三人称，所有玩家的完整身体（t.glb/ct.glb）

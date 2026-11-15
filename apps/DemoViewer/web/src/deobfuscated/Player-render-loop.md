@@ -1,7 +1,11 @@
 # Player 主控类（TP）渲染循环逐行解析
 
 > 这是整个应用的"心脏"。方法名和字段名都保留了原意，只需把局部变量 `e/t/n/r/i/a/o/s/c` 还原即可。
-> 原始位置：decompiled/index.beautified.js 47359–48976 行。下面给出 `sampleAndRender`（48050 行起）的完整还原。
+>
+> **位置（2026-11-09 复核更正）**：
+> - `TP` 类声明起于 **bundle L47359**，类体于 **L48938** 结束（原文档写 48976，那其实是切片 `28-radar.js` 的尾行）。
+> - `sampleAndRender` 起于 **L48050**（原文档这个行号是对的）。
+> - 所属切片：`src/app/28-radar.js` = L45564–48976。
 
 ## 类字段（语义名已保留）
 
@@ -18,7 +22,7 @@ class Player {
   scene            // SceneRenderer（qD）
   cs2Map           // CS2 地图（vy）
   mapLoader        // MapLoader（R_）
-  players          // 玩家模型（ID，InstancedMesh）
+  players          // 玩家渲染器（ID：胶囊兜底 + X-ray 透视，renderXray）
   cameras          // 相机控制器（zf：free/fly/noclip/first/spectate）
   nametags         // 玩家名牌（LM）
   grenades         // 投掷物管理（CD）
@@ -30,7 +34,7 @@ class Player {
   bomb             // 炸弹实体（wb）
   mapBreaks        // 地图破坏（mS）
   viewModel        // 第一人称持枪视图（UT）
-  weaponLighting   // 武器光照（Ly）
+  weaponLighting   // 光照管理器（Ly = SceneLighting；Player 把它以 weaponLighting 之名注入 viewModel/characters/droppedWeapons）
 
   // HUD / UI
   hud, feed, panels, scoreboard, radar, crosshair, scope, blind, deathFade, killReplay,

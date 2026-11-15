@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：爆炸/闪光特效 + 投掷物轨迹 + 胶囊体兜底渲染
 // 原始压缩文件：src/app/14-blast-effects.js
+// 原文范围：decompiled/index.beautified.js L38344–39079（切片 14-blast-effects）
 // 压缩类名：cD=BlastEffects, CD=GrenadeEffects, ID=CapsuleRenderer
 // 说明：三个核心能力：
 //   1. BlastEffects（cD）：爆炸/闪光的屏幕空间冲击波 shader（依赖深度缓冲）

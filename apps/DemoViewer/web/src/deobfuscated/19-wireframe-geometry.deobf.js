@@ -2,6 +2,7 @@
 // 19-wireframe-geometry.deobf.js — 线段几何 + LineSegments 材质（line 系列）
 //
 // 来源：src/app/19-wireframe-geometry.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L40908–41380（切片 19-wireframe-geometry）
 // 原始压缩名：XO = LineSegmentsGeometry，q/bc = 材质库（common/fog/line uniforms + shader）
 //
 // 本文件包含：

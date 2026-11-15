@@ -1,0 +1,69 @@
+<!-- 来源：decompiled/index.beautified.js 第 42232 行（innerHTML 模板，4037 字符）
+     所在作用域：xA
+     说明：原文逐字抠出，仅去掉外层反引号；${...} 表达式保持原样，未求值。 -->
+
+      <div class="controls-card">
+        <button class="ctrl-btn timeout-skip-btn" type="button" hidden>Skip timeout<svg class="ctrl-icon timeout-skip-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5v13l8-6.5zM13 5.5v13l8-6.5z"/></svg></button>
+        <div class="scrubber">
+          <span class="time-elapsed" aria-hidden="true">0:00</span>
+          <div class="timeline">
+            <div class="round-timeline" hidden aria-hidden="true">
+              <div class="round-timeline-card">
+                <div class="round-timeline-header">
+                  <span class="round-timeline-title">Round</span>
+                  <span class="round-timeline-clock">0:00</span>
+                </div>
+                <div class="round-timeline-subtitle">
+                  <span class="round-timeline-status" hidden></span>
+                  <span class="round-timeline-caption"></span>
+                </div>
+                <div class="round-timeline-stage">
+                  <div class="round-timeline-track"></div>
+                  <div class="round-timeline-events"></div>
+                  <div class="round-timeline-thumb"></div>
+                </div>
+              </div>
+              <div class="round-timeline-zoom"></div>
+            </div>
+            <div class="timeline-scrub-hint" aria-hidden="true">${gA}<span class="timeline-scrub-hint-label">Slide up to scrub this round</span></div>
+            <div class="timeline-round-load"></div>
+            <div class="timeline-markers"></div>
+            <input class="timeline-slider" aria-label="Playback position" type="range" min="0" max="${t}" step="any" value="0" />
+          </div>
+          <span class="time-total" aria-hidden="true">0:00</span>
+        </div>
+        <div class="controls-row">
+          <div class="controls-start">
+            <div class="speeds segmented" role="group" aria-label="Playback speed"><span class="segmented-thumb" aria-hidden="true"></span></div>
+            <div class="mobile-tools">
+              <select class="mobile-pov" aria-label="Camera or player">
+                <option value="free">Orbit camera</option>
+                <option value="fly" disabled>Fly (keyboard)</option>
+                <option value="noclip" disabled>Noclip (keyboard)</option>
+              </select>
+              <button class="ctrl-btn mobile-events" type="button" aria-label="Toggle event feed" aria-controls="round-feed" aria-expanded="false">Events</button>
+              <button class="ctrl-btn mobile-scoreboard" type="button" aria-label="Toggle scoreboard" aria-controls="scoreboard" aria-expanded="false">Score</button>
+            </div>
+          </div>
+          <div class="transport">
+            ${bA(-15)}
+            ${bA(-5)}
+            <button class="ctrl-btn play-btn" type="button" aria-label="Play" title="Play (Space)">${_A}${vA}</button>
+            ${bA(5)}
+            ${bA(15)}
+          </div>
+          <div class="controls-end">
+            <div class="pov segmented" role="group" aria-label="Camera" style="--count: 3">
+              <span class="segmented-thumb" aria-hidden="true"></span>
+              <button class="ctrl-btn pov-free" type="button" title="Free camera (F)">Free <kbd class="ctrl-key">F</kbd></button>
+              <button class="ctrl-btn pov-fly" type="button" title="Collision-aware fly camera (V) — WASD, E/Q up/down, mouse to look, Shift boost, scroll speed; hold Ctrl to release mouse, Esc to unlock until a view click">Fly <kbd class="ctrl-key">V</kbd></button>
+              <button class="ctrl-btn pov-noclip" type="button" title="Noclip camera (N) — fly through map geometry; hold Ctrl to release mouse, Esc to unlock until a view click">Noclip <kbd class="ctrl-key">N</kbd></button>
+            </div>
+            <label class="speed-picker">
+              <span class="speed-picker-value" aria-hidden="true">1×</span>
+              <select class="mobile-speed" aria-label="Playback speed"></select>
+            </label>
+          </div>
+        </div>
+      </div>
+    

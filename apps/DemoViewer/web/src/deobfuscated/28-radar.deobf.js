@@ -1,6 +1,7 @@
 // ============================================================================
 // 28-radar.deobf.js —— csdemo.tv 播放器应用层（HUD / 音频 / 主控）
 // 来源：src/app/28-radar.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L45564–48976（切片 28-radar）
 // 原始标识符为单字符/双字符混淆名，本文件已全部语义化重命名 + 注释。
 //
 // 本文件实际是"播放器应用层"的聚合切片，包含六大子系统：
@@ -859,7 +860,7 @@ function buildRoundAnnouncements(events, tickRate, tTeam, ctTeam) {
     .sort((a, b) => a.event.tick - b.event.tick || Number(a.event.type === `round_end`) - Number(b.event.type === `round_end`) || a.index - b.index)
   for (let { event } of sorted) {
     let name = null
-    if (event.type === `bomb_planted') name = `announce.planted`
+    if (event.type === `bomb_planted`) name = `announce.planted`
     else if (event.type === `bomb_defused`) name = `announce.defused`
     else if (event.type === `round_end` && event.roundWinner === ctTeam) name = `announce.ctwin`
     else if (event.type === `round_end` && event.roundWinner === tTeam) name = `announce.twin`
@@ -972,7 +973,7 @@ class AudioEngine {
     this.running = running
     let ctx = this.ctx
     if (!ctx || ctx.state === `closed`) return
-    if (running && ctx.state === `suspended') ctx.resume().catch(() => {})
+    if (running && ctx.state === `suspended`) ctx.resume().catch(() => {})
     else if (!running && ctx.state === `running`) ctx.suspend().catch(() => {})
   }
 
@@ -1541,7 +1542,7 @@ class AudioDirector {
     for (let effect of data.grenades.effects) {
       if (effect.kind === `decoy`) continue
       let nadeName = nadeSoundName(effect.kind, false)
-      if (effect.kind === `molotov')
+      if (effect.kind === `molotov`)
         nadeName = nadeSoundName(`molotov`, trajectories.find((t) => t.kind === `molotov` && Math.abs((t.detonationTick ?? t.endTick) - effect.startTick) <= 32)?.incendiary === true)
       push(effect.startTick, core[`detonate.${nadeName}`], -1, effect.x, effect.y, effect.z, ENTITY_FIRE_LOOP)
     }
@@ -2257,7 +2258,7 @@ class DemoApp {
       let time = (ev.tick - meta.startTick) / meta.tickRate
       if (ev.type === `kill` && (ev.attackerTeam === 2 || ev.attackerTeam === 3))
         out.push({ time, kind: `kill`, team: ev.attackerTeam === 2 ? `t` : `ct`, iconUrl: Zb(`skull`), title: `${ev.attackerName ?? `Player`} killed ${ev.victimName ?? `player`}`, actor: ev.attackerName ?? `Player`, target: ev.victimName ?? `player`, targetTeam: ev.victimTeam === 2 ? `t` : ev.victimTeam === 3 ? `ct` : undefined })
-      else if (ev.type === `bomb_planted') out.push({ time, kind: `plant`, team: `t`, iconUrl: Zb(`c4`), title: `Bomb planted` })
+      else if (ev.type === `bomb_planted`) out.push({ time, kind: `plant`, team: `t`, iconUrl: Zb(`c4`), title: `Bomb planted` })
       else if (ev.type === `bomb_exploded`) out.push({ time, kind: `explode`, team: `t`, iconUrl: Zb(`planted_c4`), title: `Bomb exploded` })
       else if (ev.type === `bomb_defused`) out.push({ time, kind: `defuse`, team: `ct`, iconUrl: Zb(`defuser`), title: `Bomb defused` })
       else if (ev.type === `round_end` && ev.roundReason === 10) out.push({ time, kind: `time`, team: `ct`, title: `Time expired` })
@@ -2629,7 +2630,7 @@ class DemoApp {
 
   followLikeCurrent(slot, mode = this.cameras.getMode().kind) {
     this.clearKillReplay()
-    if (mode === `spectate') this.cameras.spectate(slot)
+    if (mode === `spectate`) this.cameras.spectate(slot)
     else this.cameras.follow(slot)
   }
 
@@ -2811,7 +2812,7 @@ class DemoApp {
     let mode = this.cameras.getMode()
     let followed = this.cameras.getFollowedSlot()
     this.controls.setTimeoutEnd(this.activeTimeoutEnd(time))
-    if (mode.kind === `fly') this.controls.setViewMode(`fly`)
+    if (mode.kind === `fly`) this.controls.setViewMode(`fly`)
     else if (mode.kind === `noclip`) this.controls.setViewMode(`noclip`)
     else if (followed >= 0) this.controls.setViewMode(`player`)
     else this.controls.setViewMode(`free`)
@@ -3156,3 +3157,7 @@ function formatClock(seconds) {
 function teamColor(team) {
   return team === 2 ? `var(--pc-t)` : team === 3 ? `var(--pc-ct)` : `var(--pc-secondary)`
 }
+
+// 共享内存接入层需要这个符号（见 src/deobfuscated/shared-buffer.js）
+// 播放器主类（原 TP）
+export { DemoApp };

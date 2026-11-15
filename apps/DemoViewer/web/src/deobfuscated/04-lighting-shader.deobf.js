@@ -2,6 +2,7 @@
 // 04-lighting-shader.deobf.js — 自研光照系统：探针网格 + PBR shader + CS2 地图加载器
 //
 // 来源：src/app/04-lighting-shader.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L29971–31491（切片 04-lighting-shader）
 // 原始压缩名：zv = LightGrid，Wv = buildProbeVolumeGrid，Gv = nearestProbeBox，
 //             qv/Jv/Yv/Xv/Zv/Qv/$v = GLSL 代码块，oy/sy = tone mapping，
 //             uy = PVSVisibility，vy = CS2MapRenderer

@@ -1,6 +1,7 @@
 // ============================================================================
 // 29-catalogue-client.deobf.js —— 职业比赛目录客户端（v2）
 // 来源：src/app/29-catalogue-client.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L48977–49253（切片 29-catalogue-client）
 // 原始标识符已语义化重命名 + 补充中文注释。
 //
 // 作用：从 https://data.csdemo.tv/catalogue/v2/current.json 拉取"精选比赛目录"。

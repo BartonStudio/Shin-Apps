@@ -1,6 +1,7 @@
 // ============================================================================
 // 30-artifact-codec.deobf.js —— CSDA 容器格式定义（头部结构）
 // 来源：src/app/30-artifact-codec.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L49254–49469（切片 30-artifact-codec）
 // 原始标识符已语义化重命名 + 补充中文注释。
 //
 // CSDA = "CS Demo Artifact"，是 csdemo.tv 自研的 demo 数据序列化格式。

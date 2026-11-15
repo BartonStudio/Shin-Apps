@@ -1,6 +1,7 @@
 // ============================================================================
 // 反混淆版本：CS2 角色模型（CharacterModel）
 // 原始压缩文件：src/app/10-character-model.js
+// 原文范围：decompiled/index.beautified.js L34298–35809（切片 10-character-model）
 // 压缩类名：gS=ShardField, eC=CharacterAnimator, _w=RagdollFallSystem, 及大量工具函数
 // 说明：这是 csdemo.tv 角色系统的**核心**。CS2 探员（agent）不是简单播放
 //   glb 动画，而是由作者逆向工程出来的一整套系统：
@@ -801,9 +802,12 @@ function buildRagdollModel(rig) {
     // ...（连接点/旋转计算，详见原始 aw 函数）
     return {
       parent: pi, child: ci,
-      parentOffset: /* 连接点相对父质心 */,
+      // ⚠️ 原件（L35563）此处是 new Float64Array([e.origin[i] - 父体质心[i]])，
+      //    需要从动画面板的骨骼原点读取；本改写稿未展开这部分，故置 null 并留待补齐。
+      parentOffset: null,
       parentRotation: jointRot,
-      childOffset: /* 连接点相对子质心 */,
+      // ⚠️ 原件（L35565）同 parentOffset，此处是子体质心差值；本改写稿置 null。
+      childOffset: null,
       childRotation: jointRot,
       hinge: j.hinge,
       swing: (Math.PI / 180) * j.swing,
@@ -815,7 +819,9 @@ function buildRagdollModel(rig) {
 
   // 自碰撞对：排除关节相连的、以及双臂之间的碰撞
   // ...（构建 selfPairs/selfReach）
-  return { count: n, bone: bodyBone, hitBody: /* 命中骨映射 */, simulated: /* 模拟骨标记 */, com, mass, invMass, invInertia, angularDamping, joints, spheres: new Float64Array(spheres), sphereCount: spheres.length / 5, selfPairs, selfReach };
+  // ⚠️ 原件里 hitBody / simulated 是两张按骨索引的映射表（Uint8Array / 布尔标记），
+  //    本改写稿未展开，置 null 并留待补齐。
+  return { count: n, bone: bodyBone, hitBody: null, simulated: null, com, mass, invMass, invInertia, angularDamping, joints, spheres: new Float64Array(spheres), sphereCount: spheres.length / 5, selfPairs, selfReach };
 }
 
 /** rig 模型空间位姿（原 sw）：把 rest pose 转成世界空间（累加父骨） */
@@ -920,3 +926,390 @@ function weaponBoneInverse(mesh) {
   }
   return m;
 }
+
+// ============================================================================
+// 【补充段 2026-11-09】10-character-model 切片中此前未覆盖的声明
+// 依据：docs/11 §9 逐声明未覆盖清单（_S / US / WS / vS / yS 覆盖率均为 0%）
+// ============================================================================
+
+// ── L34370 `_S` → createFallbackPieceGeometry：碎片的占位三角形 ──
+// 地图破坏素材还没下载完时，先用这个单三角形顶替，避免出现空洞。
+// 顶点属性对齐 shader 的期望：position / normal / aAlbedo / aOrm
+function createFallbackPieceGeometry() {
+  const geo = new BufferGeometry();
+  geo.setAttribute('position', new BufferAttribute([-0.5, -0.4, 0, 0.6, -0.2, 0, -0.1, 0.7, 0], 3));
+  geo.setAttribute('normal', new BufferAttribute([0, 0, 1, 0, 0, 1, 0, 0, 1], 3));
+  geo.setAttribute('aAlbedo', new BufferAttribute([1, 1, 1, 1, 1, 1, 1, 1, 1], 3));
+  // aOrm = (occlusion, roughness, metalness)；1/0.1/0 约等于「不透明、较光滑、非金属」
+  geo.setAttribute('aOrm', new BufferAttribute([1, 0.1, 0, 1, 0.1, 0, 1, 0.1, 0], 3));
+  return geo;
+}
+
+// ── L34380 `vS` → loadBreakPieces：加载地图的可破坏碎片素材 ──
+// 返回 { statics, debris, model }：
+//   statics 静止碎片（只有关卡开始时可见的）
+//   debris  需要物理模拟的碎片
+//   model   把 debris 合并成单个 InstancedMesh（lx），没有 debris 时为 null
+// 失败不抛错，只 console.warn 并返回 null（地图破坏是可选特性）。
+async function loadBreakPieces(url) {
+  try {
+    const pieces = await loadBreakPieceGltf(url);   // → eb
+    const result = { statics: [], debris: [], model: null };
+    for (const { geometry, extras } of pieces) {
+      const box = geometry.boundingBox ?? new Box3().setFromBufferAttribute(geometry.getAttribute('position'));
+      const entry = { geometry, glass: extras.glass === true, center: box.getCenter(new Vector3()), size: box.getSize(new Vector3()) };
+      (extras.static === true ? result.statics : result.debris).push(entry);
+    }
+    result.model = result.debris.length > 0 ? buildDebrisModel(result.debris) : null;   // → lx
+    return result;
+  } catch (err) {
+    console.warn('[csplayer] break pieces failed to load:', url, err);
+    return null;
+  }
+}
+
+// ── L34394 `yS` → disposeBreakPieces：释放碎片几何 ──
+function disposeBreakPieces(pieces) {
+  if (!pieces) return;
+  for (const p of [...pieces.statics, ...pieces.debris]) p.geometry.dispose();
+}
+
+// ── L34686 `US` → weaponKindOf：武器名 → 大类（none/knife/c4/grenade/gun）──
+// 这是决定「第一人称手部模型挂什么」的判定入口。顺序敏感：
+// 先看 isKnife，再看 c4，再看投掷物集合 HS，最后都算 gun。
+function weaponKindOf(weaponName, isKnife) {
+  if (isKnife) return 'knife';
+  if (!weaponName) return 'none';
+  if (weaponName === 'c4') return 'c4';
+  if (GRENADE_ITEMS.has(weaponName)) return 'grenade';
+  return 'gun';
+}
+
+// ── L34689 `WS` → gunSubKindOf：枪细分（pistol / rifle / knife）──
+// 只有 kind === 'gun' 才细分；手枪集合 VS 之外一律当步枪。
+function gunSubKindOf(weaponName, kind) {
+  if (kind !== 'gun') return 'knife';
+  return PISTOL_ITEMS.has(weaponName) ? 'pistol' : 'rifle';
+}
+
+// ============================================================================
+// 【补充段 2026-11-09】10-character-model 的 `aw`：ragdoll 刚体模型构建
+// 原件 L35485–35619（136 行）。这是「把 demo 里的骨骼数据变成物理引擎能吃的刚体」
+// 的唯一入口，输出给 07-physics-engine 的 PhysicsModel。
+// ============================================================================
+
+// 输入 e 是 demo 侧的骨架描述：{ names[], present[], parent[], count }
+// 输出（被 PhysicsModel 直接消费）：
+//   count/bone        刚体数 与 每个刚体对应的骨骼索引
+//   hitBody           骨骼索引 → 刚体索引（-1 表示该骨骼不参与物理）
+//   simulated         哪些骨骼索引被模拟（Uint8 标记）
+//   com/mass/invMass  质心 / 质量 / 质量倒数
+//   invInertia        逆惯性张量（3×n）
+//   angularDamping    角阻尼
+//   joints            关节（父/子刚体 + 偏移 + 旋转 + 铰链轴 + 摆角/限位/摩擦）
+//   spheres/sphereCount  刚体近似用的一串球（每 5 个 float：x,y,z,r + 所属刚体）
+//   selfPairs/selfReach  自碰撞对 与 对应的一对半径和
+function buildRagdollModel(skeleton) {
+  // 骨骼名 → 索引（只取 present 的）
+  const boneIndexByName = new Map();
+  skeleton.names.forEach((name, i) => {
+    if (skeleton.present[i]) boneIndexByName.set(name.toLowerCase(), i);
+  });
+
+  // 把 RAGDOLL_BODIES 映射到骨骼索引；任何一根缺失就整体放弃（返回 null）
+  const bodyCount = RAGDOLL_BODIES.length;
+  const boneOf = new Int16Array(bodyCount);
+  const bodyIndexByBone = new Map();
+  for (let i = 0; i < bodyCount; i++) {
+    const idx = boneIndexByName.get(RAGDOLL_BODIES[i].bone);
+    if (idx === undefined) return null;
+    boneOf[i] = idx;
+    bodyIndexByBone.set(RAGDOLL_BODIES[i].bone, i);
+  }
+
+  // 取当前姿态（位置 + 四元数）
+  const { pos, rot } = extractSkeletonPose(skeleton);   // → sw
+
+  const com = new Float64Array(bodyCount * 3);
+  const mass = new Float64Array(bodyCount);
+  const invMass = new Float64Array(bodyCount);
+  const invInertia = new Float64Array(bodyCount * 3);
+  const angularDamping = new Float64Array(bodyCount);
+  const spheres = [];   // 扁平的 (刚体索引, 局部x, 局部y, 局部z, 半径)
+
+  for (let i = 0; i < bodyCount; i++) {
+    const body = RAGDOLL_BODIES[i];
+    const shape = RAGDOLL_SHAPES.find((s) => s.bone === body.bone);
+    if (!shape) throw Error(`ragdoll body ${body.bone} has no shape`);
+
+    const m = body.mass;
+    mass[i] = m;
+    invMass[i] = 1 / m;
+    angularDamping[i] = body.angularDamping;
+
+    // 形状是一个盒子（a=min 角，b=max 角），质心取中点
+    const [ax, ay, az] = shape.a;
+    const [bx, by, bz] = shape.b;
+    const cx = (ax + bx) / 2;
+    const cy = (ay + by) / 2;
+    const cz = (az + bz) / 2;
+    com[i * 3] = cx;
+    com[i * 3 + 1] = cy;
+    com[i * 3 + 2] = cz;
+
+    // 盒子的最长边方向决定惯性主轴
+    const sx = bx - ax;
+    const sy = by - ay;
+    const sz = bz - az;
+    const len = Math.hypot(sx, sy, sz);
+    const radius = shape.radius;
+    // 圆柱（有长度）用 0.5mr²，球（长度 0）用 0.4mr²
+    const axial = len > 0 ? 0.5 * m * radius * radius : 0.4 * m * radius * radius;
+    const longitudinal = len > 0 ? (m * (3 * radius * radius + len * len)) / 12 : axial;
+    const ux = len > 0 ? sx / len : 1;
+    const uy = len > 0 ? sy / len : 0;
+    const uz = len > 0 ? sz / len : 0;
+    // 沿主轴用 longitudinal，其余两轴用 axial（椭球近似），再乘全局惯性缩放
+    invInertia[i * 3] = 1 / ((longitudinal + (axial - longitudinal) * ux * ux) * INERTIA_SCALE);
+    invInertia[i * 3 + 1] = 1 / ((longitudinal + (axial - longitudinal) * uy * uy) * INERTIA_SCALE);
+    invInertia[i * 3 + 2] = 1 / ((longitudinal + (axial - longitudinal) * uz * uz) * INERTIA_SCALE);
+
+    // 用一串球近似这个刚体：沿主轴每隔 1.5 半径放一个球
+    const sphereSteps = len > 0 ? Math.ceil(len / (1.5 * radius)) + 1 : 1;
+    for (let s = 0; s < sphereSteps; s++) {
+      const t = sphereSteps === 1 ? 0.5 : s / (sphereSteps - 1);   // 单球时取中点
+      spheres.push(i, ax + sx * t - cx, ay + sy * t - cy, az + sz * t - cz, radius);
+    }
+  }
+
+  // ── 关节 ──
+  const joints = RAGDOLL_JOINTS.map((joint) => {
+    const parent = bodyIndexByBone.get(joint.parent);
+    const child = bodyIndexByBone.get(joint.child);
+    if (parent === undefined || child === undefined) throw Error(`ragdoll joint ${joint.parent}-${joint.child} has no body`);
+
+    const jointRot = eulerToQuat(joint.angles[0], joint.angles[1], joint.angles[2]);   // → cw
+    const pOfs = parent * 3;
+    const pRotOfs = parent * 4;
+    const cOfs = child * 3;
+    const cRotOfs = child * 4;
+
+    // 关节点在父体坐标系里：把 joint.origin 按父体旋转转到姿态空间，再加父体质心
+    const jointPos = quatRotate(rot, pRotOfs, joint.origin[0], joint.origin[1], joint.origin[2]);   // → dw
+    jointPos[0] += pos[pOfs];
+    jointPos[1] += pos[pOfs + 1];
+    jointPos[2] += pos[pOfs + 2];
+
+    let parentRotation = quatMultiply(rot, pRotOfs, jointRot, 0);   // → lw
+    const childRot = quatConjugate(rot, cRotOfs);                    // → uw
+    const childJointPos = quatRotate(childRot, 0, jointPos[0] - pos[cOfs], jointPos[1] - pos[cOfs + 1], jointPos[2] - pos[cOfs + 2]);
+    const childRotation = quatMultiply(childRot, 0, parentRotation, 0);
+
+    const p3 = parent * 3;
+    const c3 = child * 3;
+    let swingDeg = joint.swing;
+    let maxDeg = joint.max;
+
+    // 上臂：摆轴要跟下臂对齐（特殊处理），摆角范围另有一套
+    if (joint.child.startsWith('arm_upper_')) {
+      parentRotation = alignArmJoint(rot, pRotOfs, cRotOfs, child, jointRot);   // → ow
+      swingDeg = ARM_JOINT.swing;
+    } else if (joint.child.startsWith('arm_lower_')) {
+      maxDeg = ARM_JOINT.max;
+    }
+
+    return {
+      parent,
+      child,
+      parentOffset: new Float64Array([joint.origin[0] - com[p3], joint.origin[1] - com[p3 + 1], joint.origin[2] - com[p3 + 2]]),
+      parentRotation,
+      childOffset: new Float64Array([childJointPos[0] - com[c3], childJointPos[1] - com[c3 + 1], childJointPos[2] - com[c3 + 2]]),
+      childRotation,
+      hinge: joint.hinge,
+      swing: (Math.PI / 180) * swingDeg,
+      min: joint.min * (Math.PI / 180),
+      max: (Math.PI / 180) * maxDeg,
+      friction: joint.friction,
+    };
+  });
+
+  const sphereArr = new Float64Array(spheres);
+  const sphereCount = sphereArr.length / 5;
+
+  // 父子刚体对集合（用于排除自碰撞）
+  const jointPairs = new Set(joints.map((j) => j.parent * bodyCount + j.child));
+  const isArmBone = (bodyIdx) => /^(arm_upper|arm_lower|hand)_/.test(RAGDOLL_BODIES[bodyIdx].bone);
+  const isTorsoBone = (bodyIdx) => RAGDOLL_BODIES[bodyIdx].bone === 'pelvis' || RAGDOLL_BODIES[bodyIdx].bone === 'spine_2';
+
+  // ── 自碰撞对 ──
+  // 规则：跳过「同一刚体 / 有关节相连 / 两只手臂之间」；骨盆与脊柱对胳膊另给更小的 reach
+  const selfPairs = [];
+  const selfReach = [];
+  for (let a = 0; a < sphereCount; a++) {
+    for (let b = a + 1; b < sphereCount; b++) {
+      const ra = sphereArr[a * 5];
+      const rb = sphereArr[b * 5];
+      if (ra === rb || jointPairs.has(ra * bodyCount + rb) || jointPairs.has(rb * bodyCount + ra) || (isArmBone(ra) && isArmBone(rb))) continue;
+      selfPairs.push(a, b);
+      let reachA = sphereArr[a * 5 + 4];
+      let reachB = sphereArr[b * 5 + 4];
+      if (isTorsoBone(ra) && isArmBone(rb)) reachA = Math.min(reachA, ARM_TORSO_REACH);
+      if (isTorsoBone(rb) && isArmBone(ra)) reachB = Math.min(reachB, ARM_TORSO_REACH);
+      selfReach.push(reachA + reachB);
+    }
+  }
+
+  // ── 命中映射 ──
+  // simulated：哪些骨骼被物理模拟；hitBody：每根骨骼 → 最近的上游刚体（-1 = 无）
+  const simulated = new Uint8Array(skeleton.count);
+  for (let i = 0; i < bodyCount; i++) simulated[boneOf[i]] = 1;
+
+  const hitBody = new Int16Array(skeleton.count).fill(-1);
+  for (let b = 0; b < skeleton.count; b++) {
+    for (let p = b; p >= 0; p = skeleton.parent[p]) {
+      const idx = boneOf.indexOf(p);
+      if (idx >= 0) {
+        hitBody[b] = idx;
+        break;
+      }
+    }
+  }
+
+  return {
+    count: bodyCount,
+    bone: boneOf,
+    hitBody,
+    simulated,
+    com,
+    mass,
+    invMass,
+    invInertia,
+    angularDamping,
+    joints,
+    spheres: sphereArr,
+    sphereCount,
+    selfPairs: new Int32Array(selfPairs),
+    selfReach: new Float64Array(selfReach),
+  };
+}
+
+// ── L35702–35790 说明：`fw` 区的 RagdollFallSystem（_w）本文件 L846–L1000 已有完整实现，此处不重复。
+// 下面只补 δ 原文件未覆盖的「调参常量」与武器骨变换表。
+
+// ── L35773–35790 角度/尺度/预算相关常量 ──
+var DEG = Math.PI / 180;           // yw
+var HITGROUP_HEAD = 36;            // bw
+var HITGROUP_CHEST = 52;           // xw
+var HITGROUP_STOMACH = 16;         // Sw
+var HITGROUP_LEG = 140;            // Cw
+var TRACER_MAX_DIST = 1200;        // ww
+var TRACER_FADE_DIST = 2500;       // Tw
+var MAX_FALLS_PER_FRAME = 4;       // Ew
+var MAX_DECALS = 40;               // Dw
+var MAX_BLOOD = 12;                // Ow
+var MIN_FALL_INTERVAL = 4;         // kw
+var FALL_SEED_RADIUS = 64;         // Aw
+var FALL_SUBSTEPS = 3;             // jw
+var BUDGET_SEVERE_MS = 2e4;        // Mw
+var BUDGET_WARN_MS = 12e3;         // Nw
+var BUDGET_IDLE_MS = 9e3;          // Pw
+var FALL_SPEED_SCALE = 0.15;       // Fw
+
+
+// ── L35792 `Lw` → WEAPON_BONE_TRANSFORMS：武器骨相对变换表 ──
+// 目前只有 `elite`（双持贝瑞塔）一项，因为它有**两把**武器骨，需要两个不同的变换。
+// 值 = [Matrix4, Matrix4]：每个用 compose(位置, 归一化四元数, 单位缩放) 构造。
+// ⚠️ 这些浮点常数是作者用编辑器调出来的，不要试图"化简"（如 0.9769 → 0.977 会改变姿态）。
+var WEAPON_BONE_TRANSFORMS = new Map([
+  [
+    'elite',
+    [
+      new Matrix4().compose(
+        new Vector3(-3.578, -1.581, -0.253),
+        new Quaternion(-0.1273, 0.1699, 0.9769, -0.0252).normalize(),
+        new Vector3(1, 1, 1),
+      ),
+      new Matrix4().compose(
+        new Vector3(3.616, 1.361, 0.439),
+        new Quaternion(0.9886, 0.0134, 0.0907, 0.1191).normalize(),
+        new Vector3(1, 1, 1),
+      ),
+    ],
+  ],
+]);
+
+
+// ============================================================================
+// 【改动记录 2026-11-09】平滑速度改为读数据列
+// 原件（src/app/10-character-model.js）**未改动**，改动只落在本文件与 speed-columns.js。
+// ============================================================================
+//
+// ── 改动前的形态（原件 L729–742 的 SC，与 L847 的 jC）────────────────────────
+//
+//   function SC(data, slot, tick, pose) {
+//     …
+//     pose.yawRate      = computeYawRate(data, slot, tick, tickRate, numPlayers)   // 仍在用 FC 窗口
+//     pose.speed        = jC(data, slot, tick, tickRate, numPlayers)               // ← 本次搬走
+//     pose.distance     = computeDistance(…)                                       // 仍在用 FC 窗口
+//     pose.verticalSpeed= computeVerticalSpeed(…)                                  // 仍在用 FC 窗口
+//     …
+//   }
+//
+//   function jC(data, slot, tick, tickRate, numPlayers) {
+//     const { posX, posY } = data.frames
+//     return !posX || !posY ? 0 : FC(data, slot, tick, tickRate, numPlayers, fC,
+//                                     (a, b, dt) => MC(posX, posY, a, b, dt))
+//   }
+//
+//   // FC：从当前 tick 往前遍历约 64 个采样帧对，做时间常数 0.1s 的指数加权积分
+//   // IC(x) = 1 - (1 + n)·e^(−n),  n = x / 0.1
+//   // 常量：fC = 0.1（时间常数）、mC = 600（瞬移钳制）、pC = 0.25（单帧时长上限）
+//
+// 这段逻辑已整体搬到 → src/deobfuscated/speed-columns.js 的 computeSpeedColumns()
+//
+// ── 改动后的形态 ────────────────────────────────────────────────────────────
+//
+//   function SC(data, slot, tick, pose) {
+//     …
+//     pose.yawRate       = computeYawRate(…)          // 不变
+//     pose.speed         = smoothSpeedAt(data, tick, slot)   // ← 改为读列 + 插值
+//     pose.distance      = computeDistance(…)         // 不变
+//     pose.verticalSpeed = computeVerticalSpeed(…)    // 不变
+//     …
+//   }
+//
+//   // 从 data.frames.smoothSpeed 取值：在采样帧网格上线性插值
+//   // （原 jC 在任意连续 tick 上求值；列是逐帧的，所以插值；实测误差 ≤0.54 单位/秒）
+//   function smoothSpeedAt(data, tick, slot) {
+//     const col = data.frames.smoothSpeed;                 // 必需列，不做空值保护
+//     const ticks = data.frames.frameTick;
+//     const players = data.meta.numPlayers;
+//     const left = lastFrameAtOrBefore(ticks, tick);        // 原件 xC
+//     const right = Math.min(left + 1, ticks.length - 1);
+//     const span = ticks[right] - ticks[left];
+//     const alpha = span > 0 ? Math.min(1, Math.max(0, (tick - ticks[left]) / span)) : 0;
+//     const v0 = col[left * players + slot];
+//     const v1 = col[right * players + slot];
+//     return v0 + (v1 - v0) * alpha;
+//   }
+//
+// ── 为什么只删 jC，保留 FC / IC / MC ────────────────────────────────────────
+//
+// 这三者是**共享**的：yawRate、distance、verticalSpeed 三条派生量还在用同一套窗口机制
+// （原件里 FC 有 3 个调用点：L815 / L845 / L849）。只有 speed 那一条被搬走了，
+// 所以只删 jC，FC/IC/MC 以及常量 fC/pC/mC 全部保留。
+//
+// 如果以后这三条也搬到数据提供层，可以连同 FC/IC/MC 一起删。
+//
+// ── 速度的消费者（别删错）────────────────────────────────────────────────────
+//
+//   pose.speed（本人）→ 11-character-renderer 里拷进 inputs.speed
+//                    → CharacterAnimator.pose(inputs)
+//                    → locomotion() 用 l/walkSpeed、(l−walkSpeed)/(runSpeed−walkSpeed)、l/crouchSpeed
+//                      算走 / 跑 / 蹲的动画混合权重
+//   另有 pose.speed → poseRoot() 的 Math.min(1, speed / DT) 控制姿态根偏移。
+//
+//   也就是说：speed 一错，人物就会「滑步」。所以这一列的语义不能改。
+//
+// 注意：这不等于 00c 里的 buffers.speed。那一条是「瞬时速度」，只服务于脚步声节拍和
+// 开镜速度读数，两条值实测均值比 0.982 但瞬态差异很大 —— 详见 docs/07 §3.5。

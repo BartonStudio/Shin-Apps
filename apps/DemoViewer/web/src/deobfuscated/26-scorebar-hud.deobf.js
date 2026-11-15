@@ -1,6 +1,7 @@
 // ============================================================================
 // 26-scorebar-hud.deobf.js —— 顶部比分 HUD + 头顶名字标签
 // 来源：src/app/26-scorebar-hud.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L45087–45384（切片 26-scorebar-hud）
 // 原始标识符已语义化重命名 + 补充中文注释。
 //
 // 包含：

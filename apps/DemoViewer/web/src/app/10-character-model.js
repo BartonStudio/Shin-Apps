@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 34298–35809 行（切片 11/34）
-// 角色：角色模型 gS：pose/骨骼姿势/break pieces
+// 位置：decompiled/index.beautified.js 第 34298–35809 行（切片 17/40）
+// 角色：角色模型 gS：pose/骨骼姿势/break pieces（ragdoll 驱动，含 hw=4ms 帧预算）
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────
 var gS = class {

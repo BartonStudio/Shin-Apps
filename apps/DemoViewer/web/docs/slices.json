@@ -1,243 +1,336 @@
 {
   "source": "https://csdemo.tv/assets/index-E0opA-yG.js",
+  "correctedAt": "2026-11-09",
+  "boundary": {
+    "vendor": [
+      1,
+      27990
+    ],
+    "app": [
+      27991,
+      53504
+    ],
+    "note": "旧版误将 three.js 边界定为 28860，把 870 行应用层代码（投掷物轨迹/分享码/帧采样器/炸弹状态/HUD 状态）装进了 vendor。"
+  },
   "slices": [
     {
-      "slice": "1/34",
+      "slice": "1/40",
       "file": "src/vendor/three-r184.js",
       "start": 1,
-      "end": 28860,
-      "role": "three.js r184 完整内联（核心 + 附加组件：OrbitControls、CSS2DRenderer、GLTFLoader、meshopt 解码、PMREM、GGX 卷积等）"
+      "end": 27990,
+      "role": "three.js r184 完整内联 + 附加组件（OrbitControls / CSS2DRenderer / GLTFLoader / meshopt 解码 / PMREM / GGX 卷积 / three-mesh-bvh），末尾 three-mesh-bvh 的 \"BVH: Fallback raycast function not found.\" 是接缝标志"
     },
     {
-      "slice": "2/34",
+      "slice": "2/40",
+      "file": "src/app/00a-grenade-trajectory.js",
+      "start": 27991,
+      "end": 28268,
+      "role": "投掷物轨迹重采样 Uh/Kh + 落点视角 lg（用 three-mesh-bvh 对地图做碰撞射线，含 \"Landing view needs loaded map geometry.\" 等 UX 文案）"
+    },
+    {
+      "slice": "3/40",
+      "file": "src/app/00b-share-code.js",
+      "start": 28269,
+      "end": 28348,
+      "role": "CS:GO 匹配分享码编解码：57 字符字母表 ug（ABCDEFGHJKLMNOPQRSTUVWXYZ…）+ hg/gg/_g/vg"
+    },
+    {
+      "slice": "4/40",
+      "file": "src/app/00c-frame-sampler.js",
+      "start": 28349,
+      "end": 28486,
+      "role": "**帧采样核心**：玩家状态输出缓冲 yg + 帧采样器 bg（SoA 相邻帧插值 + 从相邻帧求导得 speed）+ 插值工具 xg（线性）/ Sg（yaw 最短弧，按 360° 归一化）+ 播放时钟 Cg"
+    },
+    {
+      "slice": "5/40",
+      "file": "src/app/00d-bomb-defuse.js",
+      "start": 28487,
+      "end": 28584,
+      "role": "炸弹/拆包状态机：wg/Tg（拆包进度，含击杀打断判定）/ Eg / Dg / Og"
+    },
+    {
+      "slice": "6/40",
+      "file": "src/app/00e-kill-helpers.js",
+      "start": 28585,
+      "end": 28679,
+      "role": "击杀查询与回放链：kg/Ag/jg/Mg/Ng/Pg + 玩家配色表 Fg（blue/green/yellow/orange/purple）"
+    },
+    {
+      "slice": "7/40",
+      "file": "src/app/00f-dom-utils.js",
+      "start": 28680,
+      "end": 28796,
+      "role": "Hg 类 + DOM/回调小工具与惰性单例（Gg/Kg、qg/Jg、Yg/Xg、Zg/Qg/$g/e_/t_、TextEncoder n_）"
+    },
+    {
+      "slice": "8/40",
       "file": "src/app/01-timeline-utils.js",
-      "start": 28861,
+      "start": 28797,
       "end": 29162,
-      "role": "回合/时间纯函数：炸弹下包拆包状态、计时文本、回合阶段（freeze/live/over/planted）"
+      "role": "回合/HUD 状态纯函数：常量 o_(\"fire_bullets\") / c_(115 回合秒) / l_(40 炸弹秒)，u_ / **d_（比分+HUD 状态构建器，唯一读 frames.score 与 players.clanName 的地方）** / f_（战术暂停）/ p_（拆包）/ m_（回合阶段）/ h_（下包）/ g_（时间格式化）"
     },
     {
-      "slice": "3/34",
+      "slice": "9/40",
       "file": "src/app/02-map-assets.js",
       "start": 29163,
       "end": 29746,
       "role": "maps.csdemo.tv 地图清单客户端 + overview.txt 解析成雷达坐标映射（R_ 前的函数层）"
     },
     {
-      "slice": "4/34",
+      "slice": "10/40",
       "file": "src/app/03-map-classification.js",
       "start": 29747,
       "end": 29970,
       "role": "地图分类/破坏删除（Av：classifyDeletions/breaks/matched）+ 视锥剔除（Fv：setView/cull/sphereVisible）"
     },
     {
-      "slice": "5/34",
+      "slice": "11/40",
       "file": "src/app/04-lighting-shader.js",
       "start": 29971,
       "end": 31491,
       "role": "自研光照系统 zv：directLight/indirectLight/probeSample/envBrdfApprox/octEncode/CustomToneMapping"
     },
     {
-      "slice": "6/34",
+      "slice": "12/40",
       "file": "src/app/05-scene-lighting.js",
       "start": 31492,
       "end": 32300,
       "role": "场景光照管理 Ly：usesCs2Map/setCs2/setClassic/createMaterial/ambientCube"
     },
     {
-      "slice": "7/34",
+      "slice": "13/40",
       "file": "src/app/06-world-props.js",
       "start": 32301,
       "end": 32967,
       "role": "世界道具 Eb：死亡标记（death-label/death-name）、CSS3D 图层"
     },
     {
-      "slice": "8/34",
+      "slice": "14/40",
       "file": "src/app/07-physics-engine.js",
       "start": 32968,
       "end": 33613,
-      "role": "自研物理引擎 Ex：solveJoint/step/boneTransforms/staticFriction/solveContactVelocities"
+      "role": "自研物理引擎 Ex：solveJoint/step/boneTransforms/staticFriction/solveContactVelocities（XPBD 风格刚体求解器）"
     },
     {
-      "slice": "9/34",
+      "slice": "15/40",
       "file": "src/app/08-physics-model.js",
       "start": 33614,
       "end": 33718,
       "role": "物理模型/姿势 Bx：bodiesOf/poseOf/modelSpace/placeChild"
     },
     {
-      "slice": "10/34",
+      "slice": "16/40",
       "file": "src/app/09-trajectory-recorder.js",
       "start": 33719,
       "end": 34297,
-      "role": "轨迹/碰撞记录器 Kx：advanceTo/sample/collidersOf/shaderPrototypes"
+      "role": "ragdoll 轨迹录制器 Kx：advanceTo（前向模拟）/ record（录帧）/ sample（O(1) lerp+slerp 采样）/ collidersOf"
     },
     {
-      "slice": "11/34",
+      "slice": "17/40",
       "file": "src/app/10-character-model.js",
       "start": 34298,
       "end": 35809,
-      "role": "角色模型 gS：pose/骨骼姿势/break pieces"
+      "role": "角色模型 gS：pose/骨骼姿势/break pieces（ragdoll 驱动，含 hw=4ms 帧预算）"
     },
     {
-      "slice": "12/34",
+      "slice": "18/40",
       "file": "src/app/11-character-renderer.js",
       "start": 35810,
       "end": 37125,
       "role": "角色渲染 zw：characters 贴图/胶囊兜底"
     },
     {
-      "slice": "13/34",
+      "slice": "19/40",
       "file": "src/app/12-fire-shader.js",
       "start": 37126,
       "end": 37844,
       "role": "燃烧瓶/火墙 shader uE：activeAt/footprintShape/noise/tracePatches"
     },
     {
-      "slice": "14/34",
+      "slice": "20/40",
       "file": "src/app/13-fire-manager.js",
       "start": 37845,
       "end": 38343,
       "role": "火焰管理 YE：updateFire/removeScorch/HazardVolumes/InfernoScorch"
     },
     {
-      "slice": "15/34",
+      "slice": "21/40",
       "file": "src/app/14-blast-effects.js",
       "start": 38344,
       "end": 39079,
       "role": "爆炸/闪光效果 cD：begin/show/end/blast"
     },
     {
-      "slice": "16/34",
+      "slice": "22/40",
       "file": "src/app/15-depth-material.js",
       "start": 39080,
       "end": 39174,
       "role": "深度材质/深度预处理 HD：render/depthMaterialFor/compileAsync"
     },
     {
-      "slice": "17/34",
+      "slice": "23/40",
       "file": "src/app/16-scene-renderer.js",
       "start": 39175,
       "end": 39543,
       "role": "场景渲染器 qD：setShadowQuality/render/beginRenderFrame/静态阴影/大气"
     },
     {
-      "slice": "18/34",
+      "slice": "24/40",
       "file": "src/app/17-smoke-voxels.js",
       "start": 39544,
       "end": 39727,
       "role": "烟雾体素解码 tO：dissipationFrame/seedPointsAtTick/occupancy"
     },
     {
-      "slice": "19/34",
+      "slice": "25/40",
       "file": "src/app/18-smoke-volume.js",
       "start": 39728,
       "end": 40907,
       "role": "烟雾体积渲染 lO：writeFramePair/disturbance/edgeAwareSmoke/shaderScenes"
     },
     {
-      "slice": "20/34",
+      "slice": "26/40",
       "file": "src/app/19-wireframe-geometry.js",
       "start": 40908,
       "end": 41380,
       "role": "线框几何 XO：fromWireframeGeometry/fromEdgesGeometry"
     },
     {
-      "slice": "21/34",
+      "slice": "27/40",
       "file": "src/app/20-line-material.js",
       "start": 41381,
       "end": 41590,
       "role": "线段材质 ZO：linewidth/dashed/alphaToCoverage"
     },
     {
-      "slice": "22/34",
+      "slice": "28/40",
       "file": "src/app/21-tracers.js",
       "start": 41591,
       "end": 42174,
       "role": "弹道曳光/轨迹线 gk：setData/impactAt/render/computeLineDistances"
     },
     {
-      "slice": "23/34",
+      "slice": "29/40",
       "file": "src/app/22-transport-controls.js",
       "start": 42175,
       "end": 43246,
       "role": "播放控制条 xA：controls/timeline/round-timeline/scrubber"
     },
     {
-      "slice": "24/34",
+      "slice": "30/40",
       "file": "src/app/23-death-fade.js",
       "start": 43247,
       "end": 43602,
       "role": "死亡淡入叠加 oj：death-fade-*"
     },
     {
-      "slice": "25/34",
+      "slice": "31/40",
       "file": "src/app/24-performance-panel.js",
       "start": 43603,
       "end": 44733,
       "role": "性能面板 vj：performance-*/stats-live-*/fps-chart"
     },
     {
-      "slice": "26/34",
+      "slice": "32/40",
       "file": "src/app/25-team-logos.js",
       "start": 44734,
       "end": 45086,
-      "role": "队伍 logo oM：hosted-logo-fallback/emblem tone"
+      "role": "⚠️ 文件名不覆盖全部内容：开头 oM = **ScopeOverlay（开镜遮罩，scope-overlay scope-sniper）**，之后才是队伍 logo 的一组函数（gM 建 hosted-logo / _M 套用 emblem tone / CM 主题切换 / dM fM vM TM EM）——TeamLogo 不是一个类"
     },
     {
-      "slice": "27/34",
+      "slice": "33/40",
       "file": "src/app/26-scorebar-hud.js",
       "start": 45087,
       "end": 45384,
       "role": "顶部比分条 HUD jM：hud/scorebar/sb-t-score/bomb 状态"
     },
     {
-      "slice": "28/34",
+      "slice": "34/40",
       "file": "src/app/27-player-panels.js",
       "start": 45385,
       "end": 45563,
       "role": "玩家面板 KM：pp/pp-defuse-meter"
     },
     {
-      "slice": "29/34",
+      "slice": "35/40",
       "file": "src/app/28-radar.js",
       "start": 45564,
       "end": 48976,
-      "role": "2D 雷达 fN：radar-canvas/radar-resize/radar-ctrls"
+      "role": "**Player 主控类 TP（L47359 起）+ 2D 雷达 fN + 事件面板 vN + 计分板 DN + 音频引擎 + 导航辅助**"
     },
     {
-      "slice": "30/34",
+      "slice": "36/40",
       "file": "src/app/29-catalogue-client.js",
       "start": 48977,
       "end": 49253,
       "role": "data.csdemo.tv 职业比赛目录客户端（v2 指针 + generation + 校验 + jP 错误）"
     },
     {
-      "slice": "31/34",
+      "slice": "37/40",
       "file": "src/app/30-artifact-codec.js",
       "start": 49254,
       "end": 49469,
-      "role": "CSDA 容器校验/解码（CF + Z 错误）"
+      "role": "CSDA 容器校验/解码（CF + Z 错误，含作者英文 schema notes）"
     },
     {
-      "slice": "32/34",
+      "slice": "38/40",
       "file": "src/app/31-hosted-demo.js",
       "start": 49470,
       "end": 50816,
-      "role": "托管 demo 下载（sha256/gunzip）+ parser worker 桥接 + IndexedDB + 队伍识别（YI）"
+      "role": "托管 demo 下载（sha256/gunzip）+ **CSDA 二进制解码器（21 section）** + parser worker 桥接 + IndexedDB + 队伍识别（YI）"
     },
     {
-      "slice": "33/34",
+      "slice": "39/40",
       "file": "src/app/32-app-shell.js",
       "start": 50817,
       "end": 52714,
       "role": "AppShell：落地页/播放页骨架 + 最近场次 + 主题 + 设置 + 入口"
     },
     {
-      "slice": "34/34",
+      "slice": "40/40",
       "file": "src/app/33-landing-backdrop.js",
       "start": 52715,
       "end": 53504,
       "role": "落地页 3D 背景动画 JR：landing-backdrop-canvas/mirage A 执行"
     }
-  ]
+  ],
+  "otherSources": [
+    {
+      "file": "src/workers/parser.worker.js",
+      "raw": "raw/assets/parser.worker-Cvx4vjXK.js",
+      "decompiled": "decompiled/parser.worker.js",
+      "deobf": "src/deobfuscated/parser.worker.deobf.js",
+      "note": "wasm-bindgen 胶水 + SoA 后处理；不在 bundle 切片体系内"
+    },
+    {
+      "file": "src/workers/mapGeometry.worker.js",
+      "raw": "raw/assets/mapGeometry.worker-BGvfBalF.js",
+      "decompiled": "decompiled/mapGeometry.worker.js",
+      "deobf": null,
+      "note": "地图 GLB/meshopt 解码 worker；不在 bundle 切片体系内，尚无改写产物"
+    },
+    {
+      "file": "raw/assets/csplayer_parser_bg-qigVgicw.wasm",
+      "raw": "raw/assets/csplayer_parser_bg-qigVgicw.wasm",
+      "decompiled": null,
+      "deobf": null,
+      "note": "Rust→wasm 解析内核（LaihoE/demoparser）；无源码还原可能，元数据见 wasm/report.json"
+    }
+  ],
+  "derived": {
+    "markup": {
+      "from": "slices（bundle 内联模板字符串）",
+      "files": [
+        "src/markup/app-shell.html",
+        "src/markup/hud.html",
+        "src/markup/player-panel.html"
+      ],
+      "fidelity": "标志行可回溯 bundle 原文"
+    },
+    "styles": {
+      "from": "decompiled/index.beautified.css",
+      "files": "styles/*.css（18 个）",
+      "fidelity": "声明多重集与源 CSS 完全一致；@media 被逐条重新包裹，结构不可拼回"
+    }
+  }
 }

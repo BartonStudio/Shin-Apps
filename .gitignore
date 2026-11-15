@@ -33,3 +33,11 @@ tmp-cdp-check.mjs
 
 # 大文件测试 demo（几十 MB 的 .dem 回放文件），走本地资源，不入库
 *.dem
+
+# DemoViewer web（源自独立仓库，规则已并入此处；web/.gitignore 仍保留生效）
+# 运行时临时产物 / 日志 / 系统文件 / 编译产物
+apps/DemoViewer/web/tmp/
+*.log
+.DS_Store
+Thumbs.db
+apps/DemoViewer/web/cpp/**/*.exe

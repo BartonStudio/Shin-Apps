@@ -1,6 +1,7 @@
 // ============================================================================
 // 25-team-logos.deobf.js —— 开镜遮罩 + 队伍 Logo 徽章处理
 // 来源：src/app/25-team-logos.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L44734–45086（切片 25-team-logos）
 // 原始标识符已语义化重命名 + 补充中文注释。
 //
 // 包含：
@@ -289,7 +290,7 @@ function createHostedLogo(url, name, extraClass, options = {}) {
 }
 
 function applyLogoVariant(img, url, { tone, lightSrc }) {
-  if (tone === `white') img.classList.add(`logo-white`)
+  if (tone === `white`) img.classList.add(`logo-white`)
   else if (tone === `black`) img.classList.add(`logo-black`)
   else if (tone === `bright` && lightSrc) {
     img.classList.add(`logo-bright`)

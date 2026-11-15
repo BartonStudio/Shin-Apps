@@ -9,7 +9,7 @@
 //      - 响应 .js / .json 时，把 https://data.csdemo.tv 改成 /__data、https://maps.csdemo.tv 改成 /__maps
 //      - /__data/* 与 /__maps/* 由本服务器转发到上游（服务端转发，不受 CORS 限制）
 //    raw/ 里的原始文件一个字节都没改，改写只发生在响应流里。
-// 3. 但职业比赛目录/托管产物还额外要求 URL 必须是 https（bundle 38857 行 `r.protocol !== 'https:'` 直接抛错），
+// 3. 但职业比赛目录/托管产物还额外要求 URL 必须是 https（bundle 49233 行 `r.protocol !== 'https:'` 直接抛错），
 //    所以 **http://127.0.0.1 下：本地 .dem 播放（含地图几何/雷达）可用，职业比赛列表会显示重试按钮**。
 //    要连职业比赛一起用，请把本服务挂到 HTTPS 反向代理后面，或直接访问线上站点。
 import http from 'node:http';

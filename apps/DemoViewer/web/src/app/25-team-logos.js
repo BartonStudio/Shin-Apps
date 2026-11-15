@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 44734–45086 行（切片 26/34）
-// 角色：队伍 logo oM：hosted-logo-fallback/emblem tone
+// 位置：decompiled/index.beautified.js 第 44734–45086 行（切片 32/40）
+// 角色：⚠️ 文件名不覆盖全部内容：开头 oM = **ScopeOverlay（开镜遮罩，scope-overlay scope-sniper）**，之后才是队伍 logo 的一组函数（gM 建 hosted-logo / _M 套用 emblem tone / CM 主题切换 / dM fM vM TM EM）——TeamLogo 不是一个类
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────
 var oM = class {

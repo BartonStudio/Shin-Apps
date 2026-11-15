@@ -2,6 +2,7 @@
 // 31-hosted-demo.deobf.js — CSDA 容器格式的完整二进制解码器 + 托管 demo 下载
 //
 // 来源：src/app/31-hosted-demo.js（Vite 生产构建，prettier 展开版）
+// 原文范围：decompiled/index.beautified.js L49470–50816（切片 31-hosted-demo）
 // 原始压缩名：CF = ByteReader，Z = DecodeError，Q = TypedArrayTag，等
 //
 // 本文件是 csdemo.tv 的核心数据层。它负责：
@@ -116,16 +117,9 @@ const REQUIRED_SECTIONS = [
 ];
 
 // 玩家颜色表（Fg）—— playerColors section 用 1 字节索引引用
-const PLAYER_COLORS = [
-  /* 0 */ 0x3b82f6, // 蓝
-  /* 1 */ 0xef4444, // 红
-  /* 2 */ 0x22c55e, // 绿
-  /* 3 */ 0xeab308, // 黄
-  /* 4 */ 0xa855f7, // 紫
-  /* 5 */ 0x06b6d4, // 青
-  /* 6 */ 0xf97316, // 橙
-  /* 7 */ 0xec4899, // 粉
-];
+// 原件形如：var Fg = [`blue`, `green`, `yellow`, `orange`, `purple`]
+// three.js 的 Color 构造器同时接受 hex 数字与 CSS 颜色名，这里保留原件的字符串形式。
+const PLAYER_COLORS = [`blue`, `green`, `yellow`, `orange`, `purple`];
 
 // playerColors 里的空值标记（255 表示该玩家无指定颜色）
 const NO_COLOR_TAG = 255; // aI

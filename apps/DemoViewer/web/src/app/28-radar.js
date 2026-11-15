@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 来源：https://csdemo.tv/assets/index-E0opA-yG.js（Vite 生产构建，prettier 展开版）
-// 位置：decompiled/index.beautified.js 第 45564–48976 行（切片 29/34）
-// 角色：2D 雷达 fN：radar-canvas/radar-resize/radar-ctrls
+// 位置：decompiled/index.beautified.js 第 45564–48976 行（切片 35/40）
+// 角色：**Player 主控类 TP（L47359 起）+ 2D 雷达 fN + 事件面板 vN + 计分板 DN + 音频引擎 + 导航辅助**
 // 说明：原文逐字切片，标识符保留压缩后的名字；仅做换行/缩进美化，未改语义。
 // ─────────────────────────────────────────────────────────────────────────────
 var fN = class {
