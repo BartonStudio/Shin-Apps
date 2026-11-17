@@ -1,0 +1,4 @@
+# cs2ffi 构建配置：protoc 路径（csgoproto 的 prost-build 需要）
+# protoc 23.4 win64 来自 protocolbuffers/protobuf releases（与 demoparser CI pin 的版本一致）。
+[env]
+PROTOC = { value = "vendor/protoc/bin/protoc.exe", relative = true }

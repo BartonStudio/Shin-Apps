@@ -21,6 +21,15 @@ using EntityId = std::uint32_t;
 /// 武器等外部标识用字符串 id（见架构文档 §4.8 定夺规则）。
 using WeaponId = std::string;
 
+/// 武器目录编号：全量快照里存编号不存字符串（省内存 + 快），目录见
+/// EntityStore::WeaponCatalog()。0 = 无武器/未知。
+using WeaponNum = std::uint16_t;
+inline constexpr WeaponNum kNoWeapon = 0;
+
+/// C4 在本系统内的合成实体 id：游戏里 C4 的实体 id 跨回合会重建，
+/// 这里用固定 id 聚合整场的 C4（状态机 + 位置）。
+inline constexpr EntityId kC4EntityId = 0xFFFFFFF0;
+
 // ---- 枚举（种类少、稳定 → 以 int 传输，见 §4.8）----
 
 enum class EntityKind : std::uint8_t { Player, Weapon, Grenade, C4 };

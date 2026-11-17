@@ -1,15 +1,14 @@
 import { defineConfig } from 'vite';
 
-// WebView2 宿主（DemoViewer.exe）按固定地址访问，端口锁死 5173、host 用 127.0.0.1
-// 避免 localhost 解析到 IPv6 导致 WebView2 连不上。
+// 开发期把素材请求转发给本地镜像服务器（web/serve.mjs，默认 :8123）。
+// 生产运行时素材由宿主或静态服务器提供，不依赖这个代理。
 export default defineConfig({
   server: {
-    host: '127.0.0.1',
-    port: 5173,
-    strictPort: true,
-  },
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
+    host: '127.0.0.1', // CEF 宿主与工具链都用 127.0.0.1 访问（默认 ::1 会导致连不上）
+    proxy: {
+      '/maphost': 'http://127.0.0.1:8123',
+      '/cs2': 'http://127.0.0.1:8123',
+      '/maps': 'http://127.0.0.1:8123',
+    },
   },
 });

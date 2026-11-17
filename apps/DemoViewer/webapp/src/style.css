@@ -307,7 +307,12 @@ body.is-initializing {
 .roster-row + .roster-row {
   margin-top: 8px;
 }
-.roster__name { width: 60px; }
+.roster__name {
+  width: 176px;            /* 176*2 + 50*2 + 60 = 512 = 卡片内容宽，恰好占满 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .roster__name--l { text-align: left; }
 .roster__name--r { text-align: right; }
 .roster__stat {
@@ -372,6 +377,29 @@ body.is-initializing {
   right: 0;
   height: 36px;
   z-index: 10;
+  /* 默认透明：白条样式只在观看界面生效（见下方 #screen-watch 规则），
+     主界面 / 加载屏的标题栏维持原样 */
+}
+/* 观看界面：标题条避开居中的比分面板分两段绘制（::before/::after），
+   底色与面板同为纯白，整条顶部浑然一体；
+   窗口圆角由 DWM 系统圆角统一裁剪，这里不再手写圆角。
+   注意：titlebar 与各屏是兄弟节点，watch 态由 JS 写在 body.is-watching 上 */
+body.is-watching .titlebar::before,
+body.is-watching .titlebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 36px;
+  width: calc(50% - 200px);   /* 比分面板宽 400px 居中，两侧白条到面板边缘为止 */
+  background: #fff;           /* 纯白不透明：与面板底色严格一致，不随底图明暗变化 */
+}
+body.is-watching .titlebar::before {
+  left: 0;
+  animation: fly-top 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+body.is-watching .titlebar::after {
+  right: 0;
+  animation: fly-top 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
 }
 .win-controls {
   position: absolute;
@@ -379,6 +407,8 @@ body.is-initializing {
   right: 0;
   display: flex;
   height: 36px;
+  /* 白条由 .titlebar::after 绘制，树序在按钮之后会盖住按钮——这里提到白条之上 */
+  z-index: 1;
 }
 .win-btn {
   width: 44px;
@@ -418,8 +448,16 @@ body.is-initializing {
   overflow: hidden;
 }
 
-/* ---- 中央游戏画面占位 ---- */
+/* ---- 中央游戏画面（three.js canvas 挂载层，占满观看界面） ---- */
 .watch-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0c1014;
+}
+
+/* 未加载时 / 加载中的状态文字（有 canvas 后隐藏） */
+.watch-viewport > span {
   position: absolute;
   top: 340px;
   left: 0;
@@ -430,49 +468,53 @@ body.is-initializing {
   font-weight: 400;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: rgba(14, 14, 14, 0.19);
+  color: rgba(255, 255, 255, 0.4);
+  z-index: 1;
+}
+
+.watch-viewport > span[hidden] {
+  display: none;
+}
+
+.watch-viewport > canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* ---- 顶部比分条 ---- */
 .scorebar {
   position: absolute;
-  top: 12px;
+  /* 顶到窗口最顶、与标题条同色融合为一条白带（标题条避开面板区域绘制，
+     两者同为单层 0.92 白，颜色严格一致）；顶部不做圆角——与白条齐平无缝，
+     圆角只保留在突出白带的下缘 */
+  top: 0;
+  z-index: 11;
   left: 50%;
   margin-left: -200px;
   width: 400px;
   height: 76px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.78);
-}
-.scorebar__bar {
-  position: absolute;
-  top: 0;
-  width: 140px;
-  height: 5px;
-}
-.scorebar__bar--t {
-  left: 0;
-  border-radius: 14px 0 0 0;
-  background: var(--t);
-}
-.scorebar__bar--ct {
-  right: 0;
-  border-radius: 0 14px 0 0;
-  background: var(--ct);
+  border-radius: 0 0 3px 3px;
+  background: #fff;           /* 与标题条同为纯白，整条顶部一个底色 */
 }
 .scorebar__team,
 .scorebar__num {
   position: absolute;
-  top: 33px;
+  top: 25px;
   font-family: var(--mono);
   color: var(--ink);
   line-height: 1;
 }
 .scorebar__team {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   letter-spacing: 0.06em;
 }
+/* 阵营字用各自阵营色标识 */
+.scorebar__team--t { color: var(--t); }
+.scorebar__team--ct { color: var(--ct); }
 .scorebar__num {
   font-size: 20px;
   font-weight: 700;
@@ -484,7 +526,7 @@ body.is-initializing {
 .scorebar__team--ct { right: 24px; }
 .scorebar__map {
   position: absolute;
-  top: 18px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   width: 160px;
@@ -497,7 +539,7 @@ body.is-initializing {
 }
 .scorebar__timer {
   position: absolute;
-  top: 33px;
+  top: 25px;
   left: 50%;
   transform: translateX(-50%);
   width: 160px;
@@ -508,7 +550,7 @@ body.is-initializing {
 }
 .scorebar__round {
   position: absolute;
-  top: 62px;
+  top: 54px;
   left: 50%;
   transform: translateX(-50%);
   width: 160px;
@@ -790,7 +832,9 @@ body.is-initializing {
 .killfeed,
 .watch-roster--t,
 .watch-roster--ct,
-.controlbar {
+.controlbar,
+body.is-watching .titlebar::before,
+body.is-watching .titlebar::after {
   transition: opacity 0.35s ease;
 }
 #screen-watch.is-hud-hidden .scorebar,
@@ -801,6 +845,12 @@ body.is-initializing {
   opacity: 0 !important;
   pointer-events: none;
 }
+/* titlebar 与各屏是兄弟节点，够不到 #screen-watch 的类——HUD 隐藏状态
+   由 JS 同步写在 body 上（is-hud-hidden），白条随面板一起淡出/恢复 */
+body.is-hud-hidden .titlebar::before,
+body.is-hud-hidden .titlebar::after {
+  opacity: 0 !important;
+}
 
 /* ---- ESC 调试菜单 ---- */
 .esc-menu {
@@ -808,7 +858,7 @@ body.is-initializing {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 60; /* 高于各 .screen 与测试页视口（300 除外——测试页自带退出） */
   display: flex;
   gap: 12px;
   padding: 14px 18px;
@@ -848,62 +898,3 @@ body.is-initializing {
   color: #e81123;
 }
 
-/* ---- 退出二次确认 dialog ---- */
-.exit-dialog {
-  position: absolute;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(14, 14, 14, 0.32);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.18s ease;
-}
-.exit-dialog.is-open {
-  opacity: 1;
-  pointer-events: auto;
-}
-.exit-dialog__card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  min-width: 340px;
-  padding: 28px 32px 24px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 18px 48px rgba(14, 14, 14, 0.24);
-  transform: translateY(8px);
-  transition: transform 0.18s ease;
-}
-.exit-dialog.is-open .exit-dialog__card {
-  transform: translateY(0);
-}
-.exit-dialog__title {
-  margin: 0;
-  font-family: var(--mono);
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-.exit-dialog__desc {
-  margin: 0;
-  font-family: var(--sans);
-  font-size: 13px;
-  color: rgba(14, 14, 14, 0.55);
-}
-.exit-dialog__actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 8px;
-}
-.exit-dialog__actions .card-btn {
-  width: auto;
-  min-width: 120px;
-  height: 38px;
-  padding: 0 20px;
-}

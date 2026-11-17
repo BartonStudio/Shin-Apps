@@ -1068,6 +1068,20 @@ namespace host {
                     SetWindowLongPtrW(hostHwnd, GWL_STYLE, style);
                 }
 
+                // Win11 系统圆角：无边框窗口默认直角，显式要求 DWM 圆角（含所有屏）。
+                // Win10 上该属性不生效、返回错误码，忽略即可。
+                {
+                    using DwmSetWindowAttributeFn = LONG(WINAPI*)(HWND, DWORD, void*, DWORD);
+                    const auto dwmSet = reinterpret_cast<DwmSetWindowAttributeFn>(
+                        GetProcAddress(GetModuleHandleW(L"dwmapi.dll"), "DwmSetWindowAttribute"));
+                    if (dwmSet) {
+                        constexpr DWORD kCornerPreference = 33;  // DWMWA_WINDOW_CORNER_PREFERENCE
+                        constexpr DWORD kRound = 2;              // DWMWCP_ROUND
+                        DWORD pref = kRound;
+                        dwmSet(hostHwnd, kCornerPreference, &pref, sizeof(pref));
+                    }
+                }
+
                 const int dpi = DpiOfWindow(hostHwnd);
                 int winW, winH;
                 if (!m_impl->useNativeTitlebar) {
@@ -1934,6 +1948,13 @@ namespace host {
         // iobject-js 的 webviewSocket 只认 chrome.webview 'sharedbufferreceived' 事件 + 该 type 标记，
         // 不能走「预分配 buffer + 文本通知」——那套协议 JS 端不消费，invoke 会一直超时。
         return SendBinaryWithMeta(data, len, "{\"type\":\"iobject\"}");
+    }
+
+    bool WebviewShell::SendBinaryWithType(const void* data, size_t len, const std::string& type) {
+        // 契约数据块等非 iobject 二进制：additionalData.type 由调用方指定，
+        // JS 端在 sharedbufferreceived 里按 e.data.type 分流（"csdf" = CSDF 播放数据）。
+        std::string meta = "{\"type\":\"" + type + "\"}";
+        return SendBinaryWithMeta(data, len, meta);
     }
 
     bool WebviewShell::HandleIObjectMessage(const std::string& json) {

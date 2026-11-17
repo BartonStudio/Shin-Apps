@@ -2,6 +2,7 @@
 
 #include <atomic>
 #include <cstdint>
+#include <mutex>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -36,6 +37,14 @@ struct PlayerSnapshot {
     // 变化频繁（每发子弹/换弹），按每 tick 快照，不做稀疏变更（用户确认）。
     std::uint16_t clipAmmo = 0;
     std::uint16_t reserveMagazines = 0;
+    // 当前武器（全量快照，存目录编号不存字符串——用户确认接受全量）。
+    WeaponNum weaponNum = kNoWeapon;
+    // 前端契约（frames/panelFrames）需要的逐帧字段。
+    std::uint8_t health = 100;     // 0..100
+    std::uint8_t team = 0;         // 2=T 3=CT 0=未参战（换边/缺席时按帧变）
+    std::uint16_t score = 0;       // 记分板分数
+    std::uint8_t armor = 0;        // 护甲值
+    float duck = 0.0f;             // 0..1 下蹲程度（动画混合）
 };
 
 /// 通用实体（武器/投掷物/C4）每 tick 快照：只有 transform。
@@ -52,9 +61,11 @@ struct WeaponSpec {
 /// 投掷物静态属性（解析时算好，不随 tick 变）。
 struct GrenadeSpec {
     GrenadeKind kind = GrenadeKind::HE;
+    EntityId thrower = 0;                // 投掷者玩家 id（0 = 未知）
     Tick throwTick = 0;
     Tick detonateTick = 0;
     std::vector<Vec3> trajectoryPoints;  // 抛→落/爆 路径点（C++ 算好，前端画线）
+    std::vector<Tick> trajectoryTicks;   // 与 trajectoryPoints 一一对应的 tick（前端契约要双数组）
     float effectRadius = 0.0f;           // smoke 覆盖半径
     std::vector<Vec3> fireArea;          // 燃烧区域顶点（molotov/incendiary）
 };
@@ -82,6 +93,15 @@ struct KillEvent {
     EntityId victim = 0;
     WeaponId weapon;       // 击杀武器
     bool headshot = false;
+};
+
+/// 回合区间（前端 manifest.rounds[] 的数据源）。
+struct RoundSpan {
+    std::uint32_t index = 0;      // 回合序号，0 起
+    Tick startTick = 0;           // 回合开始
+    Tick endTick = 0;             // 回合结束（含）
+    Tick liveStartTick = 0;       // 冻结结束、真正开打
+    std::uint8_t winnerTeam = 0;  // 胜方 2=T 3=CT 0=未知（round_end 事件）
 };
 
 class EntityStore {
@@ -121,10 +141,23 @@ public:
     void SetGrenadeSpec(EntityId id, GrenadeSpec spec) { grenadeSpecs_[id] = std::move(spec); }
     void SetC4Spec(EntityId id, C4Spec spec) { c4Specs_[id] = std::move(spec); }
 
-    /// 玩家当前武器（稀疏事件：记录「变更点」，而非每 tick 存字符串）。
-    /// 假设按 tick 升序追加；骨架阶段不重排序。
-    void AddWeaponChange(EntityId id, Tick tick, WeaponId weaponId) {
-        players_[id].weaponChanges.emplace_back(tick, std::move(weaponId));
+    /// 武器目录登记：返回该武器名的编号（首次出现时追加目录）。
+    /// 装载线程专用（写）；播放期只读目录，无并发冲突。
+    WeaponNum InternWeapon(const WeaponId& name) {
+        std::lock_guard<std::mutex> lock(weaponMutex_);
+        auto it = weaponIndex_.find(name);
+        if (it != weaponIndex_.end()) return it->second;
+        const auto num = static_cast<WeaponNum>(weaponCatalog_.size() + 1);  // 0 保留
+        weaponCatalog_.push_back(name);
+        weaponIndex_.emplace(name, num);
+        return num;
+    }
+
+    const std::vector<WeaponId>& WeaponCatalog() const { return weaponCatalog_; }
+
+    WeaponId WeaponName(WeaponNum num) const {
+        if (num == kNoWeapon || num > weaponCatalog_.size()) return {};
+        return weaponCatalog_[num - 1];
     }
 
     /// C4 状态机变更（稀疏事件），按 tick 升序追加。
@@ -134,6 +167,57 @@ public:
 
     /// 击杀事件（按 tick 升序追加）。
     void AddKillEvent(KillEvent e) { killEvents_.push_back(std::move(e)); }
+
+    /// 回合区间（按 startTick 升序追加；前端 manifest.rounds[] 数据源）。
+    void AddRound(RoundSpan r) { rounds_.push_back(r); }
+    const std::vector<RoundSpan>& Rounds() const { return rounds_; }
+
+    /// 地图名（前端 manifest.mapName）。
+    void SetMapName(std::string name) { mapName_ = std::move(name); }
+    const std::string& MapName() const { return mapName_; }
+
+    /// 清空全部装载产物（换 demo / 重复装载前必须调用）：
+    /// vector 类容器（rounds_/killEvents_/lifetimes_/c4StatusChanges_）是追加式，
+    /// 不清会导致比分/击杀/C4 时间线翻倍、tick 顺序错乱；map 类容器按 id 覆盖，
+    /// 但两次装载的 id 从相同基数分配，不清会让两场数据混进同一批 id。
+    /// World 子树的 Player/Entity 节点持有 EntityId，数据全部从本 store 现读，
+    /// 因此清空后旧节点读新数据是安全的（名册重初始化走 InitializePlayers）。
+    void Clear() {
+        std::lock_guard<std::mutex> lock(weaponMutex_);
+        players_.clear();
+        entities_.clear();
+        weaponSpecs_.clear();
+        grenadeSpecs_.clear();
+        c4Specs_.clear();
+        c4StatusChanges_.clear();
+        killEvents_.clear();
+        rounds_.clear();
+        lifetimes_.clear();
+        weaponCatalog_.clear();
+        weaponIndex_.clear();
+        mapName_.clear();
+        maxTick_ = 0;
+        currentTick_.store(0, std::memory_order_release);
+    }
+
+    /// 整场最后一个 tick（DemoLoader 从 demo header 写入）。
+    void SetMaxTick(Tick t) { maxTick_ = t; }
+    Tick MaxTick() const { return maxTick_; }
+
+    /// 击杀事件全量列表（ContractFeed 用，按 tick 升序）。
+    const std::vector<KillEvent>& KillEvents() const { return killEvents_; }
+
+    /// C4 状态变更表（ContractFeed 的 bomb.segments 数据源）。
+    const std::vector<std::pair<Tick, C4Status>>* C4StatusChangesAt(EntityId id) const {
+        auto it = c4StatusChanges_.find(id);
+        return it == c4StatusChanges_.end() ? nullptr : &it->second;
+    }
+
+    /// 玩家整场帧数组（ContractFeed 批量导出用；未登记返回 nullptr）。
+    const std::vector<PlayerSnapshot>* PlayerFrames(EntityId id) const {
+        auto it = players_.find(id);
+        return it == players_.end() ? nullptr : &it->second.frames;
+    }
 
     // =========================================================================
     // 查询（主线程 / 前端 ReadData 时调用）
@@ -174,17 +258,12 @@ public:
         return it == c4Specs_.end() ? nullptr : &it->second;
     }
 
-    /// 玩家在 tick 时的当前武器（取最后一个 tick <= 目标 tick 的变更点）。
+    /// 玩家在 tick 时的当前武器（全量快照：O(1) 查表 + 目录还原字符串）。
     WeaponId WeaponAt(EntityId id, Tick tick) const {
         auto it = players_.find(id);
         if (it == players_.end()) return {};
-        const auto& changes = it->second.weaponChanges;
-        WeaponId result;
-        for (const auto& [t, w] : changes) {
-            if (t > tick) break;
-            result = w;
-        }
-        return result;
+        if (tick < it->second.begin || tick >= it->second.end) return {};
+        return WeaponName(it->second.frames[tick - it->second.begin].weaponNum);
     }
 
     C4Status C4StatusAt(EntityId id, Tick tick) const {
@@ -207,6 +286,47 @@ public:
             return tick >= it->second.begin && tick < it->second.end;
         }
         return false;
+    }
+
+    // =========================================================================
+    // 整场世界快照（§4.1「存储 + 游标视图」的聚合视图）
+    // 纯查询层便利函数：前端要一次性拿「某 tick 的完整世界状态」（全量重绘/
+    // 记分板/小地图）时用，内部就是循环调上面几个单点查询，不改存储。
+    // =========================================================================
+    struct WorldSnapshot {
+        Tick tick = 0;
+        struct PlayerView {
+            EntityId id;
+            const PlayerIdentity* identity;  // 指向 store 内部（装载后不再写入，稳定）
+            const PlayerSnapshot* snap;
+            WeaponId weapon;                 // 目录还原后的武器名
+        };
+        struct EntityView {
+            EntityId id;
+            EntityKind kind;
+            const TransformSnapshot* transform;
+        };
+        std::vector<PlayerView> players;
+        std::vector<EntityView> entities;    // 只含该 tick 存活的短命实体
+        std::vector<KillEvent> recentKills;  // 最多 maxKills 条（最新在前）
+    };
+
+    WorldSnapshot SnapshotAt(Tick tick, std::size_t maxKills = 8) const {
+        WorldSnapshot ws;
+        ws.tick = tick;
+        for (const auto& [id, rec] : players_) {
+            if (tick >= rec.begin && tick < rec.end) {
+                const PlayerSnapshot* s = &rec.frames[tick - rec.begin];
+                ws.players.push_back({id, &rec.identity, s, WeaponName(s->weaponNum)});
+            }
+        }
+        for (const auto& [id, rec] : entities_) {
+            if (tick >= rec.begin && tick < rec.end) {
+                ws.entities.push_back({id, rec.kind, &rec.frames[tick - rec.begin]});
+            }
+        }
+        ws.recentKills = RecentKills(tick, maxKills);
+        return ws;
     }
 
     /// 所有玩家 id（供 PlayerList 一次性装配）。
@@ -260,7 +380,6 @@ private:
         Tick begin = 0;
         Tick end = 0;
         std::vector<PlayerSnapshot> frames;
-        std::vector<std::pair<Tick, WeaponId>> weaponChanges;  // 按 tick 升序
     };
     struct EntityRecord {
         EntityKind kind = EntityKind::Weapon;
@@ -276,8 +395,16 @@ private:
     std::unordered_map<EntityId, C4Spec> c4Specs_;
     std::unordered_map<EntityId, std::vector<std::pair<Tick, C4Status>>> c4StatusChanges_;
     std::vector<KillEvent> killEvents_;   // 按 tick 升序
+    std::vector<RoundSpan> rounds_;       // 按 startTick 升序
     std::vector<LifetimeRecord> lifetimes_;
 
+    // 武器目录（编号 → 名字）；装载线程写、播放期只读
+    std::mutex weaponMutex_;
+    std::vector<WeaponId> weaponCatalog_;
+    std::unordered_map<WeaponId, WeaponNum> weaponIndex_;
+
+    std::string mapName_;                 // 整场不变（demo header）
+    Tick maxTick_ = 0;                    // 整场不变（demo header）
     std::atomic<Tick> currentTick_{0};
 };
 

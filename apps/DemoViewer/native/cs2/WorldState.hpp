@@ -56,6 +56,17 @@ public:
         if (players_) players_->As<PlayerList>()->Initialize();
     }
 
+    // ---- 命令入口（前端 Invoke）----
+    bool Invoke(iobject::MethodView method, iobject::ByteInput args, iobject::DataReceiver result) {
+        if (method == "InitializePlayers") {
+            // 装载完成后的装配触发点：Loader 节点报 done → 前端 Invoke 本方法。
+            InitializePlayers();
+            result(iobject::ByteView{});
+            return true;
+        }
+        return false;
+    }
+
     /// 短命实体动态增删同步（游标变化时驱动）。
     void SyncEntities(Tick tick) {
         if (entities_) entities_->As<EntityList>()->SyncToTick(tick);

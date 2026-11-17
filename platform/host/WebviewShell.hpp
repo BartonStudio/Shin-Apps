@@ -206,6 +206,9 @@ namespace host {
         // 下行：每次 PostSharedBufferToScript 推一块共享 buffer 给 JS（sharedbufferreceived，
         //   additionalData.type="iobject"，iobject-js 据此取帧）。跨线程调用会同步等待。
         bool SendBinary(const void* data, size_t len);
+        // 同 SendBinary，但 additionalData.type 可指定（如 "csdf"——契约数据块，
+        // 与 iobject 帧分流）。JS 端在 sharedbufferreceived 里按 e.data.type 路由。
+        bool SendBinaryWithType(const void* data, size_t len, const std::string& type);
         // 把上行（READ_WRITE）共享 buffer 推给 JS（响应前端 iobject-init）。下行已改为每次 PostSharedBufferToScript。
         bool SendIObjectBufferAddresses();
         // 读上行 buffer 基址（C++ 端据此读 JS 写入的数据）。

@@ -11,7 +11,9 @@
 
 // ── 地图清单客户端 ──────────────────────────────────────────────────────────
 
-const MAP_HOST_URL = `https://maps.csdemo.tv/`;
+// 离线应用：素材已镜像到本地（tools/mirror-csdemo-assets.mjs），serve.mjs 把 /maphost/
+// 映射到 cdn/mirror/maps.csdemo.tv/。要切回线上 CDN，改回 `https://maps.csdemo.tv/` 即可。
+const MAP_HOST_URL = `/maphost/`;
 
 let mapHostPromise = null; // 清单缓存（Promise，失败时清空）
 const mapManifestCache = new Map(); // 每张地图的清单缓存
@@ -628,7 +630,9 @@ function decodeCtex(buffer) {
 
 // ── L29581–29586 作者常量（与 Q_ 紧邻，是素材 CDN 逻辑的一部分）──
 var CS2_ASSETS_VERSION = 'csdemo-cs2-assets-v1';   // ev：素材包版本标记（写进缓存键）
-var DEFAULT_CS2_ASSETS_URL = 'https://maps.csdemo.tv/cs2/'; // tv：生产环境默认 CDN
+// 离线应用：素材包基址指向本地镜像（serve.mjs /cs2/ → cdn/mirror/.../cs2/）。
+// 也可用 VITE_CS2_ASSETS_URL 环境变量覆盖；切回线上改回 'https://maps.csdemo.tv/cs2/'。
+var DEFAULT_CS2_ASSETS_URL = '/cs2/';
 var MANIFEST_TTL_MS = 3e4;                          // nv：素材清单缓存有效期 30 秒
 var cachedManifest = null;                          // rv：最近一次成功拉到的清单
 var inflightManifest = null;                        // iv：进行中的清单请求（去重）

@@ -41,3 +41,14 @@ apps/DemoViewer/web/tmp/
 .DS_Store
 Thumbs.db
 apps/DemoViewer/web/cpp/**/*.exe
+
+# DemoViewer 大体积资源（均可用脚本重新生成/拉取，不入库）：
+# - cs2ffi/vendor/    demoparser 等第三方源码树（~900MB）
+# - cs2ffi/target/    Rust 构建产物
+# - web/cdn/          csdemo.tv 素材镜像（~1GB，tools/mirror-*.mjs 可重新拉取）
+# - contract_segment.bin  IObject contract dump（~57MB）
+apps/DemoViewer/native/cs2ffi/vendor/
+apps/DemoViewer/native/cs2ffi/target/
+apps/DemoViewer/web/cdn/
+contract_segment.bin
+apps/DemoViewer/native/contract_segment.bin

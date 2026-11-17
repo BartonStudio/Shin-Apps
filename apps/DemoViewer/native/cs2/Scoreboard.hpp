@@ -33,8 +33,11 @@ public:
     void BindRuntime(iobject::IRuntimeObject* self) { self_ = self; }
 
     bool ReadData(iobject::DataChannelView channel, iobject::DataReceiver receiver) const {
-        if (channel == "rows") return ReadRows(receiver);
+        if (channel == "rows") return ReadRowsAt(store_->CurrentTick(), receiver);
+        // 战绩卡片的整场最终统计（末 tick 快照，与回合比分对齐）
+        if (channel == "final") return ReadRowsAt(store_->MaxTick(), receiver);
         if (channel == "visible") return ReadVisible(receiver);
+        if (channel == "summary") return ReadSummary(receiver);
         return false;
     }
 
@@ -54,8 +57,28 @@ private:
         return true;
     }
 
-    bool ReadRows(iobject::DataReceiver receiver) const {
-        const Tick tick = store_->CurrentTick();
+    /// 整场比分（File Loaded 卡片 / HUD 比分条）：按回合胜方累计
+    bool ReadSummary(iobject::DataReceiver receiver) const {
+        std::uint16_t ct = 0, t = 0;
+        std::uint32_t rounds = 0;
+        for (const RoundSpan& r : store_->Rounds()) {
+            if (r.winnerTeam == 2) ++t;
+            else if (r.winnerTeam == 3) ++ct;
+            if (r.winnerTeam != 0) ++rounds;
+        }
+        nlohmann::json j = {
+            {"ct", ct},
+            {"t", t},
+            {"rounds", rounds},
+            {"total", store_->Rounds().size()},
+            {"mapName", store_->MapName()},
+            {"maxTick", store_->MaxTick()},
+        };
+        SendBytes(EncodeMsgPack(j), receiver);
+        return true;
+    }
+
+    bool ReadRowsAt(Tick tick, iobject::DataReceiver receiver) const {
         nlohmann::json ct = nlohmann::json::array();
         nlohmann::json t = nlohmann::json::array();
         for (EntityId id : store_->PlayerIds()) {

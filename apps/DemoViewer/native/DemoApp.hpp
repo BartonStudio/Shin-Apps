@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 namespace iobject { class IRuntimeObject; }
 namespace shin::host { class WebviewBridge; }
@@ -19,10 +20,13 @@ public:
     DemoApp(const DemoApp&) = delete;
     DemoApp& operator=(const DemoApp&) = delete;
 
-    int Run();
+    /// demoPath：命令行传入的 .dem 路径（空 = 用默认测试路径）。
+    /// 有路径时启动即后台装载，装载完成把契约数据块推给前端（无需前端交互）。
+    int Run(const std::string& demoPath = {});
 
 private:
     void Start();                                  // 建 WebviewBridge（内进程桥接，无端口）
+    void StartContractFeed(const std::string& demoPath);  // 后台装载 demo → 推契约数据块
     void Stop();                                   // 先关桥接会话，再销毁业务节点（幂等）
     static iobject::IRuntimeObject* MakeRoot();
 

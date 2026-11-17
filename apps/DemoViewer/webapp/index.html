@@ -46,15 +46,11 @@
         <span class="dropzone__hint">DROP .DEM FILE HERE</span>
         <span class="dropzone__alt">or browse from file explorer</span>
         <span class="dropzone__error" id="dropzone-error" role="alert"></span>
-        <!-- 加载中：subtitle + 进度点（样式搬自 initializing 的 caption/steps） -->
+        <!-- 加载中：subtitle + 进度点（样式搬自 initializing 的 caption/steps）；
+             进度点由 JS 按 LOADING_STEPS.length 动态生成，这里只留容器 -->
         <div class="dropzone__loading" id="dropzone-loading">
           <span class="caption" id="dropzone-loading-text">Loading demo</span>
-          <div class="steps" aria-hidden="true">
-            <span class="dot is-on"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </div>
+          <div class="steps" aria-hidden="true"></div>
         </div>
       </div>
     </section>
@@ -69,27 +65,11 @@
       </div>
       <div class="file-card">
         <div class="file-card__name" id="loaded-file-name">MATCH_DUST2.DEM</div>
-        <div class="file-card__size">124.6 MB</div>
-        <div class="file-card__score">13 : 5</div>
-        <div class="file-card__map">DE_DUST2 &middot; 01:52</div>
+        <div class="file-card__size" id="loaded-file-size">124.6 MB</div>
+        <div class="file-card__score" id="loaded-file-score">13 : 5</div>
+        <div class="file-card__map" id="loaded-file-map">DE_DUST2 &middot; 01:52</div>
         <div class="file-card__divider"></div>
-        <div class="roster">
-          <div class="roster-row">
-            <span class="roster__name roster__name--l">s1mple</span><span class="roster__stat roster__stat--l">18/9/4</span><span class="roster__gap" aria-hidden="true"></span><span class="roster__stat roster__stat--r">22/8/3</span><span class="roster__name roster__name--r">donk</span>
-          </div>
-          <div class="roster-row">
-            <span class="roster__name roster__name--l">ZywOo</span><span class="roster__stat roster__stat--l">15/11/5</span><span class="roster__gap" aria-hidden="true"></span><span class="roster__stat roster__stat--r">16/10/4</span><span class="roster__name roster__name--r">m0NESY</span>
-          </div>
-          <div class="roster-row">
-            <span class="roster__name roster__name--l">NiKo</span><span class="roster__stat roster__stat--l">14/10/6</span><span class="roster__gap" aria-hidden="true"></span><span class="roster__stat roster__stat--r">13/9/5</span><span class="roster__name roster__name--r">sh1ro</span>
-          </div>
-          <div class="roster-row">
-            <span class="roster__name roster__name--l">device</span><span class="roster__stat roster__stat--l">11/13/3</span><span class="roster__gap" aria-hidden="true"></span><span class="roster__stat roster__stat--r">12/11/2</span><span class="roster__name roster__name--r">b1t</span>
-          </div>
-          <div class="roster-row">
-            <span class="roster__name roster__name--l">rain</span><span class="roster__stat roster__stat--l">9/12/4</span><span class="roster__gap" aria-hidden="true"></span><span class="roster__stat roster__stat--r">8/14/3</span><span class="roster__name roster__name--r">ax1Le</span>
-          </div>
-        </div>
+        <div class="roster" id="loaded-roster"></div>
         <div class="file-card__divider"></div>
         <div class="file-card__actions">
           <button class="card-btn card-btn--primary" id="btn-open-demo" type="button">OPEN DEMO</button>
@@ -100,12 +80,10 @@
 
     <!-- 观看界面：HUD 骨架（对齐 Figma「ShinPlayer · Watch View」28:549，占位数据） -->
     <section id="screen-watch" class="screen screen--watch">
-      <div class="watch-viewport"><span>GAME VIEW</span></div>
+      <div class="watch-viewport"><span id="watch-status">GAME VIEW</span></div>
 
       <!-- 顶部比分条 -->
       <div class="scorebar">
-        <span class="scorebar__bar scorebar__bar--t"></span>
-        <span class="scorebar__bar scorebar__bar--ct"></span>
         <span class="scorebar__team scorebar__team--t">T</span>
         <span class="scorebar__num scorebar__num--t">0</span>
         <span class="scorebar__map">MIRAGE</span>
@@ -167,12 +145,6 @@
       <!-- 电影裁剪模式：上下黑边（letterbox），进入宽银幕 2.35:1 -->
       <div class="cinema-bar cinema-bar--top" aria-hidden="true"></div>
       <div class="cinema-bar cinema-bar--bottom" aria-hidden="true"></div>
-
-      <!-- ESC 调试菜单：裁剪模式 + 退出（退出在裁剪右边） -->
-      <div class="esc-menu" id="esc-menu" role="menu">
-        <button class="esc-btn" id="btn-crop" type="button" role="menuitem" aria-pressed="false">CROP</button>
-        <button class="esc-btn esc-btn--exit" id="btn-exit" type="button" role="menuitem">EXIT</button>
-      </div>
     </section>
 
     <!-- 非法运行环境拦截页：仅在非授权宿主（普通浏览器 / 静态服务器 / 其他 WebView2 宿主）下显示 -->
@@ -189,17 +161,12 @@
 
     <span class="version">V0.1.0</span>
 
-    <!-- 退出二次确认 dialog：标题栏 X / 任务栏「关闭窗口」时询问一次再退出 -->
-    <div class="exit-dialog" id="exit-dialog" role="dialog" aria-modal="true" aria-hidden="true">
-      <div class="exit-dialog__card">
-        <p class="exit-dialog__title">EXIT SHINPLAYER?</p>
-        <p class="exit-dialog__desc">All unsaved progress will be lost.</p>
-        <div class="exit-dialog__actions">
-          <button class="card-btn card-btn--ghost" id="btn-exit-cancel" type="button">CANCEL</button>
-          <button class="card-btn card-btn--primary" id="btn-exit-confirm" type="button">EXIT</button>
-        </div>
-      </div>
+    <!-- ESC 菜单：裁剪模式 + 退出（挂在 #app 顶层，任何画面按 ESC 都能呼出） -->
+    <div class="esc-menu" id="esc-menu" role="menu">
+      <button class="esc-btn" id="btn-crop" type="button" role="menuitem" aria-pressed="false">CROP</button>
+      <button class="esc-btn esc-btn--exit" id="btn-exit" type="button" role="menuitem">EXIT</button>
     </div>
+
   </div>
 
   <script type="module" src="/src/main.js"></script>

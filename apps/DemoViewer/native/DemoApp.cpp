@@ -1,15 +1,29 @@
 #include "DemoApp.hpp"
 
+#include "cs2/ContractFeed.hpp"
 #include "cs2/CSRoot.hpp"
+#include "cs2/DemoLoader.hpp"
 #include "cs2/WorldState.hpp"
 
 #include <RuntimeHost.hpp>
 #include <WebviewBridge.hpp>
 #include <WebviewHost.hpp>
+#include <WebviewShell.hpp>
 
 #include <iobject/Runtime.hpp>
 
+#include <chrono>
+#include <fstream>
 #include <string>
+#include <thread>
+#include <vector>
+
+namespace demoviewer {
+// native 注入脚本（Worker 替身 + chrome.webview 契约数据接收）。
+// 由 web/tools/gen-cs2-inject.mjs 生成；改注入逻辑后重新生成。
+static constexpr const char* kInjectScriptPath =
+    "D:/workfolder/Shin-Apps/apps/DemoViewer/web/tools/cs2-native-inject.js";
+}
 
 namespace demoviewer {
 
@@ -19,7 +33,7 @@ DemoApp::~DemoApp() {
     Stop(); // 兜住异常路径；正常路径上 Run 末尾已 Stop()（幂等）
 }
 
-int DemoApp::Run() {
+int DemoApp::Run(const std::string& demoPath) {
     // 1. 配域：域名 = 前端 iobject-js Connect 时的路由键。
     shin::host::ConfigureDomain(shin::host::DomainSpec{
         "demoviewer",
@@ -41,9 +55,22 @@ int DemoApp::Run() {
     cfg.remoteDebuggingPort = 9222; // CDP 端口，0 = 关闭
 
     // 前端入口：写死在这里，切换调试/生产时手动改这一行。
-    //   调试（本地）：先 `cd apps/DemoViewer/webapp && npm run dev`，再填 http://127.0.0.1:5173/
-    //   生产：`npm run build` 后填 webapp/dist/index.html 的 file:// 绝对路径
-    cfg.entry = "http://127.0.0.1:5173/";
+    //   播放器页（csdemo 拆解工程）：先 `node apps/DemoViewer/web/serve.mjs`，填 http://127.0.0.1:8123/
+    //   简易壳（webapp vite）：`cd apps/DemoViewer/webapp && npm run dev`，填 http://127.0.0.1:5173/
+    cfg.entry = "http://127.0.0.1:8123/";
+
+    // 注入「native 数据通道」脚本：Worker 替身 + chrome.webview 契约数据接收。
+    // 必须在 webview 创建之前注册（InjectJSBeforeLoad 只在未初始化时接受）。
+    {
+        std::ifstream in(kInjectScriptPath, std::ios::binary);
+        if (in) {
+            std::string js((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+            shin::host::WebviewShell::GetInstance()->InjectJSBeforeLoad(js);
+            LOG_INFO("DemoViewer", "native 注入脚本已注册（" + std::to_string(js.size()) + " bytes）");
+        } else {
+            LOG_INFO("DemoViewer", "找不到注入脚本，页面将以原版 JS 解析模式运行: " + std::string(kInjectScriptPath));
+        }
+    }
 
     webview_ = shin::host::WebviewHost::Create(cfg);
     if (!webview_) {
@@ -52,21 +79,70 @@ int DemoApp::Run() {
     shin::host::Root()->Connect("Webview", webview_);
     LOG_INFO("DemoViewer", "Webview 能力节点已挂载到域根");
 
-    // 装配业务子树：CSRoot 的 BindRuntime 已自动创建 Playback/World/Scoreboard/KillFeed/POV。
-    // TODO: demo 解析器接入后，先把解析结果灌进 csRoot->store()，再初始化玩家节点。
-    if (auto* csRoot = shin::host::Root()->As<CSRoot>()) {
-        csRoot->world()->As<WorldState>()->InitializePlayers();
-    }
+    // 装配业务子树：CSRoot 的 BindRuntime 已自动创建
+    // Playback/World/Scoreboard/KillFeed/POV/Loader。
+    //
+    // demo 装载流程（IObject 驱动，前端发起）：
+    //   1. 前端 Invoke Root/Loader "Load"（demo 路径）——后台线程解析 + 灌 store；
+    //   2. 前端读 Loader "progress"，done 后 Invoke Root/World "InitializePlayers"；
+    //   3. 之后 Playback "Play"/"Seek" 开始播放。
+    // 装配前 store 为空，InitializePlayers 是空操作（PlayerIds 为空）。
 
     // 3. 建内进程 WebView 桥接（共享内存二进制通道），让前端经 iobject-js 访问对象树，
     //    不再起 WebSocket 服务端、不占端口。
     Start();
+
+    // 3b. 命令行给了 demo 路径：后台装载 → 契约数据块推给前端（零交互播放路径）
+    if (!demoPath.empty()) {
+        StartContractFeed(demoPath);
+    }
 
     // 4. 跑宿主循环（阻塞直到窗口关闭）。
     shin::host::WebviewHost::Run();
 
     Stop();
     return 0;
+}
+
+void DemoApp::StartContractFeed(const std::string& demoPath) {
+    std::thread([demoPath]() {
+        EntityStore store;
+        DemoMeta meta;
+        std::string error;
+        const auto t0 = std::chrono::steady_clock::now();
+        if (!DemoLoader::Load(demoPath, store, meta, {}, error)) {
+            LOG_ERROR("DemoViewer", "demo 装载失败: " + error);
+            return;
+        }
+        LOG_INFO("DemoViewer", "demo 装载完成: " + meta.mapName + "，开始生成契约数据块…");
+
+        std::vector<std::uint8_t> buffer(ContractFeed::RequiredBytes(store), 0);
+        const auto res = ContractFeed::WriteAll(store, buffer.data(), buffer.size(), 0);
+        if (res.messageJson.empty()) {
+            LOG_ERROR("DemoViewer", "契约数据块生成失败（bytesUsed=0）");
+            return;
+        }
+        const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+                            std::chrono::steady_clock::now() - t0).count();
+        LOG_INFO("DemoViewer", "契约块 " + std::to_string(res.bytesUsed / 1048576) + "MB，耗时 " +
+                 std::to_string(ms) + "ms，推送前端…");
+
+        // 水位消息：csdf-ready = 契约块已就绪 + 回合可见范围（前端据此触发播放流程）
+        std::string msg = res.messageJson;
+        msg.pop_back();  // 去掉 '}'
+        msg += ",\"type\":\"csdf-ready\"}";
+
+        auto* shell = shin::host::WebviewShell::GetInstance();
+        shell->PostToOnUiThread([shell, buffer = std::move(buffer), msg = std::move(msg)]() {
+            // 顺序不能反：先推数据块（sharedbufferreceived），再发水位消息（happens-before，docs/08 §3.5）
+            if (!shell->SendBinaryWithType(buffer.data(), buffer.size(), "csdf")) {
+                LOG_ERROR("DemoViewer", "契约数据块推送失败");
+                return;
+            }
+            shell->SendJson(msg);
+            LOG_INFO("DemoViewer", "契约数据块已推送，等待前端建播放器");
+        });
+    }).detach();
 }
 
 void DemoApp::Start() {

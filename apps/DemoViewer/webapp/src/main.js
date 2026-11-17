@@ -1,5 +1,13 @@
 import './style.css';
 import { initIObjectBridge, invokeWindow, subscribeHostEvents } from './iobject.js';
+import { loadDemoSession } from './demo-session.js';
+
+// M1 验证入口（仅 dev）：控制台 __playerDev.open() 打开 3D 空场景。
+// 生产构建不会打进来；M2 接入正式播放流程后删除。
+if (import.meta.env.DEV) {
+  const { installPlayerDev } = await import('./player/dev.js');
+  installPlayerDev();
+}
 
 /**
  * DemoViewer 前端壳：initializing → empty state。
@@ -18,7 +26,8 @@ const STEPS = [
 ];
 const STEP_MS = 900;
 
-// 加载 .dem 时的假步骤（复用 initializing 的进度点样式），固定 2 秒走完。
+// 加载 .dem 时的阶段文案（进度来自 native Loader 的 progress 通道）。
+// 索引对应底部进度点，stage 顺序与 LoadStage 一致。
 const LOADING_STEPS = [
   'Loading demo',
   'Parsing match data',
@@ -26,6 +35,14 @@ const LOADING_STEPS = [
   'Preparing replay',
 ];
 const LOADING_MS = 2000;
+const STAGE_INDEX = { idle: 0, parsing: 1, filling: 2, done: 3, error: 1 };
+const STAGE_TEXT = {
+  idle: 'Loading demo',
+  parsing: 'Parsing match data',
+  filling: 'Building scoreboard',
+  done: 'Preparing replay',
+  error: 'Parse failed',
+};
 
 const initializingScreen = document.querySelector('#screen-initializing');
 const emptyScreen = document.querySelector('#screen-empty');
@@ -42,7 +59,23 @@ const dropzoneError = document.querySelector('#dropzone-error');
 const loadedFileName = document.querySelector('#loaded-file-name');
 const dropzoneLoading = document.querySelector('#dropzone-loading');
 const dropzoneLoadingText = document.querySelector('#dropzone-loading-text');
-const dropzoneLoadingDots = Array.from(document.querySelectorAll('#dropzone-loading .dot'));
+const dropzoneLoadingSteps = document.querySelector('#dropzone-loading .steps');
+
+/** 按数量（重）建进度点，返回当前 dot 列表——点数跟随 LOADING_STEPS.length，增减阶段不用动 HTML */
+function renderLoadingDots(count) {
+  if (!dropzoneLoadingSteps) return [];
+  const n = Math.max(1, count);
+  if (dropzoneLoadingSteps.children.length !== n) {
+    dropzoneLoadingSteps.innerHTML = '';
+    for (let i = 0; i < n; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dropzoneLoadingSteps.appendChild(dot);
+    }
+  }
+  return Array.from(dropzoneLoadingSteps.children);
+}
+renderLoadingDots(LOADING_STEPS.length);  // 初始渲染，与 LOADING_STEPS 对齐
 
 const SCREENS = {
   initializing: initializingScreen,
@@ -64,6 +97,9 @@ let loadingTimer = null;
 
 function show(name) {
   document.body.classList.toggle('is-initializing', name === 'initializing');
+  // 标记当前是否在观看界面：标题栏白条样式挂在 body 上（titlebar 与各屏是
+  // 兄弟节点，CSS 后代选择器够不到，只能由 JS 提供状态）。
+  document.body.classList.toggle('is-watching', name === 'watch');
   // 版本号只在非观看界面显示；进入观看界面直接隐藏（无动画，直接消失）。
   if (versionEl) versionEl.style.display = name === 'watch' ? 'none' : '';
 
@@ -138,7 +174,10 @@ if (typeof window.chrome?.webview === 'undefined') {
 async function startBoot(requestedScreen) {
   // 订阅宿主事件（窗口关闭请求 / 文件选中 / 上传完成），替代 chrome.webview 文本监听。
   subscribeHostEvents({
-    onWindowCloseRequested: () => setExitDialog(true),
+    // 标题栏 X / 任务栏「关闭窗口」：不做二次确认，直接放行关闭。
+    // 宿主收到 WM_CLOSE 时会先拦一次并回推 WindowCloseRequested，这里立刻回
+    // confirm-exit（→ WebviewShell::ConfirmExit）即完成关闭。
+    onWindowCloseRequested: () => postWindow('confirm-exit'),
     onFileSelected: ({ path, canceled }) => {
       if (path) loadDemo(path);
       else if (canceled) clearLoadError();
@@ -209,11 +248,6 @@ const WINDOW_METHOD = {
 
 async function postWindow(action) {
   try {
-    // 取消退出 = 撤销最小化唤出时的置顶（对应 SetAlwaysOnTop(false)）。
-    if (action === 'cancel-exit') {
-      await invokeWindow('SetAlwaysOnTop', { topmost: false });
-      return;
-    }
     const method = WINDOW_METHOD[action];
     if (!method) {
       console.warn('[DemoViewer] 未知窗口命令:', action);
@@ -255,13 +289,18 @@ let dragPending = false;
 let dragStartX = 0;
 let dragStartY = 0;
 
-titlebar?.addEventListener('mousedown', (event) => {
-  if (event.button !== 0) return;                 // 仅响应左键
-  if (event.target.closest('.win-btn')) return;   // 按钮不触发拖拽
+function startPendingDrag(event) {
+  if (event.button !== 0) return;                        // 仅响应左键
+  if (event.target.closest('.win-btn')) return;          // 按钮不触发拖拽
   dragPending = true;
   dragStartX = event.clientX;
   dragStartY = event.clientY;
-});
+}
+
+titlebar?.addEventListener('mousedown', startPendingDrag);
+// 比分面板与标题条视觉一体且无互动元素，整块作为可拖拽区域
+// （面板 z-index 高于 titlebar，mousedown 不会冒泡到 titlebar，须单独绑定）。
+document.querySelector('.scorebar')?.addEventListener('mousedown', startPendingDrag);
 
 window.addEventListener('mousemove', (event) => {
   if (!dragPending) return;
@@ -280,6 +319,11 @@ window.addEventListener('mouseup', () => {
 titlebar?.addEventListener('dblclick', (event) => {
   if (event.target.closest('.win-btn')) return;   // 按钮上双击不触发
   if (watchScreen?.classList.contains('is-cinema')) return;  // 电影模式下禁止双击最大化/还原
+  toggleMaximize();
+});
+// 比分面板双击同上（与标题条一体的行为）。
+document.querySelector('.scorebar')?.addEventListener('dblclick', (event) => {
+  if (watchScreen?.classList.contains('is-cinema')) return;
   toggleMaximize();
 });
 
@@ -364,13 +408,20 @@ function clearLoadError() {
 
 // 加载中动画：在 dropzone 内播放 subtitle + 进度点（样式搬自 initializing 的 caption/steps），
 // 固定 LOADING_MS 走完，全程停留在空状态屏。
+// progress 是 200ms 轮询驱动的，内容没变时必须跳过，否则 fade 动画会一直重播（闪烁）。
+let lastLoadingText = null;
+let lastLoadingDot = -1;
 function setLoadingText(text, index) {
   if (!dropzoneLoadingText) return;
+  if (text === lastLoadingText && index === lastLoadingDot) return;
+  lastLoadingText = text;
+  lastLoadingDot = index;
   dropzoneLoadingText.classList.remove('is-changing');
   void dropzoneLoadingText.offsetWidth;  // 强制重排，让 fade 动画每次都能重新触发
   dropzoneLoadingText.textContent = text;
   dropzoneLoadingText.classList.add('is-changing');
-  dropzoneLoadingDots.forEach((dot, i) => dot.classList.toggle('is-on', i === index));
+  renderLoadingDots(LOADING_STEPS.length)
+    .forEach((dot, i) => dot.classList.toggle('is-on', i === index));
 }
 
 function playLoading(onDone) {
@@ -394,54 +445,155 @@ function playLoading(onDone) {
   }, LOADING_MS / LOADING_STEPS.length);
 }
 
-function loadDemo(path) {
-  console.log('[DemoViewer] 开始加载：', path);
-  // 先清掉上一次的错误（若有）。
-  clearLoadError();
-  // TODO: 后续在这里接入 cpp 解析器。目前默认一律视为加载成功
-  //（占位数据，接上解析器后换成真实的文件信息 / 比分 / 名单）。
-  if (loadedFileName) {
-    const sep = Math.max(path.lastIndexOf('\\'), path.lastIndexOf('/'));
-    loadedFileName.textContent = sep >= 0 ? path.slice(sep + 1) : path;
-  }
-  // 先在 dropzone 内播放加载中动画，固定 2 秒后进入加载成功。
-  playLoading(() => show('loaded'));
-}
-
-// File Loaded 屏：CANCEL 回到空状态重新拖放；OPEN DEMO 暂为占位。
-document.querySelector('#btn-cancel-loaded')?.addEventListener('click', () => show('empty'));
-document.querySelector('#btn-open-demo')?.addEventListener('click', () => {
-  console.log('[DemoViewer] OPEN DEMO → 进入观看界面（骨架）');
-  show('watch');
-});
-
 /* ----------------------------------------------------------------------
- * 退出二次确认 dialog：
- *   标题栏 X / 任务栏「关闭窗口」→ native WM_CLOSE 被拦截，回推
- *   WindowCloseRequested → 这里弹确认框；确认后 postWindow('confirm-exit')
- *   让 native 放行并真正关闭。ESC 菜单的 EXIT（退出观看）不经过此确认。
+ * demo 装载：native Loader 节点（真实解析）
+ *   Load → progress 轮询 → meta / Scoreboard.rows / summary → 填 File Loaded 卡片
  * -------------------------------------------------------------------- */
-const exitDialog = document.querySelector('#exit-dialog');
-const btnExitConfirm = document.querySelector('#btn-exit-confirm');
-const btnExitCancel = document.querySelector('#btn-exit-cancel');
 
-function setExitDialog(open) {
-  exitDialog?.classList.toggle('is-open', open);
-  exitDialog?.setAttribute('aria-hidden', String(!open));
+/** 当前装载的 demo 会话（meta/rows/summary），OPEN DEMO 进图时用 mapName */
+let currentSession = null;
+
+function basename(path) {
+  const sep = Math.max(path.lastIndexOf('\\'), path.lastIndexOf('/'));
+  return sep >= 0 ? path.slice(sep + 1) : path;
 }
 
-btnExitConfirm?.addEventListener('click', () => {
-  setExitDialog(false);
-  postWindow('confirm-exit');
-});
-btnExitCancel?.addEventListener('click', () => {
-  setExitDialog(false);
-  // 撤销最小化唤出时的置顶（postWindow 里 cancel-exit → invokeWindow SetAlwaysOnTop(false)）。
-  postWindow('cancel-exit');
+function formatBytes(bytes) {
+  if (!bytes) return '—';
+  const mb = bytes / (1024 * 1024);
+  return `${mb.toFixed(1)} MB`;
+}
+
+function formatDuration(sec) {
+  if (!Number.isFinite(sec) || sec <= 0) return '--:--';
+  const m = Math.floor(sec / 60);
+  const s = Math.round(sec % 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+/** 填 File Loaded 卡片（数据全部来自 native：meta + Scoreboard rows/summary） */
+function fillLoadedCard(session, path) {
+  const { meta = {}, rows = {}, summary = {} } = session ?? {};
+
+  if (loadedFileName) loadedFileName.textContent = basename(path).toUpperCase();
+
+  const sizeEl = document.querySelector('#loaded-file-size');
+  if (sizeEl) sizeEl.textContent = formatBytes(meta.fileSize);
+
+  const scoreEl = document.querySelector('#loaded-file-score');
+  if (scoreEl) {
+    scoreEl.textContent = summary.rounds > 0 ? `${summary.t} : ${summary.ct}` : '— : —';
+  }
+
+  const mapEl = document.querySelector('#loaded-file-map');
+  if (mapEl) {
+    const map = (meta.mapName || 'UNKNOWN').toUpperCase();
+    mapEl.textContent = `${map} · ${formatDuration(meta.durationSec)}`;
+  }
+
+  const rosterEl = document.querySelector('#loaded-roster');
+  if (!rosterEl) return;
+  // 队内排序：击杀降序 → 助攻降序 → 死亡升序 → id 升序（末位保证完全确定）
+  const byImpact = (a, b) =>
+    (b.kills ?? 0) - (a.kills ?? 0) ||
+    (b.assists ?? 0) - (a.assists ?? 0) ||
+    (a.deaths ?? 0) - (b.deaths ?? 0) ||
+    (a.id ?? 0) - (b.id ?? 0);
+  const left = [...(rows.t ?? [])].sort(byImpact).slice(0, 5);
+  const right = [...(rows.ct ?? [])].sort(byImpact).slice(0, 5);
+  const stat = (p) => (p ? `${p.kills}/${p.deaths}/${p.assists}` : '');
+  const name = (p) => (p?.name ? p.name.toUpperCase() : '');
+  const lines = [];
+  for (let i = 0; i < Math.max(left.length, right.length, 1); i++) {
+    lines.push(`
+      <div class="roster-row">
+        <span class="roster__name roster__name--l">${name(left[i])}</span><span class="roster__stat roster__stat--l">${stat(left[i])}</span><span class="roster__gap" aria-hidden="true"></span><span class="roster__stat roster__stat--r">${stat(right[i])}</span><span class="roster__name roster__name--r">${name(right[i])}</span>
+      </div>`);
+  }
+  rosterEl.innerHTML = lines.join('');
+}
+
+async function loadDemo(path) {
+  console.log('[DemoViewer] 开始加载：', path);
+  clearLoadError();
+  if (loadedFileName) loadedFileName.textContent = basename(path).toUpperCase();
+
+  // 空状态内的加载动画：文案/进度点跟着 native 解析阶段走。
+  dropzone?.classList.add('is-loading');
+  lastLoadingText = null;  // 新装载：重置去重缓存，开场文案动画必定重播
+  lastLoadingDot = -1;
+  setLoadingText(STAGE_TEXT.idle, 0);
+
+  try {
+    const session = await loadDemoSession(path, (p) => {
+      const stage = p.stage || 'parsing';
+      setLoadingText(STAGE_TEXT[stage] ?? 'Loading', STAGE_INDEX[stage] ?? 0);
+    });
+    currentSession = session;
+    fillLoadedCard(session, path);
+    dropzone?.classList.remove('is-loading');
+    show('loaded');
+  } catch (err) {
+    console.error('[DemoViewer] demo 装载失败:', err);
+    dropzone?.classList.remove('is-loading');
+    showLoadError(`无法解析该 demo：${err.message}`);
+    show('empty');
+  }
+}
+
+// File Loaded 屏：CANCEL 回到空状态；OPEN DEMO 进入观看界面并按地图名预加载世界。
+document.querySelector('#btn-cancel-loaded')?.addEventListener('click', () => show('empty'));
+
+let world = null;         // player/world.js 实例（首次进图时懒加载）
+let worldLoading = null;  // 进行中的加载 Promise（防重复进入）
+
+async function enterWatch() {
+  show('watch');
+  const statusEl = document.querySelector('#watch-status');
+  const setStatus = (text, visible = true) => {
+    if (!statusEl) return;
+    statusEl.hidden = !visible;
+    if (visible) statusEl.textContent = text;
+  };
+
+  const mapName = currentSession?.meta?.mapName;
+  if (!mapName) {
+    setStatus('NO MAP IN VIEW');
+    return;
+  }
+
+  try {
+    const mod = await import('./player/world.js');
+    const viewport = document.querySelector('.watch-viewport');
+    world = mod.openWorld(viewport);
+    world.resume();
+    if (world.map === mapName && !worldLoading) {
+      setStatus('', false); // 同图已在内存：直接看
+      return;
+    }
+    if (worldLoading) await worldLoading;
+    setStatus(`LOADING ${mapName.toUpperCase()}`);
+    worldLoading = world.load(mapName, {
+      engine: 'auto',
+      onProgress: (msg) => setStatus(String(msg).toUpperCase()),
+    });
+    await worldLoading;
+    setStatus('', false);
+  } catch (err) {
+    console.error('[DemoViewer] 地图世界加载失败:', err);
+    setStatus(`MAP LOAD FAILED · ${err.message}`.toUpperCase());
+  } finally {
+    worldLoading = null;
+  }
+}
+
+document.querySelector('#btn-open-demo')?.addEventListener('click', () => {
+  console.log('[DemoViewer] OPEN DEMO → 进入观看界面');
+  enterWatch();
 });
 
-// 接收 native 回推的一次性业务事件（WindowCloseRequested / fileSelected / fileUploaded）
-// 已改为 IObject 事件订阅（subscribeHostEvents，见 startBoot），不再走 chrome.webview 文本通道。
+// 退出二次确认已取消：标题栏 X / 任务栏「关闭窗口」直接关闭窗口（见 startBoot 里的
+// onWindowCloseRequested）。ESC 菜单的 EXIT（退出观看）本来就不经过确认，逻辑未变。
 
 /* ----------------------------------------------------------------------
  * 观看界面 · ESC 调试菜单 + 电影裁剪模式
@@ -470,12 +622,14 @@ function setCinema(on) {
     // 进入电影模式：HUD 淡出（0.35s，快）+ 幕布展开（1.2s，慢）。
     watchScreen?.classList.add('is-hud-hidden');
     watchScreen?.classList.add('is-cinema');
+    document.body.classList.add('is-hud-hidden');
   } else {
     // 退出电影模式：先收幕布，幕布收到约一半就提前恢复 HUD（提升效率）。
     watchScreen?.classList.remove('is-cinema');
     clearTimeout(hudRestoreTimer);
     hudRestoreTimer = setTimeout(() => {
       watchScreen?.classList.remove('is-hud-hidden');
+      document.body.classList.remove('is-hud-hidden');
     }, HUD_RESTORE_DELAY_MS);
   }
   btnCrop?.classList.toggle('is-on', on);
@@ -489,7 +643,8 @@ function setCinema(on) {
 
 window.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return;
-  if (currentScreenName !== 'watch') return;
+  // 初始化屏/拦截屏里不放菜单；其余屏（empty/loaded/watch）都允许打开。
+  if (currentScreenName === 'initializing' || currentScreenName === 'blocked') return;
   setEscMenu(!escMenu?.classList.contains('is-open'));
 });
 
@@ -501,8 +656,22 @@ btnCrop?.addEventListener('click', () => {
 btnExit?.addEventListener('click', () => {
   setEscMenu(false);
   setCinema(false);
+  // 退出观看：暂停渲染（地图世界留在内存，再次进图秒开）
+  world?.pause();
   show('loaded');
 });
+
+// 3D 测试页已移除（M1 阶段性调试入口，正式播放流程不再需要）。
+
+// dev 调试句柄（仅 dev 构建）：CDP/控制台驱动装载与进图，验证用。
+if (import.meta.env.DEV) {
+  window.__demoDev = {
+    load: (path) => loadDemo(path),
+    enterWatch: () => enterWatch(),
+    get session() { return currentSession; },
+    get world() { return world; },
+  };
+}
 
 /* ----------------------------------------------------------------------
  * IObject 桥接：连接 native WebviewBridge，拿到 Webview 节点并绑定默认全局热键。

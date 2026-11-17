@@ -19,6 +19,14 @@ import path from 'node:path';
 const ROOT = path.join(import.meta.dirname, 'raw');
 const PORT = Number(process.argv[2] ?? 8123);
 
+// 本地素材镜像（tools/mirror-csdemo-assets.mjs 的产物）——离线应用的资源来源。
+// 目录结构与 maps.csdemo.tv 的 URL 路径逐字对应，所以映射就是纯字符串拼接。
+const MIRROR = path.join(import.meta.dirname, 'cdn', 'mirror', 'maps.csdemo.tv');
+const LOCAL_ROUTES = {
+  '/cs2': path.join(MIRROR, 'cs2'),      // CS2 素材包（角色/武器/声音）——可读代码里 VITE_CS2_ASSETS_URL=/cs2/
+  '/maphost': MIRROR,                    // 地图宿主清单 + release + objects —— MAP_HOST_URL 改 /maphost/
+};
+
 const UPSTREAM = {
   '/__data': 'https://data.csdemo.tv',
   '/__maps': 'https://maps.csdemo.tv',
@@ -43,7 +51,25 @@ const TYPES = {
   '.bin': 'application/octet-stream',
   '.csda': 'application/octet-stream',
   '.dem': 'application/octet-stream',
+  '.glb': 'model/gltf-binary',
+  '.txt': 'text/plain; charset=utf-8',
+  '.ogg': 'audio/ogg',
+  '.mp3': 'audio/mpeg',
 };
+
+/** 从本地镜像路径发文件；不存在返回 false（调用方回退到代理）。 */
+function serveMirrorFile(res, absFile) {
+  if (!fs.existsSync(absFile) || !fs.statSync(absFile).isFile()) return false;
+  const ext = path.extname(absFile).toLowerCase();
+  res.writeHead(200, {
+    'Content-Type': TYPES[ext] ?? 'application/octet-stream',
+    'Cache-Control': 'no-store',
+    // 本地开发期 webapp（:5173）与本服务（:8123）不同源，素材是公开静态资源，放开跨域。
+    'Access-Control-Allow-Origin': '*',
+  });
+  fs.createReadStream(absFile).pipe(res);
+  return true;
+}
 
 function rewrite(text) {
   let out = text;
@@ -59,6 +85,8 @@ async function proxy(req, res, prefix) {
     res.writeHead(405).end('method not allowed');
     return;
   }
+  // 离线优先：/__maps/* 先查本地镜像，命中就直接发本地（无网络请求）
+  if (prefix === '/__maps' && serveMirrorFile(res, path.join(MIRROR, rest))) return;
   try {
     const upstreamRes = await fetch(upstream + rest, { headers: { accept: '*/*' } });
     const type = upstreamRes.headers.get('content-type') ?? 'application/octet-stream';
@@ -79,6 +107,19 @@ async function proxy(req, res, prefix) {
 const server = http.createServer((req, res) => {
   const url = decodeURIComponent((req.url ?? '/').split('?')[0]);
 
+  // 本地镜像直连路由（离线模式的正式入口；/cs2/* 与 /maphost/* 完全不出网）
+  for (const [prefix, dir] of Object.entries(LOCAL_ROUTES)) {
+    if (url === prefix || url.startsWith(`${prefix}/`)) {
+      const rest = url.slice(prefix.length) || '/';
+      if (!path.resolve(dir, '.' + rest).startsWith(path.resolve(dir))) {
+        res.writeHead(403).end('forbidden');
+        return;
+      }
+      if (!serveMirrorFile(res, path.join(dir, rest))) res.writeHead(404).end('not in local mirror（跑 tools/mirror-csdemo-assets.mjs 补齐）');
+      return;
+    }
+  }
+
   for (const prefix of Object.keys(UPSTREAM)) {
     if (url === prefix || url.startsWith(`${prefix}/`)) {
       void proxy(req, res, prefix);
@@ -94,6 +135,14 @@ const server = http.createServer((req, res) => {
   if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');
   if (!fs.existsSync(file)) file = path.join(ROOT, 'index.html'); // 与线上一致：未知路径回落 SPA
 
+  // native 注入脚本：ShinDemoViewer.exe 宿主需要它建立 Worker 替身 + 契约数据通道
+  if (url === '/__cs2_inject.js') {
+    const inj = path.join(import.meta.dirname, 'tools', 'cs2-native-inject.js');
+    res.writeHead(200, { 'Content-Type': TYPES['.js'], 'Cache-Control': 'no-store' });
+    res.end(fs.readFileSync(inj));
+    return;
+  }
+
   const ext = path.extname(file).toLowerCase();
   const type = TYPES[ext] ?? 'application/octet-stream';
 
@@ -101,6 +150,19 @@ const server = http.createServer((req, res) => {
     const body = rewrite(fs.readFileSync(file, 'utf8'));
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store' });
     res.end(body);
+    return;
+  }
+
+  // HTML：往响应流里插一行脚本标签（raw/ 原文件不动，改写只发生在响应流里）。
+  // classic script 先于 type=module 执行 → 注入脚本抢在 bundle 之前装好 Worker 替身。
+  if (ext === '.html') {
+    const body = rewrite(fs.readFileSync(file, 'utf8'));
+    const tag = '<script src="/__cs2_inject.js"></script>';
+    const patched = body.includes('/__cs2_inject.js')
+      ? body
+      : body.replace(/<head([^>]*)>/i, `<head$1>${tag}`);
+    res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store' });
+    res.end(patched);
     return;
   }
 

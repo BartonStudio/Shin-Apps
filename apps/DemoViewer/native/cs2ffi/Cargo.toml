@@ -1,0 +1,17 @@
+[package]
+name = "cs2ffi"
+version = "0.1.0"
+edition = "2021"
+description = "C ABI shim over the vendored demoparser (LaihoE) for the Shin-Apps DemoViewer."
+
+[lib]
+# staticlib：给 C++ 链接的产物；rlib：让本 crate 内部的 bin/测试能直接用 Rust API。
+crate-type = ["rlib", "staticlib"]
+
+[dependencies]
+parser = { path = "vendor/demoparser/src/parser" }
+ahash = "0.8.3"
+memmap2 = "0.9.4"
+
+[profile.release]
+opt-level = 3

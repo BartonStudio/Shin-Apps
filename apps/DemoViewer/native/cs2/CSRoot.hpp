@@ -7,6 +7,7 @@
 #include <iobject/Runtime.hpp>
 
 #include "CameraController.hpp"
+#include "DemoLoaderNode.hpp"
 #include "EntityStore.hpp"
 #include "KillFeed.hpp"
 #include "PlaybackController.hpp"
@@ -69,6 +70,11 @@ public:
 
         pov_ = iobject::Runtime::make<CameraController>(store_.get());
         self_->Connect("POV", pov_);
+
+        // 装载节点：Invoke("Load", path) 触发后台解析 → 灌 store →
+        // 前端据 progress=done 再 Invoke World "InitializePlayers"（§装配顺序）。
+        loader_ = iobject::Runtime::make<DemoLoaderNode>(store_.get());
+        self_->Connect("Loader", loader_);
     }
 
     // ---- Logger 鸭子转发（Invoke("Log") 汇聚点）----
@@ -91,6 +97,7 @@ public:
     iobject::IRuntimeObject* scoreboard() const { return scoreboard_; }
     iobject::IRuntimeObject* killfeed() const { return killfeed_; }
     iobject::IRuntimeObject* pov() const { return pov_; }
+    iobject::IRuntimeObject* loader() const { return loader_; }
 
 private:
     iobject::Logger m_logger;
@@ -101,6 +108,7 @@ private:
     iobject::IRuntimeObject* scoreboard_ = nullptr;
     iobject::IRuntimeObject* killfeed_ = nullptr;
     iobject::IRuntimeObject* pov_ = nullptr;
+    iobject::IRuntimeObject* loader_ = nullptr;
 };
 
 } // namespace demoviewer
