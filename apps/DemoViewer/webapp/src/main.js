@@ -12,19 +12,14 @@ if (import.meta.env.DEV) {
 /**
  * DemoViewer 前端壳：initializing → empty state。
  *
- * initializing 不加载任何真实资源，只是把副标题（subtitle）循环换成几行假步骤，
- * 走完后切到 empty state（拖放 .dem 文件）。
+ * initializing 不加载任何真实资源，只显示一句固定文案 "Initializing"，
+ * 停留 STEP_MS 后切到 empty state（拖放 .dem 文件）。
  *
  * 调试：加 ?screen=empty 直接落在空状态，跳过假初始化。
  */
 
-const STEPS = [
-  'Initializing renderer',
-  'Loading shaders',
-  'Preparing replay engine',
-  'Warming up workspace',
-];
-const STEP_MS = 900;
+// 初始化界面（单步骤）：只显示固定文案 "Initializing"，等待该时长后确认 iobject 桥并切屏。
+const STEP_MS = 500;
 
 // 加载 .dem 时的阶段文案（进度来自 native Loader 的 progress 通道）。
 // 索引对应底部进度点，stage 顺序与 LoadStage 一致。
@@ -49,8 +44,6 @@ const emptyScreen = document.querySelector('#screen-empty');
 const loadedScreen = document.querySelector('#screen-loaded');
 const watchScreen = document.querySelector('#screen-watch');
 const blockedScreen = document.querySelector('#screen-blocked');
-const caption = document.querySelector('#caption-initializing');
-const dots = Array.from(document.querySelectorAll('#steps .dot'));
 const versionEl = document.querySelector('.version');
 
 // 空状态 / 加载中的 DOM 引用（提前声明，供 playLoading 与调试分支使用）。
@@ -145,16 +138,6 @@ function show(name) {
   currentScreenName = name;
 }
 
-function setStep(index) {
-  caption.classList.remove('is-changing');
-  // 强制重排，让 fade 动画每次都能重新触发
-  void caption.offsetWidth;
-  caption.textContent = STEPS[index];
-  caption.classList.add('is-changing');
-
-  dots.forEach((dot, i) => dot.classList.toggle('is-on', i === index));
-}
-
 /* ----------------------------------------------------------------------
  * 运行环境门禁：只允许在 ShinPlayer WebView2 宿主内运行。
  *   第一层：window.chrome.webview 是 WebView2 宿主的标志，普通浏览器/静态服务器没有。
@@ -203,18 +186,10 @@ async function startBoot(requestedScreen) {
     return;
   }
 
-  // 正常：假初始化 → 结束前确认 iobject 桥 → empty 或 blocked。
+  // 正常：单步初始化 → 展示 STEP_MS 后确认 iobject 桥 → empty 或 blocked。
   show('initializing');
-  let index = 0;
-  setStep(index);
-  const timer = setInterval(() => {
-    index += 1;
-    if (index >= STEPS.length) {
-      clearInterval(timer);
-      isAuthorized(bridgeReady).then((ok) => show(ok ? 'empty' : 'blocked'));
-      return;
-    }
-    setStep(index);
+  setTimeout(() => {
+    isAuthorized(bridgeReady).then((ok) => show(ok ? 'empty' : 'blocked'));
   }, STEP_MS);
 }
 
@@ -546,6 +521,25 @@ document.querySelector('#btn-cancel-loaded')?.addEventListener('click', () => sh
 
 let world = null;         // player/world.js 实例（首次进图时懒加载）
 let worldLoading = null;  // 进行中的加载 Promise（防重复进入）
+let playbackFeedClose = null; // 回放数据流关闭句柄（重进观看页时重建）
+let watchHud = null;      // watch-hud.js 控制器（控制条 + 动态 HUD + KillFeed）
+
+/** 接通回放数据流：节拍 → 实体层位姿 + HUD（比分/计时/击杀流/进度条）。 */
+async function startPlaybackFeed() {
+  const { openPlaybackFeed } = await import('./playback-feed.js');
+  const { createWatchHud } = await import('./watch-hud.js');
+  const layer = world.attachEntities();
+  if (!watchHud) {
+    watchHud = createWatchHud();
+    watchHud.bindControls();
+  }
+  watchHud.setMapName(currentSession?.meta?.mapName);
+  if (playbackFeedClose) playbackFeedClose();
+  playbackFeedClose = await openPlaybackFeed((snap, state) => {
+    layer.update(snap);
+    watchHud.update(snap, state);
+  });
+}
 
 async function enterWatch() {
   show('watch');
@@ -569,16 +563,20 @@ async function enterWatch() {
     world.resume();
     if (world.map === mapName && !worldLoading) {
       setStatus('', false); // 同图已在内存：直接看
-      return;
+    } else {
+      if (worldLoading) await worldLoading;
+      setStatus(`LOADING ${mapName.toUpperCase()}`);
+      worldLoading = world.load(mapName, {
+        engine: 'auto',
+        onProgress: (msg) => setStatus(String(msg).toUpperCase()),
+      });
+      await worldLoading;
+      setStatus('', false);
     }
-    if (worldLoading) await worldLoading;
-    setStatus(`LOADING ${mapName.toUpperCase()}`);
-    worldLoading = world.load(mapName, {
-      engine: 'auto',
-      onProgress: (msg) => setStatus(String(msg).toUpperCase()),
-    });
-    await worldLoading;
-    setStatus('', false);
+    // 地图就绪 → 启动播放数据流（节拍驱动实体层；暂停时无节拍、零开销）
+    await startPlaybackFeed();
+    // 进入观看界面即开始播放（而非暂停），进度条随之实时推进
+    watchHud.play().catch((err) => console.warn('[DemoViewer] 自动播放失败:', err.message));
   } catch (err) {
     console.error('[DemoViewer] 地图世界加载失败:', err);
     setStatus(`MAP LOAD FAILED · ${err.message}`.toUpperCase());

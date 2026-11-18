@@ -15,6 +15,7 @@ import { createPlayer } from './index.js';
 import { loadMapGeometry } from './map-loader.js';
 import { fetchCs2Manifest, createCs2Environment } from './cs2-environment.js';
 import { CS2MapRenderer } from './cs2/map-renderer.js';
+import { createEntityLayer } from './entity-renderer.js';
 import { Vector3, Box3 } from './vendor/three-bundle.js';
 
 const CUSTOM_TONE_MAPPING = 5; // three r184 CustomToneMapping（LUT grading 注入用）
@@ -23,6 +24,7 @@ let instance = null;
 let hostEl = null;
 let cs2Renderer = null;
 let classicObject = null;
+let entityLayer = null;
 let currentMap = null;
 let currentEngine = null;
 
@@ -54,8 +56,30 @@ function clearWorld(player) {
   player.environment.setClassifiedMap(null);
   player.environment.setSkyPanorama(null);
   player.interiorLights.length = 0;
+  if (entityLayer) {
+    entityLayer.dispose(); // 换图重建（下次 attachEntities 再挂回）
+    entityLayer = null;
+  }
   currentMap = null;
   currentEngine = null;
+}
+
+/** 挂载回放实体层（P2 玩家 + P4a 短命实体）：返回 { group, update(snap), dispose }。幂等。 */
+function attachEntities() {
+  if (!instance) throw Error('world 未打开');
+  if (!entityLayer) {
+    entityLayer = createEntityLayer({
+      // 投掷物静态轨迹（spec 不随 tick 变）：实体集合变化时由渲染层按需拉取
+      loadGrenadePaths: async () => {
+        const { getClient } = await import('../iobject.js');
+        const { decode } = await import('@msgpack/msgpack');
+        const world = await getClient().root.getChildItem('World');
+        return decode(await world.readData('grenadePaths')).paths;
+      },
+    });
+    instance.add(entityLayer.group);
+  }
+  return entityLayer;
 }
 
 /** CS2 包路径：几何/纹理/光照/探针/天空/PVS/LUT */
@@ -156,8 +180,9 @@ async function load(name, { engine = 'auto', onProgress, cs2Environment = true }
   return info;
 }
 
-const worldApi = {
+export const worldApi = {
   load,
+  attachEntities,
   get player() { return instance; },
   get map() { return currentMap; },
   get engine() { return currentEngine; },

@@ -380,10 +380,11 @@ public:
                     if (fe >= span.startTick) { span.liveStartTick = fe; break; }
                 }
                 if (span.liveStartTick == 0) span.liveStartTick = span.startTick;
-                // 胜方：本回合区间内最后一个 round_end 的 winner
+                // 胜方：本回合区间内最后一个 round_end 的 winner；同时记录开打结束时刻
                 for (const auto& [reTick, winner] : roundEnds) {
                     if (reTick >= span.startTick && reTick <= span.endTick) {
                         span.winnerTeam = winner;  // 取最后一个（覆盖）
+                        span.liveEndTick = reTick; // 开打结束（round_end 事件 tick）
                     }
                 }
                 store.AddRound(span);

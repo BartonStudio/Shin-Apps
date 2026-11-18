@@ -11,8 +11,10 @@
   --ink: #0e0e0e;
   --ground: #d6d8d9;         /* DemoViewer 主窗口底色（empty 等） */
   --ground-splash: #f8f8f8;  /* splash / initializing 底色 */
-  --mono: "NB Architekt", "JetBrains Mono", "SF Mono", "Consolas", "Courier New", monospace;
-  --sans: Inter, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  /* 汉字统一黑体（SimHei）：字体栈逐字符回退，拉丁字形由前面的西文字体命中，
+     汉字落到 SimHei；Heiti SC 为 macOS 兜底。 */
+  --mono: "NB Architekt", "JetBrains Mono", "SF Mono", "Consolas", "Courier New", "SimHei", "Heiti SC", monospace;
+  --sans: Inter, -apple-system, "Segoe UI", "SimHei", "Heiti SC", sans-serif;
   --t: #e0a526;   /* T 方橙（Watch View） */
   --ct: #6db3f2;  /* CT 方蓝（Watch View） */
 }
@@ -567,7 +569,7 @@ body.is-watching .titlebar::after {
   position: absolute;
   top: 50px;
   right: 16px;
-  width: 152px;
+  width: 230px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.6);
   padding: 8px 6px;
@@ -583,13 +585,28 @@ body.is-watching .titlebar::after {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--t);
+  max-width: 78px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .killfeed__victim {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ct);
+  max-width: 78px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .killfeed__weapon {
+  /* img 形态：武器 SVG 原色显示（无图标匹配时 JS 退回 span 色块） */
+  width: 34px;
+  height: 13px;
+  object-fit: contain;
+  flex: none;
+}
+span.killfeed__weapon {
   width: 22px;
   height: 10px;
   border-radius: 2px;
@@ -642,29 +659,70 @@ body.is-watching .titlebar::after {
   font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--ink);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.player-card--t .player-card__name { left: 16px; }
-.player-card--ct .player-card__name { right: 16px; text-align: right; } /* 与 T 侧对称：名字距各自卡片外缘 16px（队色竖条 6px + 10px 留白） */
+.player-card--t .player-card__name { left: 16px; max-width: 92px; } /* 名字区 16..108，与武器图标槽（right:92 → 112..156）不重叠 */
+.player-card--ct .player-card__name { right: 16px; text-align: right; max-width: 92px; } /* 与 T 侧对称：名字距各自卡片外缘 16px（队色竖条 6px + 10px 留白） */
+/* 当前武器图标：名字行另一端（T 右 / CT 左），卡内固定槽位避免名字长短抖动 */
+.player-card__weapon {
+  position: absolute;
+  top: 6px;
+  width: 44px;
+  height: 16px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.18));
+}
+.player-card--t .player-card__weapon { right: 92px; }
+.player-card--ct .player-card__weapon { left: 92px; }
 .player-card__hp {
   position: absolute;
   top: 30px;
   width: 140px;
   height: 5px;
   border-radius: 2px;
-  background: #7ac74f;
+  background: rgba(14, 14, 14, 0.18);
 }
+.player-card__hp-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  background: #7ac74f;
+  transform-origin: left center; /* T 侧从左填充 */
+}
+.player-card--ct .player-card__hp-fill { transform-origin: right center; } /* CT 侧从右填充（对称布局） */
 .player-card--t .player-card__hp { left: 16px; }
 .player-card--ct .player-card__hp { right: 16px; }
 .player-card__armor {
   position: absolute;
   top: 38px;
   width: 140px;
-  height: 3px;
+  height: 5px;
   border-radius: 2px;
-  background: #8aa0b0;
+  background: rgba(14, 14, 14, 0.18);
 }
+.player-card__armor-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  background: #c9a227; /* 暗黄（黄铜色）：够深不刺眼，又不到橙色，与绿色血条强区分 */
+  transform-origin: left center;
+}
+.player-card--ct .player-card__armor-fill { transform-origin: right center; }
 .player-card--t .player-card__armor { left: 16px; }
 .player-card--ct .player-card__armor { right: 16px; }
+/* 死亡：整卡降透明度 + 血条清空（fill 宽度归零由 JS 控制） */
+.player-card--dead {
+  opacity: 0.45;
+}
+.player-card--dead .player-card__name {
+  color: rgba(14, 14, 14, 0.55);
+}
+/* 阵亡武器掉落提示位（util 槽下的小字）暂缺：道具数据来自 P4 实体层 */
 .player-card__util {
   position: absolute;
   top: 28px;

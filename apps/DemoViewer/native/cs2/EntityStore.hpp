@@ -98,10 +98,26 @@ struct KillEvent {
 /// 回合区间（前端 manifest.rounds[] 的数据源）。
 struct RoundSpan {
     std::uint32_t index = 0;      // 回合序号，0 起
-    Tick startTick = 0;           // 回合开始
-    Tick endTick = 0;             // 回合结束（含）
+    Tick startTick = 0;           // 回合开始（准备阶段开始）
+    Tick endTick = 0;             // 回合结束（含，下一回合 start 前一刻）
     Tick liveStartTick = 0;       // 冻结结束、真正开打
+    Tick liveEndTick = 0;         // 开打结束（round_end 事件时刻）
     std::uint8_t winnerTeam = 0;  // 胜方 2=T 3=CT 0=未知（round_end 事件）
+};
+
+/// 玩家/实体的持久记录（namespace 层：WorldState 的 grenadePaths 等只读遍历
+/// 接口需要在外部命名这些类型，不能做成类的 private 嵌套）。
+struct PlayerRecord {
+    PlayerIdentity identity;
+    Tick begin = 0;
+    Tick end = 0;
+    std::vector<PlayerSnapshot> frames;
+};
+struct EntityRecord {
+    EntityKind kind = EntityKind::Weapon;
+    Tick begin = 0;
+    Tick end = 0;
+    std::vector<TransformSnapshot> frames;
 };
 
 class EntityStore {
@@ -340,6 +356,10 @@ public:
         return ids;
     }
 
+    /// 全量实体记录（只读遍历；WorldState 的 grenadePaths 通道等静态数据输出用。
+    /// 装载完成后不再写入，遍历安全）。
+    const std::unordered_map<EntityId, EntityRecord>& Entities() const { return entities_; }
+
     /// 玩家整场存活区间（PlayerList 创建节点时用）。
     TickInterval PlayerLifetime(EntityId id) const {
         auto it = players_.find(id);
@@ -375,19 +395,6 @@ public:
     const std::vector<LifetimeRecord>& Lifetimes() const { return lifetimes_; }
 
 private:
-    struct PlayerRecord {
-        PlayerIdentity identity;
-        Tick begin = 0;
-        Tick end = 0;
-        std::vector<PlayerSnapshot> frames;
-    };
-    struct EntityRecord {
-        EntityKind kind = EntityKind::Weapon;
-        Tick begin = 0;
-        Tick end = 0;
-        std::vector<TransformSnapshot> frames;
-    };
-
     std::unordered_map<EntityId, PlayerRecord> players_;
     std::unordered_map<EntityId, EntityRecord> entities_;
     std::unordered_map<EntityId, WeaponSpec> weaponSpecs_;
